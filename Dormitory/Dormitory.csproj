@@ -80,6 +80,12 @@
     <Compile Include="ResidentForm.Designer.cs">
       <DependentUpon>ResidentForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="TestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestForm.Designer.cs">
+      <DependentUpon>TestForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -100,6 +106,9 @@
     </Compile>
     <EmbeddedResource Include="ResidentForm.resx">
       <DependentUpon>ResidentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestForm.resx">
+      <DependentUpon>TestForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="DormitoryDataSet.xsc">

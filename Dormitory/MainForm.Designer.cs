@@ -32,9 +32,9 @@
 			this.organizationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.sectionsTabControl = new System.Windows.Forms.TabControl();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-			this.label2 = new System.Windows.Forms.Label();
-			this.button1 = new System.Windows.Forms.Button();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.button1 = new System.Windows.Forms.Button();
+			this.label2 = new System.Windows.Forms.Label();
 			this.menuStrip1.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -62,7 +62,7 @@
 			this.sectionsTabControl.Location = new System.Drawing.Point(13, 40);
 			this.sectionsTabControl.Name = "sectionsTabControl";
 			this.sectionsTabControl.SelectedIndex = 0;
-			this.sectionsTabControl.Size = new System.Drawing.Size(722, 392);
+			this.sectionsTabControl.Size = new System.Drawing.Size(700, 400);
 			this.sectionsTabControl.TabIndex = 1;
 			// 
 			// tableLayoutPanel1
@@ -80,14 +80,14 @@
 			this.tableLayoutPanel1.Size = new System.Drawing.Size(364, 100);
 			this.tableLayoutPanel1.TabIndex = 2;
 			// 
-			// label2
+			// panel1
 			// 
-			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(-3, 0);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(35, 13);
-			this.label2.TabIndex = 0;
-			this.label2.Text = "label2";
+			this.panel1.Controls.Add(this.button1);
+			this.panel1.Controls.Add(this.label2);
+			this.panel1.Location = new System.Drawing.Point(3, 3);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(176, 44);
+			this.panel1.TabIndex = 4;
 			// 
 			// button1
 			// 
@@ -98,14 +98,14 @@
 			this.button1.Text = "button1";
 			this.button1.UseVisualStyleBackColor = true;
 			// 
-			// panel1
+			// label2
 			// 
-			this.panel1.Controls.Add(this.button1);
-			this.panel1.Controls.Add(this.label2);
-			this.panel1.Location = new System.Drawing.Point(3, 3);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(176, 44);
-			this.panel1.TabIndex = 4;
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(-3, 0);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(35, 13);
+			this.label2.TabIndex = 0;
+			this.label2.Text = "label2";
 			// 
 			// MainForm
 			// 
