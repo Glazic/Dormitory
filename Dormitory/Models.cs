@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 
 namespace Dormitory
-{	
+{
 	//public class Person
 	//{
 	//	// имя
@@ -24,7 +24,8 @@ namespace Dormitory
 	[Table(Name = "Residents")]
 	public class Resident
 	{
-		[Column(IsPrimaryKey = true)]
+		//[Column(IsPrimaryKey = true, IsDbGenerated = true, AutoSync = AutoSync.Always)]
+		[Column(IsPrimaryKey = true, IsDbGenerated = true)]
 		public int ResidentId { get; set; }
 
 		[Column]
@@ -41,6 +42,9 @@ namespace Dormitory
 
 		[Column]
 		public DateTime? Birthday { get; set; }
+
+		[Column]
+		public string Note { get; set; }
 
 		[Column]
 		public int? PassportId { get; set; }
@@ -62,11 +66,11 @@ namespace Dormitory
 			set { this._Organization.Entity = value; }
 		}
 
-		private EntitySet<ResidentsRooms> _ResidentsRooms;
-		[Association(Storage = "_ResidentsRooms", ThisKey = "ResidentId", OtherKey = "ResidentId")]
-		public EntitySet<ResidentsRooms> ResidentsRooms {
-			get { return this._ResidentsRooms; }
-			set { this._ResidentsRooms.Assign(value); }
+		private EntitySet<ResidentRooms> _ResidentRooms = new EntitySet<ResidentRooms>();
+		[Association(Storage = "_ResidentRooms", ThisKey = "ResidentId", OtherKey = "ResidentId")]
+		public EntitySet<ResidentRooms> ResidentRooms {
+			get { return this._ResidentRooms; }
+			set { this._ResidentRooms.Assign(value); }
 		}
 	}
 
@@ -85,7 +89,7 @@ namespace Dormitory
 	[Table(Name = "Organizations")]
 	public class Organization
 	{
-		[Column(IsPrimaryKey = true)]
+		[Column(IsPrimaryKey = true, IsDbGenerated = true)]
 		public int OrganizationId { get; set; }
 
 		[Column]
@@ -97,7 +101,7 @@ namespace Dormitory
 		[Column]
 		public string Requisites { get; set; }
 
-		private EntitySet<Resident> _Residents;
+		private EntitySet<Resident> _Residents = new EntitySet<Resident>();
 		[Association(Storage = "_Residents", OtherKey = "OrganizationId")]
 		public EntitySet<Resident> Residents {
 			get { return this._Residents; }
@@ -109,7 +113,7 @@ namespace Dormitory
 	[Table(Name = "Passports")]
 	public class Passport
 	{
-		[Column(IsPrimaryKey = true)]
+		[Column(IsPrimaryKey = true, IsDbGenerated = true)]
 		public int PassportId { get; set; }
 
 		[Column]
@@ -133,7 +137,7 @@ namespace Dormitory
 	[Table(Name = "Sections")]
 	public class Section
 	{
-		[Column(IsPrimaryKey = true)]
+		[Column(IsPrimaryKey = true, IsDbGenerated = true)]
 		public int SectionId { get; set; }
 
 		[Column]
@@ -141,14 +145,14 @@ namespace Dormitory
 
 		[Column]
 		public int NumberOfRooms { get; set; }
-		
+
 		[Column]
 		public int Seats { get; set; }
 
 		[Column]
 		public int EmptySeats { get; set; }
 
-		private EntitySet<Room> _Rooms;
+		private EntitySet<Room> _Rooms = new EntitySet<Room>();
 		[Association(Storage = "_Rooms", ThisKey = "SectionId", OtherKey = "SectionId")]
 		public EntitySet<Room> Rooms {
 			get { return this._Rooms; }
@@ -160,12 +164,12 @@ namespace Dormitory
 	[Table(Name = "Rooms")]
 	public class Room
 	{
-		[Column(IsPrimaryKey = true)]
+		[Column(IsPrimaryKey = true, IsDbGenerated = true)]
 		public int RoomId { get; set; }
 
 		[Column]
 		public int Number { get; set; }
-	
+
 		[Column]
 		public int Seats { get; set; }
 
@@ -179,27 +183,44 @@ namespace Dormitory
 			set { this._Section.Entity = value; }
 		}
 
-		private EntitySet<Resident> _Residents;
-		[Association(Storage = "_Residents", OtherKey = "ResidentId")]
-		public EntitySet<Resident> Residents {
-			get { return this._Residents; }
-			set { this._Residents.Assign(value); }
-		}
+		//private EntitySet<Resident> _Residents = new EntitySet<Resident>();
+		//[Association(Storage = "_Residents", OtherKey = "ResidentId")]
+		//public EntitySet<Resident> Residents {
+		//	get { return this._Residents; }
+		//	set { this._Residents.Assign(value); }
+		//}
 
-		private EntitySet<ResidentsRooms> _ResidentsRooms;
-		[Association(Storage = "_ResidentsRooms", OtherKey = "ResidentsRoomsId")]
-		public EntitySet<ResidentsRooms> ResidentsRooms {
-			get { return this._ResidentsRooms; }
-			set { this._ResidentsRooms.Assign(value); }
+		//private EntitySet<ResidentsRooms> _ResidentsRooms = new EntitySet<ResidentsRooms>();
+		//[Association(Storage = "_ResidentsRooms", OtherKey = "ResidentsRoomsId")]
+		//public EntitySet<ResidentsRooms> ResidentsRooms {
+		//	get { return this._ResidentsRooms; }
+		//	set { this._ResidentsRooms.Assign(value); }
+		//}
+
+		private EntitySet<RoomResidents> _RoomResidents = new EntitySet<RoomResidents>();
+		[Association(Storage = "_RoomResidents", ThisKey = "RoomId", OtherKey = "RoomId")]
+		public EntitySet<RoomResidents> RoomResidents {
+			get { return this._RoomResidents; }
+			set { this._RoomResidents.Assign(value); }
 		}
 	}
 
-	// проживание
-	[Table(Name = "ResidentsRooms")]
-	public class ResidentsRooms
+	[Table(Name = "RoomResidents")]
+	public class RoomResidents
 	{
 		[Column(IsPrimaryKey = true)]
-		public int ResidentsRoomsId { get; set; }
+		public int RoomId { get; set; }
+
+		[Column(IsPrimaryKey = true)]
+		public int ResidentId { get; set; }
+	}
+
+	// проживание
+	[Table(Name = "ResidentRooms")]
+	public class ResidentRooms
+	{
+		[Column(IsPrimaryKey = true, IsDbGenerated = true)]
+		public int ResidentRoomsId { get; set; }
 
 		[Column]
 		public int ResidentId { get; set; }
@@ -212,7 +233,7 @@ namespace Dormitory
 
 		[Column]
 		public DateTime? DateOfEviction { get; set; }
-		
+
 		private EntityRef<Resident> _Resident;
 		[Association(Storage = "_Resident", ThisKey = "ResidentId", OtherKey = "ResidentId")]
 		public Resident Resident {
@@ -221,7 +242,7 @@ namespace Dormitory
 		}
 
 		private EntityRef<Room> _Room;
-		[Association(Storage = "_Room", ThisKey = "ResidentsRoomsId")]
+		[Association(Storage = "_Room", ThisKey = "ResidentRoomsId")]
 		public Room Room {
 			get { return this._Room.Entity; }
 			set { this._Room.Entity = value; }

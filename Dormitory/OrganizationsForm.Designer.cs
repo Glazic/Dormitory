@@ -39,6 +39,8 @@
 			this.idTextBox = new System.Windows.Forms.TextBox();
 			this.deleteButton = new System.Windows.Forms.Button();
 			this.saveButton = new System.Windows.Forms.Button();
+			this.acceptButton = new System.Windows.Forms.Button();
+			this.organizationIdLabel = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.organizationsDataGridView)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -141,11 +143,34 @@
 			this.saveButton.UseVisualStyleBackColor = true;
 			this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
 			// 
+			// acceptButton
+			// 
+			this.acceptButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+			this.acceptButton.Location = new System.Drawing.Point(621, 71);
+			this.acceptButton.Name = "acceptButton";
+			this.acceptButton.Size = new System.Drawing.Size(75, 23);
+			this.acceptButton.TabIndex = 11;
+			this.acceptButton.Text = "Выбрать";
+			this.acceptButton.UseVisualStyleBackColor = true;
+			this.acceptButton.Click += new System.EventHandler(this.acceptButton_Click);
+			// 
+			// organizationIdLabel
+			// 
+			this.organizationIdLabel.AutoSize = true;
+			this.organizationIdLabel.Location = new System.Drawing.Point(31, 175);
+			this.organizationIdLabel.Name = "organizationIdLabel";
+			this.organizationIdLabel.Size = new System.Drawing.Size(94, 13);
+			this.organizationIdLabel.TabIndex = 12;
+			this.organizationIdLabel.Text = "Организация ИД";
+			// 
 			// OrganizationsForm
 			// 
+			this.AcceptButton = this.acceptButton;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.Controls.Add(this.organizationIdLabel);
+			this.Controls.Add(this.acceptButton);
 			this.Controls.Add(this.saveButton);
 			this.Controls.Add(this.deleteButton);
 			this.Controls.Add(this.idTextBox);
@@ -179,5 +204,7 @@
 		private System.Windows.Forms.TextBox idTextBox;
 		private System.Windows.Forms.Button deleteButton;
 		private System.Windows.Forms.Button saveButton;
+		private System.Windows.Forms.Button acceptButton;
+		private System.Windows.Forms.Label organizationIdLabel;
 	}
 }

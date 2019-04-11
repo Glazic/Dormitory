@@ -25,7 +25,7 @@ namespace Dormitory
 		{
 			InitializeComponent();
 			InitializeModels();
-			db = new DataContext(sqlConnection); ;
+			db = new DataContext(sqlConnection);
 			LoadTabs();		
 		}
 
@@ -82,10 +82,7 @@ namespace Dormitory
 
 		public void LoadTabs()
 		{
-			//dataAdapter = new SqlDataAdapter("SELECT * FROM ORGANIZATIONS", sqlConnection);
-			//dataTable = new DataTable();
-			//dataAdapter.Fill(dataTable);
-			//organizationsDataGridView.DataSource = dataTable;
+			sectionsTabControl.TabPages.Clear();
 			try
 			{
 				Table<Section> sections = db.GetTable<Section>();
@@ -93,61 +90,86 @@ namespace Dormitory
 				foreach (var section in sections)
 				{
 					TabPage myTabPage = new TabPage(section.Number.ToString());
+					DataGridView dataGridView = new DataGridView();
+					dataGridView.MultiSelect = false;
+					//dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+					dataGridView.AllowUserToAddRows = false;
+					dataGridView.AllowUserToDeleteRows = false;
+					dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+					dataGridView.Name = "dataGridView1";
+					dataGridView.ReadOnly = true;
+					dataGridView.Size = new System.Drawing.Size(700, 400);
+					dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick);
+					DataGridViewColumn Column1 = new DataGridViewColumn
+					{
+						HeaderText = "#",
+						Name = "Column1",
+						ReadOnly = true,
+						CellTemplate = new DataGridViewTextBoxCell()
+					};
+					DataGridViewLinkColumn Column2 = new DataGridViewLinkColumn
+					{
+						HeaderText = "ФИО",
+						Name = "Column1",
+						AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+						UseColumnTextForLinkValue = true,
+						LinkColor = Color.Blue,
+						VisitedLinkColor = Color.Blue,
+						CellTemplate = new DataGridViewLinkCell()
+					};
+					DataGridViewColumn Column3 = new DataGridViewColumn
+					{
+						HeaderText = "Организация",
+						Name = "Column1",
+						ReadOnly = true,
+						AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+						CellTemplate = new DataGridViewTextBoxCell()
+					};
+					dataGridView.Columns.Add(Column1);
+					dataGridView.Columns.Add(Column2);
+					dataGridView.Columns.Add(Column3);
+					int row = 0;
 
-					TableLayoutPanel sectionPanel = new TableLayoutPanel();
-					//sectionPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
-					sectionPanel.ColumnCount = 3;
-					sectionPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-					sectionPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-					sectionPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
-					sectionPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-					sectionPanel.Controls.Add(new Label() { Text = "Комната" }, 0, 0);
-					sectionPanel.Controls.Add(new Label() { Text = "Житель" }, 1, 0);
-					sectionPanel.Controls.Add(new Label() { Text = "Организация" }, 2, 0);
-					int row = 1;
 					foreach (var room in section.Rooms)
 					{
-						Label label = new Label() { Text = room.Number.ToString() };
-						
+
+					//	List<ResidentsRooms> residentsRooms = db.GetTable<ResidentsRooms>().Where(r => r.RoomId == room.RoomId).ToList();
+						dataGridView.Rows.Add(room.Seats);
 						for (int i = 0; i < room.Seats; i++)
 						{
-							sectionPanel.Controls.Add(label, 0, row+i);
-							Resident resident = room.Residents.ElementAtOrDefault(i);
-
-							LinkLabelModified linkLabel = new LinkLabelModified();
-							linkLabel.AutoSize = true;
-							linkLabel.Name = "linkLabel";
-							linkLabel.Size = new System.Drawing.Size(55, 13);
-							linkLabel.TabIndex = 3;
-							linkLabel.TabStop = true;
-							linkLabel.Text = "Пусто";
-							linkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
+							dataGridView.Rows[row].Cells[0].Value = room.Number + "/ " + room.RoomId;
+							//		Resident resident = residentsRooms.Residents.ElementAtOrDefault(i);
+							//Room resident = room.RoomResidents.ElementAtOrDefault(i);
+							RoomResidents roomResidents = room.RoomResidents.ElementAtOrDefault(i);
+							Resident resident = null;
+							if (roomResidents != null)
+							{
+								resident = db.GetTable<Resident>().Single(r => r.ResidentId == roomResidents.ResidentId);
+							}
+							//	Resident resident = db.GetTable<Resident>().Single(r => r.ResidentId ==  room.Residents.ElementAtOrDefault(i);
+							dynamic tagObject = new System.Dynamic.ExpandoObject();
 							if (resident != null)
 							{
-								string fullName = resident.Surname.ToString() + " " + resident.Name.ToString() + " " + resident.Patronymic.ToString();
-								linkLabel.Text = fullName;
-								linkLabel.residentId = resident.ResidentId;
+								string fullName = resident.Surname.ToString() + " " + resident.Name.ToString() + " " + resident.Patronymic.ToString() + " " + room.RoomId.ToString();
+								tagObject.residentId = resident.ResidentId;
+								tagObject.roomId = 0;
 								string organizationName = resident.Organization.Name.ToString();
-								sectionPanel.Controls.Add(linkLabel, 1, row + i);
-								sectionPanel.Controls.Add(new Label() { Text = organizationName + (i + 1).ToString() }, 2, row + i);
+								dataGridView.Rows[row + i].Cells[1].Value = fullName;
+								dataGridView.Rows[row + i].Cells[1].Tag = tagObject;
+								dataGridView.Rows[row + i].Cells[2].Value = organizationName;
 							}
 							else
 							{
-								linkLabel.roomId = room.RoomId;
-								sectionPanel.Controls.Add(linkLabel, 1, row + i);
-								sectionPanel.Controls.Add(new Label() { Text = "Пусто" + (i + 1).ToString() }, 2, row + i);
+								tagObject.residentId = 0;
+								tagObject.roomId = room.RoomId;
+								dataGridView.Rows[row + i].Cells[1].Value = "Добавить";
+								dataGridView.Rows[row + i].Cells[1].Tag = tagObject;
+								dataGridView.Rows[row + i].Cells[2].Value = "Пусто";
 							}
 						}
-						//sectionPanel.SetRowSpan(label, room.Seats);
 						row += room.Seats;
 					}
-					
-					sectionPanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.InsetDouble;
-
-					sectionPanel.Name = "sectionPanel" + section.Number.ToString();
-					//sectionPanel.RowCount = section.NumberOfRooms;
-					sectionPanel.Size = new System.Drawing.Size(600, 400);
-					myTabPage.Controls.Add(sectionPanel);
+					myTabPage.Controls.Add(dataGridView);
 					sectionsTabControl.TabPages.Add(myTabPage);
 				}
 			}
@@ -173,20 +195,22 @@ namespace Dormitory
 			organizationsForm.Show();
 		}
 
-		private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
 		{
-			int residentId = ((LinkLabelModified)sender).residentId;
-			int roomId = ((LinkLabelModified)sender).roomId;
-			if (residentId != 0)
+			DataGridView dataGridView = (DataGridView)sender;
+			if (e.ColumnIndex == 1)
 			{
-				ResidentForm.ShowDialog(residentId);
-				//MessageBox.Show("residentId:" + residentId.ToString());
-			}
-			else if (roomId != 0)
-			{
-				//MessageBox.Show("roomId:" + roomId.ToString());
+				DataGridViewLinkCell cell = (DataGridViewLinkCell)dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex];
+				dynamic tagObject = cell.Tag;
+				if (tagObject.residentId != 0)
+				{
+					ResidentForm.ShowDialog(tagObject.residentId);
+				}
+				else if (tagObject.roomId != 0)
+				{
+					ResidentForm.ShowDialog(tagObject.roomId, 0);
+				}
 			}
 		}
-
 	}
 }

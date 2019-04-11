@@ -18,20 +18,25 @@ namespace Dormitory
 		SqlCommand cmd;
 		SqlDataAdapter dataAdapter;
 		DataTable dataTable;
+		int residentId = 0;
+
 		public OrganizationsForm()
 		{
 			InitializeComponent();
 		}
 
-		//public void Load()
-		//{
-		//	SqlDataAdapter adapter = new SqlDataAdapter(
-		//			 "SELECT * FROM Sections; SELECT * FROM Rooms", sqlConnection);
-		//	adapter.TableMappings.Add("Table", "Section");
-		//	adapter.TableMappings.Add("Table1", "Room");
+		public OrganizationsForm(int residentId)
+		{
+			InitializeComponent();
+			this.residentId = residentId;
+		}
 
-		//	adapter.Fill(ds);
-		//}
+		public static string ShowDialog(int residentId)
+		{
+			OrganizationsForm residentForm = new OrganizationsForm(residentId);
+			//	this.Show();
+			return residentForm.ShowDialog() == DialogResult.OK ? residentForm.organizationIdLabel.Text : null;
+		}
 
 		private void OrganizationsForm_Load(object sender, EventArgs e)
 		{
@@ -101,74 +106,10 @@ namespace Dormitory
 			DataRowView dataRow = (this.BindingContext[dataTable] as CurrencyManager).Current as DataRowView;
 			if (dataRow != null)
 			{
-				idTextBox.Text = dataRow[0].ToString();
+				organizationIdLabel.Text = dataRow[0].ToString();
 				nameTextBox.Text = dataRow[1].ToString();
 				addressTextBox.Text = dataRow[2].ToString();
 				requisitesTextBox.Text = dataRow[3].ToString();
-			}
-			try
-			{	
-				//string movieId = moviesTextBoxId.Text;
-				//moviesParticipantsTextBoxId.Text = "";
-				//moviesParticipantsTextBoxParticipantId.Text = "";
-				//moviesParticipantsTextBoxActivityId.Text = "";
-				//moviesParticipantsTextBoxRoleId.Text = "";
-
-				//string query = $"SELECT [Genre] FROM View_MoviesGenres WHERE [id movie] = {movieId}";
-				//SqlCommand cmd = new SqlCommand(query, sqlConnection);
-				//sqlConnection.Open();
-				//moviesGenresListView.Clear();
-				//SqlDataReader dr = cmd.ExecuteReader();
-				//while (dr.Read())
-				//{
-				//	ListViewItem item = new ListViewItem(dr.GetValue(0).ToString());
-				//	moviesGenresListView.Items.Add(item);
-				//}
-				//dr.Close();
-
-				//string query2 = $"SELECT [Name] FROM Genres WHERE [id] " +
-				//	$"NOT IN (SELECT[id genre] FROM View_MoviesGenres WHERE [id movie] = {movieId})";
-				//SqlCommand cmd2 = new SqlCommand(query2, sqlConnection);
-				//moviesComboBoxGenres.Items.Clear();
-				//SqlDataReader dr2 = cmd2.ExecuteReader();
-				//while (dr2.Read())
-				//{
-				//	moviesComboBoxGenres.Items.Add(dr2.GetValue(0).ToString());
-				//}
-				//dr2.Close();
-
-				//string query3 = $"SELECT [Language] FROM View_MoviesLanguages WHERE [id movie] = {movieId}";
-				//SqlCommand cmd3 = new SqlCommand(query3, sqlConnection);
-				//moviesLanguagesListView.Clear();
-				//SqlDataReader dr3 = cmd3.ExecuteReader();
-				//while (dr3.Read())
-				//{
-				//	ListViewItem item = new ListViewItem(dr3.GetValue(0).ToString());
-				//	moviesLanguagesListView.Items.Add(item);
-				//}
-				//dr3.Close();
-
-				//string query4 = $"SELECT [Name] FROM Languages WHERE [id] " +
-				//	$"NOT IN (SELECT[id language] FROM View_MoviesLanguages WHERE [id movie] = {movieId})";
-				//SqlCommand cmd4 = new SqlCommand(query4, sqlConnection);
-				//moviesComboBoxLanguages.Items.Clear();
-				//SqlDataReader dr4 = cmd4.ExecuteReader();
-				//while (dr4.Read())
-				//{
-				//	moviesComboBoxLanguages.Items.Add(dr4.GetValue(0).ToString());
-				//}
-				//dr4.Close();
-
-				//moviesParticipantsTextBoxMovieId.Text = movieId.ToString();
-				//updateMoviesParticipantsDataGridView(Int32.Parse(movieId));
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show(ex.Message);
-			}
-			finally
-			{
-				sqlConnection.Close();
 			}
 		}
 
@@ -256,6 +197,11 @@ namespace Dormitory
 			{
 				sqlConnection.Close();
 			}
+		}
+
+		private void acceptButton_Click(object sender, EventArgs e)
+		{
+			this.Close();
 		}
 	}
 }

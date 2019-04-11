@@ -16,8 +16,8 @@ namespace Dormitory
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			//Application.Run(new LoginForm());
-			//Application.Run(new MainForm());
-			Application.Run(new TestForm());
+			Application.Run(new MainForm());
+			//Application.Run(new TestForm());
 		}
 	}
 }
