@@ -7,7 +7,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Linq;
 using System.Data.Linq;
 
 namespace Dormitory

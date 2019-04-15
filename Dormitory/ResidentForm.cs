@@ -21,22 +21,19 @@ namespace Dormitory
 		public ResidentForm()
 		{
 			InitializeComponent();
+			db = new DataContext(sqlConnection);
 		}
 
-		public ResidentForm(int residentId)
+		public ResidentForm(int residentId) : this()
 		{
-			InitializeComponent();
-			db = new DataContext(sqlConnection);
 			residentIdLabel.Text = residentId.ToString();
 			this.residentId = residentId;
 			LoadData();
 		}
 
-		public ResidentForm(int roomId, int residentId)
+		public ResidentForm(int roomId, int residentId) : this()
 		{
-			InitializeComponent();
 			this.roomId = roomId;
-			db = new DataContext(sqlConnection);
 		}
 
 		public static string ShowDialog(int residentId)
@@ -80,7 +77,71 @@ namespace Dormitory
 
 		private void addButton_Click(object sender, EventArgs e)
 		{
+			string surname = surnameTextBox.Text;
+			string name = nameTextBox.Text;
+			string patronymic = patronymicTextBox.Text;
+			string phoneNumber = phoneNumberTextBox.Text;
+			DateTime birthday = birthdayDateTimePicker.Value.Date;
+			string passportSeries = passportSeriesTextBox.Text;
+			string passportNumber = passportNumberTextBox.Text;
+			string passportRegistration = passportRegistrationTextBox.Text;
+			string note = noteTextBox.Text;
 
+			Organization organization = db.GetTable<Organization>().FirstOrDefault();
+			Passport passport = new Passport
+			{
+				Series = passportSeries,
+				Number = passportNumber,
+				Registration = passportRegistration
+			};
+			db.GetTable<Passport>().InsertOnSubmit(passport);
+			db.SubmitChanges();
+
+			Resident resident = new Resident
+			{
+				Surname = surname,
+				Name = name,
+				Patronymic = patronymic,
+				PhoneNumber = phoneNumber,
+				Birthday = birthday,
+				Note = note,
+				PassportId = passport.PassportId,
+				OrganizationId = organization.OrganizationId
+			};
+
+			db.GetTable<Resident>().InsertOnSubmit(resident);
+			db.SubmitChanges();
+		}
+
+		private void saveButton_Click(object sender, EventArgs e)
+		{
+			Resident resident = db.GetTable<Resident>().SingleOrDefault(r => r.ResidentId == residentId);
+			resident.Surname = surnameTextBox.Text;
+			resident.Name = nameTextBox.Text;
+			resident.Patronymic = patronymicTextBox.Text;
+			resident.PhoneNumber = phoneNumberTextBox.Text;
+			resident.Birthday = birthdayDateTimePicker.Value.Date;
+			resident.Note = noteTextBox.Text;
+
+			Passport passport = db.GetTable<Passport>().SingleOrDefault(p => p.PassportId == resident.PassportId);
+			passport.Number = passportNumberTextBox.Text;
+			passport.Series = passportSeriesTextBox.Text;
+			passport.Registration = passportRegistrationTextBox.Text;
+
+			db.SubmitChanges();
+		}
+
+		private void organizationButton_Click(object sender, EventArgs e)
+		{
+			string value = OrganizationsForm.ShowDialog(residentId);
+			Int32.TryParse(value, out int organizationId);
+			Organization organization = db.GetTable<Organization>().SingleOrDefault(o => o.OrganizationId == organizationId);
+			organizationIdLabel.Text = organizationId.ToString();
+			organizationTextBox.Text = organization.Name;
+		}
+
+		private void settleButton_Click(object sender, EventArgs e)
+		{
 			string surname = surnameTextBox.Text;
 			string name = nameTextBox.Text;
 			string patronymic = patronymicTextBox.Text;
@@ -129,7 +190,6 @@ namespace Dormitory
 				ResidentId = resident.ResidentId
 			};
 			db.GetTable<RoomResidents>().InsertOnSubmit(roomResidents);
-		//	db.SubmitChanges();
 
 			ResidentRooms residentRooms = new ResidentRooms
 			{
@@ -139,33 +199,6 @@ namespace Dormitory
 			};
 			db.GetTable<ResidentRooms>().InsertOnSubmit(residentRooms);
 			db.SubmitChanges();
-			//residentsRooms.DateOfEviction = null;
-		}
-
-		private void saveButton_Click(object sender, EventArgs e)
-		{
-			Resident resident = db.GetTable<Resident>().SingleOrDefault(r => r.ResidentId == residentId);
-			resident.Surname = surnameTextBox.Text;
-			resident.Name = nameTextBox.Text;
-			resident.Patronymic = patronymicTextBox.Text;
-			resident.PhoneNumber = phoneNumberTextBox.Text;
-			resident.Birthday = birthdayDateTimePicker.Value.Date;
-			resident.Note = noteTextBox.Text;
-
-			Passport passport = db.GetTable<Passport>().SingleOrDefault(p => p.PassportId == resident.PassportId);
-			passport.Number = passportNumberTextBox.Text;
-			passport.Series = passportSeriesTextBox.Text;
-			passport.Registration = passportRegistrationTextBox.Text;
-
-			db.SubmitChanges();
-		}
-
-		private void organizationButton_Click(object sender, EventArgs e)
-		{
-			string value = OrganizationsForm.ShowDialog(residentId);
-			Int32.TryParse(value, out int organizationId);
-
-			organizationTextBox.Text = value;
 		}
 	}
 }

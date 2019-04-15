@@ -208,9 +208,43 @@ namespace Dormitory
 				}
 				else if (tagObject.roomId != 0)
 				{
-					ResidentForm.ShowDialog(tagObject.roomId, 0);
+					string result = ResidentsForm.ShowDialog(tagObject.roomId);
+					Int32.TryParse(result, out int residentId);
+					if (residentId != 0)
+					{
+						SettleResident(tagObject.roomId, residentId);
+					}
+					//	ResidentForm.ShowDialog(tagObject.roomId, 0);
 				}
 			}
+		}
+
+		private void SettleResident(int roomId, int residentId)
+		{
+			Resident resident = db.GetTable<Resident>().SingleOrDefault(r => r.ResidentId == residentId);
+			Passport passport = db.GetTable<Passport>().SingleOrDefault(p => p.PassportId == resident.PassportId);
+	
+			RoomResidents roomResidents = new RoomResidents
+			{
+				RoomId = roomId,
+				ResidentId = resident.ResidentId
+			};
+			db.GetTable<RoomResidents>().InsertOnSubmit(roomResidents);
+		
+			ResidentRooms residentRooms = new ResidentRooms
+			{
+				ResidentId = resident.ResidentId,
+				RoomId = roomId,
+				SettlementDate = DateTime.Now
+			};
+			db.GetTable<ResidentRooms>().InsertOnSubmit(residentRooms);
+			db.SubmitChanges();
+		}
+
+		private void residentsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ResidentsForm residentsForm = new ResidentsForm();
+			residentsForm.Show();
 		}
 	}
 }

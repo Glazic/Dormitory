@@ -56,6 +56,7 @@
 			this.organizationLabel = new System.Windows.Forms.Label();
 			this.organizationButton = new System.Windows.Forms.Button();
 			this.organizationTextBox = new System.Windows.Forms.TextBox();
+			this.settleButton = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// residentIdLabel
@@ -290,11 +291,22 @@
 			this.organizationTextBox.Size = new System.Drawing.Size(100, 20);
 			this.organizationTextBox.TabIndex = 29;
 			// 
+			// settleButton
+			// 
+			this.settleButton.Location = new System.Drawing.Point(227, 249);
+			this.settleButton.Name = "settleButton";
+			this.settleButton.Size = new System.Drawing.Size(75, 23);
+			this.settleButton.TabIndex = 30;
+			this.settleButton.Text = "Заселить";
+			this.settleButton.UseVisualStyleBackColor = true;
+			this.settleButton.Click += new System.EventHandler(this.settleButton_Click);
+			// 
 			// ResidentForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(597, 293);
+			this.Controls.Add(this.settleButton);
 			this.Controls.Add(this.organizationTextBox);
 			this.Controls.Add(this.organizationButton);
 			this.Controls.Add(this.organizationLabel);
@@ -360,5 +372,6 @@
 		private System.Windows.Forms.Label organizationLabel;
 		private System.Windows.Forms.Button organizationButton;
 		private System.Windows.Forms.TextBox organizationTextBox;
+		private System.Windows.Forms.Button settleButton;
 	}
 }
