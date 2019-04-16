@@ -53,7 +53,7 @@
 			// residentIdLabel
 			// 
 			this.residentIdLabel.AutoSize = true;
-			this.residentIdLabel.Location = new System.Drawing.Point(52, 261);
+			this.residentIdLabel.Location = new System.Drawing.Point(9, 389);
 			this.residentIdLabel.Name = "residentIdLabel";
 			this.residentIdLabel.Size = new System.Drawing.Size(53, 13);
 			this.residentIdLabel.TabIndex = 1;
@@ -62,7 +62,7 @@
 			// settleButton
 			// 
 			this.settleButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.settleButton.Location = new System.Drawing.Point(406, 275);
+			this.settleButton.Location = new System.Drawing.Point(691, 415);
 			this.settleButton.Name = "settleButton";
 			this.settleButton.Size = new System.Drawing.Size(75, 23);
 			this.settleButton.TabIndex = 2;
@@ -72,7 +72,7 @@
 			// 
 			// addButton
 			// 
-			this.addButton.Location = new System.Drawing.Point(220, 342);
+			this.addButton.Location = new System.Drawing.Point(303, 415);
 			this.addButton.Name = "addButton";
 			this.addButton.Size = new System.Drawing.Size(116, 23);
 			this.addButton.TabIndex = 3;
@@ -82,7 +82,7 @@
 			// 
 			// nameFilterTextBox
 			// 
-			this.nameFilterTextBox.Location = new System.Drawing.Point(45, 326);
+			this.nameFilterTextBox.Location = new System.Drawing.Point(12, 418);
 			this.nameFilterTextBox.Name = "nameFilterTextBox";
 			this.nameFilterTextBox.Size = new System.Drawing.Size(100, 20);
 			this.nameFilterTextBox.TabIndex = 4;
@@ -93,6 +93,7 @@
 			this.AcceptButton = this.settleButton;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.AutoScroll = true;
 			this.ClientSize = new System.Drawing.Size(800, 450);
 			this.Controls.Add(this.nameFilterTextBox);
 			this.Controls.Add(this.addButton);
@@ -100,7 +101,8 @@
 			this.Controls.Add(this.residentIdLabel);
 			this.Controls.Add(this.residentsDataGridView);
 			this.Name = "ResidentsForm";
-			this.Text = "ResidentsForm";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+			this.Text = "Жители";
 			this.Load += new System.EventHandler(this.residentsForm_Load);
 			((System.ComponentModel.ISupportInitialize)(this.residentsDataGridView)).EndInit();
 			this.ResumeLayout(false);

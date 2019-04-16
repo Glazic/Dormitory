@@ -85,6 +85,7 @@ namespace Dormitory
 			sectionsTabControl.TabPages.Clear();
 			try
 			{
+				db = new DataContext(sqlConnection);
 				Table<Section> sections = db.GetTable<Section>();
 
 				foreach (var section in sections)
@@ -152,7 +153,7 @@ namespace Dormitory
 							{
 								string fullName = resident.Surname.ToString() + " " + resident.Name.ToString() + " " + resident.Patronymic.ToString() + " " + room.RoomId.ToString();
 								tagObject.residentId = resident.ResidentId;
-								tagObject.roomId = 0;
+								tagObject.roomId = room.RoomId;
 								string organizationName = resident.Organization.Name.ToString();
 								dataGridView.Rows[row + i].Cells[1].Value = fullName;
 								dataGridView.Rows[row + i].Cells[1].Tag = tagObject;
@@ -192,7 +193,8 @@ namespace Dormitory
 		private void OrganizationsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			OrganizationsForm organizationsForm = new OrganizationsForm();
-			organizationsForm.Show();
+			organizationsForm.ShowDialog();
+			LoadTabs();
 		}
 
 		private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -202,9 +204,10 @@ namespace Dormitory
 			{
 				DataGridViewLinkCell cell = (DataGridViewLinkCell)dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex];
 				dynamic tagObject = cell.Tag;
-				if (tagObject.residentId != 0)
+				if (tagObject.residentId != 0 && tagObject.roomId != 0)
 				{
-					ResidentForm.ShowDialog(tagObject.residentId);
+					ResidentForm.ShowDialog(tagObject.residentId, tagObject.roomId);
+					LoadTabs();
 				}
 				else if (tagObject.roomId != 0)
 				{
@@ -239,12 +242,25 @@ namespace Dormitory
 			};
 			db.GetTable<ResidentRooms>().InsertOnSubmit(residentRooms);
 			db.SubmitChanges();
+			LoadTabs();
 		}
 
 		private void residentsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			ResidentsForm residentsForm = new ResidentsForm();
-			residentsForm.Show();
+			residentsForm.ShowDialog();
+			LoadTabs();
+		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			LoadTabs();
+		}
+
+		private void backupToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			BackupForm backupForm = new BackupForm();
+			backupForm.ShowDialog();
 		}
 	}
 }

@@ -114,7 +114,7 @@ namespace Dormitory
 
 		private void saveButton_Click(object sender, EventArgs e)
 		{
-			Int32.TryParse(idTextBox.Text, out int id);
+			Int32.TryParse(organizationIdLabel.Text, out int id);
 			string name = nameTextBox.Text;
 			string address = addressTextBox.Text;
 			string requisites = requisitesTextBox.Text;
@@ -170,7 +170,7 @@ namespace Dormitory
 
 		private void deleteButton_Click(object sender, EventArgs e)
 		{
-			Int32.TryParse(idTextBox.Text, out int id);
+			Int32.TryParse(organizationIdLabel.Text, out int id);
 			string sqlExpression = "sp_DeleteOrganization";
 			try
 			{

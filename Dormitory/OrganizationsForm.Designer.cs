@@ -36,7 +36,6 @@
 			this.nameTextBox = new System.Windows.Forms.TextBox();
 			this.addressTextBox = new System.Windows.Forms.TextBox();
 			this.requisitesTextBox = new System.Windows.Forms.TextBox();
-			this.idTextBox = new System.Windows.Forms.TextBox();
 			this.deleteButton = new System.Windows.Forms.Button();
 			this.saveButton = new System.Windows.Forms.Button();
 			this.acceptButton = new System.Windows.Forms.Button();
@@ -54,7 +53,7 @@
 			this.organizationsDataGridView.Name = "organizationsDataGridView";
 			this.organizationsDataGridView.ReadOnly = true;
 			this.organizationsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.organizationsDataGridView.Size = new System.Drawing.Size(527, 150);
+			this.organizationsDataGridView.Size = new System.Drawing.Size(433, 150);
 			this.organizationsDataGridView.TabIndex = 0;
 			this.organizationsDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.organizationsDataGridView_CellClick);
 			// 
@@ -71,7 +70,7 @@
 			// nameLabel
 			// 
 			this.nameLabel.AutoSize = true;
-			this.nameLabel.Location = new System.Drawing.Point(68, 194);
+			this.nameLabel.Location = new System.Drawing.Point(511, 12);
 			this.nameLabel.Name = "nameLabel";
 			this.nameLabel.Size = new System.Drawing.Size(57, 13);
 			this.nameLabel.TabIndex = 2;
@@ -80,7 +79,7 @@
 			// addressLabel
 			// 
 			this.addressLabel.AutoSize = true;
-			this.addressLabel.Location = new System.Drawing.Point(69, 230);
+			this.addressLabel.Location = new System.Drawing.Point(511, 38);
 			this.addressLabel.Name = "addressLabel";
 			this.addressLabel.Size = new System.Drawing.Size(38, 13);
 			this.addressLabel.TabIndex = 3;
@@ -89,7 +88,7 @@
 			// requisitesLabel
 			// 
 			this.requisitesLabel.AutoSize = true;
-			this.requisitesLabel.Location = new System.Drawing.Point(70, 268);
+			this.requisitesLabel.Location = new System.Drawing.Point(511, 64);
 			this.requisitesLabel.Name = "requisitesLabel";
 			this.requisitesLabel.Size = new System.Drawing.Size(63, 13);
 			this.requisitesLabel.TabIndex = 4;
@@ -97,31 +96,24 @@
 			// 
 			// nameTextBox
 			// 
-			this.nameTextBox.Location = new System.Drawing.Point(145, 194);
+			this.nameTextBox.Location = new System.Drawing.Point(595, 9);
 			this.nameTextBox.Name = "nameTextBox";
-			this.nameTextBox.Size = new System.Drawing.Size(100, 20);
+			this.nameTextBox.Size = new System.Drawing.Size(173, 20);
 			this.nameTextBox.TabIndex = 5;
 			// 
 			// addressTextBox
 			// 
-			this.addressTextBox.Location = new System.Drawing.Point(149, 235);
+			this.addressTextBox.Location = new System.Drawing.Point(595, 35);
 			this.addressTextBox.Name = "addressTextBox";
-			this.addressTextBox.Size = new System.Drawing.Size(100, 20);
+			this.addressTextBox.Size = new System.Drawing.Size(173, 20);
 			this.addressTextBox.TabIndex = 6;
 			// 
 			// requisitesTextBox
 			// 
-			this.requisitesTextBox.Location = new System.Drawing.Point(151, 274);
+			this.requisitesTextBox.Location = new System.Drawing.Point(595, 61);
 			this.requisitesTextBox.Name = "requisitesTextBox";
-			this.requisitesTextBox.Size = new System.Drawing.Size(100, 20);
+			this.requisitesTextBox.Size = new System.Drawing.Size(173, 20);
 			this.requisitesTextBox.TabIndex = 7;
-			// 
-			// idTextBox
-			// 
-			this.idTextBox.Location = new System.Drawing.Point(145, 168);
-			this.idTextBox.Name = "idTextBox";
-			this.idTextBox.Size = new System.Drawing.Size(100, 20);
-			this.idTextBox.TabIndex = 8;
 			// 
 			// deleteButton
 			// 
@@ -146,7 +138,7 @@
 			// acceptButton
 			// 
 			this.acceptButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.acceptButton.Location = new System.Drawing.Point(621, 71);
+			this.acceptButton.Location = new System.Drawing.Point(514, 109);
 			this.acceptButton.Name = "acceptButton";
 			this.acceptButton.Size = new System.Drawing.Size(75, 23);
 			this.acceptButton.TabIndex = 11;
@@ -157,7 +149,7 @@
 			// organizationIdLabel
 			// 
 			this.organizationIdLabel.AutoSize = true;
-			this.organizationIdLabel.Location = new System.Drawing.Point(31, 175);
+			this.organizationIdLabel.Location = new System.Drawing.Point(674, 267);
 			this.organizationIdLabel.Name = "organizationIdLabel";
 			this.organizationIdLabel.Size = new System.Drawing.Size(94, 13);
 			this.organizationIdLabel.TabIndex = 12;
@@ -168,12 +160,12 @@
 			this.AcceptButton = this.acceptButton;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.AutoScroll = true;
 			this.ClientSize = new System.Drawing.Size(800, 450);
 			this.Controls.Add(this.organizationIdLabel);
 			this.Controls.Add(this.acceptButton);
 			this.Controls.Add(this.saveButton);
 			this.Controls.Add(this.deleteButton);
-			this.Controls.Add(this.idTextBox);
 			this.Controls.Add(this.requisitesTextBox);
 			this.Controls.Add(this.addressTextBox);
 			this.Controls.Add(this.nameTextBox);
@@ -183,7 +175,8 @@
 			this.Controls.Add(this.addButton);
 			this.Controls.Add(this.organizationsDataGridView);
 			this.Name = "OrganizationsForm";
-			this.Text = "OrganizationsForm";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+			this.Text = "Организации";
 			this.Load += new System.EventHandler(this.OrganizationsForm_Load);
 			((System.ComponentModel.ISupportInitialize)(this.organizationsDataGridView)).EndInit();
 			this.ResumeLayout(false);
@@ -201,7 +194,6 @@
 		private System.Windows.Forms.TextBox nameTextBox;
 		private System.Windows.Forms.TextBox addressTextBox;
 		private System.Windows.Forms.TextBox requisitesTextBox;
-		private System.Windows.Forms.TextBox idTextBox;
 		private System.Windows.Forms.Button deleteButton;
 		private System.Windows.Forms.Button saveButton;
 		private System.Windows.Forms.Button acceptButton;
