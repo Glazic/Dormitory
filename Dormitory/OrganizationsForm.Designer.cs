@@ -149,7 +149,7 @@
 			// organizationIdLabel
 			// 
 			this.organizationIdLabel.AutoSize = true;
-			this.organizationIdLabel.Location = new System.Drawing.Point(674, 267);
+			this.organizationIdLabel.Location = new System.Drawing.Point(595, 109);
 			this.organizationIdLabel.Name = "organizationIdLabel";
 			this.organizationIdLabel.Size = new System.Drawing.Size(94, 13);
 			this.organizationIdLabel.TabIndex = 12;

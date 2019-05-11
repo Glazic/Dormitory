@@ -4,8 +4,10 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Dormitory
@@ -27,10 +29,10 @@ namespace Dormitory
 		{
 			try
 			{
-	//	($"Data Source=.\\SQLEXPRESS;Initial Catalog=Dormitory;Integrated Security=True");
+				//	($"Data Source=.\\SQLEXPRESS;Initial Catalog=Dormitory;Integrated Security=True");
 
-		connectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=Dormitory;Integrated Security=True";
-	//	connectionString = "Data Source = " + dataSourceTextBox.Text + "; User Id=" + loginTextBox.Text + "; Password=" + passwordTextBox.Text + "";
+				connectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=Dormitory;Integrated Security=True";
+				//	connectionString = "Data Source = " + dataSourceTextBox.Text + "; User Id=" + loginTextBox.Text + "; Password=" + passwordTextBox.Text + "";
 				conn = new SqlConnection(connectionString);
 				conn.Open();
 				//sql = "EXEC sp_databases";
@@ -70,7 +72,7 @@ namespace Dormitory
 				}
 				conn = new SqlConnection(connectionString);
 				conn.Open();
-				sql = "BACKUP DATABASE " + databasesComboBox.Text + " TO DISK = '" + backupFileTextBox.Text + "\\" 
+				sql = "BACKUP DATABASE " + databasesComboBox.Text + " TO DISK = '" + backupFileTextBox.Text + "\\"
 					+ databasesComboBox.Text + "-" + DateTime.Now.ToString("dd-MM-yyyy-hh/mm/ss") + ".bak'";
 				command = new SqlCommand(sql, conn);
 				command.ExecuteNonQuery();
@@ -128,5 +130,42 @@ namespace Dormitory
 				MessageBox.Show(ex.Message);
 			}
 		}
+
+		private void browseSqlScriptButton_Click(object sender, EventArgs e)
+		{
+			OpenFileDialog dlg = new OpenFileDialog();
+			dlg.Filter = "Sql scripts(*.sql)|*.sql|All Files(*.*)|*.*";
+			dlg.FilterIndex = 0;
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				sqlScriptFileTextBox.Text = dlg.FileName;
+			}
+		}
+
+		private void runSqlScriptButton_Click(object sender, EventArgs e)
+		{
+			//string sqlConnectionString = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=ccwebgrity;Data Source=SURAJIT\SQLEXPRESS";
+			//SqlConnection myConn = new SqlConnection("Server=localhost;Integrated security=SSPI;database=master");
+			SqlConnection myConn = new SqlConnection("Data Source =.\\SQLEXPRESS; Integrated Security = True");
+			
+			string script = File.ReadAllText(sqlScriptFileTextBox.Text);
+
+			IEnumerable<string> commandStrings = Regex.Split(script, @"^\s*GO\s*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+
+			myConn.Open();
+			foreach (string commandString in commandStrings)
+			{
+				if (commandString.Trim() != "")
+				{
+					using (var command = new SqlCommand(commandString, myConn))
+					{
+						command.ExecuteNonQuery();
+					}
+				}
+			}
+			myConn.Close();
+			MessageBox.Show("loaded");
+		}
+
 	}
 }

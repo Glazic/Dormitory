@@ -36,6 +36,7 @@ namespace Dormitory
 
 		public ResidentForm(int residentId, int roomId) : this()
 		{
+			settleButton.Visible = false;
 			residentIdLabel.Text = residentId.ToString();
 			roomIdLabel.Text = roomId.ToString();
 			this.residentId = residentId;
@@ -51,9 +52,10 @@ namespace Dormitory
 			return residentForm.ShowDialog() == DialogResult.OK ? residentForm.nameLabel.Text : "";
 		}
 
-		public static string ShowDialog(int residentId, int roomId = 0)
+		public static string ShowDialogForOldResident(int residentId, int roomId = 0)
 		{
 			ResidentForm residentForm = new ResidentForm(residentId, roomId);
+			
 			//	this.Show();
 			return residentForm.ShowDialog() == DialogResult.OK ? residentForm.nameLabel.Text : "";
 		}
@@ -195,7 +197,6 @@ namespace Dormitory
 				Note = note,
 				PassportId = passport.PassportId,
 				OrganizationId = organizationId
-				//	OrganizationId = organization.OrganizationId
 			};
 
 			db.GetTable<Resident>().InsertOnSubmit(resident);
@@ -220,63 +221,16 @@ namespace Dormitory
 
 		private void evictButton_Click(object sender, EventArgs e)
 		{
-			//string surname = surnameTextBox.Text;
-			//string name = nameTextBox.Text;
-			//string patronymic = patronymicTextBox.Text;
-			//string phoneNumber = phoneNumberTextBox.Text;
-			//DateTime birthday = birthdayDateTimePicker.Value.Date;
-			//string passportSeries = passportSeriesTextBox.Text;
-			//string passportNumber = passportNumberTextBox.Text;
-			//string passportRegistration = passportRegistrationTextBox.Text;
-			//string note = noteTextBox.Text;
-
-		//	Int32.TryParse(residentIdLabel.Text, out int residentId);
-			//Int32.TryParse(roomIdLabel.Text, out int roomId);
-			//	Organization organization = db.GetTable<Organization>().FirstOrDefault();
-			//Passport passport = new Passport
-			//{
-			//	Series = passportSeries,
-			//	Number = passportNumber,
-			//	Registration = passportRegistration
-			//};
-			//		db.GetTable<Passport>().InsertOnSubmit(passport);
-			//		db.SubmitChanges();
-
-			//Resident resident = new Resident
-			//{
-			//	Surname = surname,
-			//	Name = name,
-			//	Patronymic = patronymic,
-			//	PhoneNumber = phoneNumber,
-			//	Birthday = birthday,
-			//	Note = note,
-			//	PassportId = passport.PassportId,
-			//	OrganizationId = organization.OrganizationId
-			//};
-
-		//	db.GetTable<Resident>().DeleteOnSubmit(resident);
-		//	db.SubmitChanges();
 			Resident resident = db.GetTable<Resident>().FirstOrDefault(r => r.ResidentId == residentId);
 			RoomResidents roomResidents = db.GetTable<RoomResidents>().FirstOrDefault(r => (r.ResidentId == residentId && r.RoomId == roomId));
 
 			db.GetTable<RoomResidents>().DeleteOnSubmit(roomResidents);
-			//RoomResidents roomResidents = new RoomResidents
-			//{
-			//	RoomId = roomId,
-			//	ResidentId = resident.ResidentId
-			//};
-			//db.GetTable<RoomResidents>().InsertOnSubmit(roomResidents);
+			
 			ResidentRooms residentRooms = db.GetTable<ResidentRooms>()
 				.FirstOrDefault(r => (r.ResidentId == residentId && r.RoomId == roomId && r.DateOfEviction == null));
 
 			residentRooms.DateOfEviction = DateTime.Now;
-			//ResidentRooms residentRooms = new ResidentRooms
-			//{
-			//	ResidentId = resident.ResidentId,
-			//	RoomId = roomId,
-			//	SettlementDate = DateTime.Now
-			//};
-		//	db.GetTable<ResidentRooms>().InsertOnSubmit(residentRooms);
+			
 			db.SubmitChanges();
 		}
 	}

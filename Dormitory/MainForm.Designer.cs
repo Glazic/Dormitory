@@ -31,9 +31,9 @@
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.organizationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.residentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.backupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.sectionsTabControl = new System.Windows.Forms.TabControl();
 			this.button1 = new System.Windows.Forms.Button();
-			this.backupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -63,6 +63,13 @@
 			this.residentsToolStripMenuItem.Text = "Жители";
 			this.residentsToolStripMenuItem.Click += new System.EventHandler(this.residentsToolStripMenuItem_Click);
 			// 
+			// backupToolStripMenuItem
+			// 
+			this.backupToolStripMenuItem.Name = "backupToolStripMenuItem";
+			this.backupToolStripMenuItem.Size = new System.Drawing.Size(111, 20);
+			this.backupToolStripMenuItem.Text = "Копирование БД";
+			this.backupToolStripMenuItem.Click += new System.EventHandler(this.backupToolStripMenuItem_Click);
+			// 
 			// sectionsTabControl
 			// 
 			this.sectionsTabControl.Location = new System.Drawing.Point(13, 40);
@@ -80,13 +87,6 @@
 			this.button1.Text = "button1";
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
-			// 
-			// backupToolStripMenuItem
-			// 
-			this.backupToolStripMenuItem.Name = "backupToolStripMenuItem";
-			this.backupToolStripMenuItem.Size = new System.Drawing.Size(111, 20);
-			this.backupToolStripMenuItem.Text = "Копирование БД";
-			this.backupToolStripMenuItem.Click += new System.EventHandler(this.backupToolStripMenuItem_Click);
 			// 
 			// MainForm
 			// 

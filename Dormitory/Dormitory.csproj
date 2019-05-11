@@ -51,9 +51,7 @@
     <Compile Include="BackupForm.Designer.cs">
       <DependentUpon>BackupForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="LinkLabelModified.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="DatabaseController.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

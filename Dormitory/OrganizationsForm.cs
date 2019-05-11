@@ -14,19 +14,21 @@ namespace Dormitory
 	public partial class OrganizationsForm : Form
 	{
 		SqlConnection sqlConnection = new SqlConnection($"Data Source=.\\SQLEXPRESS;Initial Catalog=Dormitory;Integrated Security=True");
-		SqlCommand cmd;
+		DataContext db;
+		//	DatabaseController databaseController;
 		SqlDataAdapter dataAdapter;
-		DataTable dataTable;
+		DataTable dataTable = new DataTable();
 		int residentId = 0;
 
 		public OrganizationsForm()
 		{
 			InitializeComponent();
+			db = new DataContext(sqlConnection);
+			//		databaseController = new DatabaseController();
 		}
 
-		public OrganizationsForm(int residentId)
+		public OrganizationsForm(int residentId) : this()
 		{
-			InitializeComponent();
 			this.residentId = residentId;
 		}
 
@@ -39,65 +41,16 @@ namespace Dormitory
 
 		private void OrganizationsForm_Load(object sender, EventArgs e)
 		{
-			// TODO: данная строка кода позволяет загрузить данные в таблицу "dormitoryDataSet.Organizations". При необходимости она может быть перемещена или удалена.
-			//this.organizationsTableAdapter.Fill(this.dormitoryDataSet.Organizations);
 			LoadDataGrid();
 		}
 
 		public void LoadDataGrid()
 		{
+			//dataAdapter = databaseController.SelectAllOrganizations();
 			dataAdapter = new SqlDataAdapter("SELECT * FROM Organizations", sqlConnection);
-			dataTable = new DataTable();
+			dataTable.Clear();
 			dataAdapter.Fill(dataTable);
 			organizationsDataGridView.DataSource = dataTable;
-		}
-
-		private void addButton_Click(object sender, EventArgs e)
-		{
-			string name = nameTextBox.Text;
-			string address = addressTextBox.Text;
-			string requisites = requisitesTextBox.Text;
-
-			string sqlExpression = "sp_InsertOrganization";
-
-			try
-			{
-				sqlConnection.Open();
-				SqlCommand command = new SqlCommand(sqlExpression, sqlConnection);
-				command.CommandType = CommandType.StoredProcedure;
-
-				SqlParameter nameParam = new SqlParameter
-				{
-					ParameterName = "@Name",
-					Value = name
-				};
-				command.Parameters.Add(nameParam);
-
-				SqlParameter addressParam = new SqlParameter
-				{
-					ParameterName = "@Address",
-					Value = address
-				};
-				command.Parameters.Add(addressParam);
-
-				SqlParameter requisitesParam = new SqlParameter
-				{
-					ParameterName = "@Requisites",
-					Value = requisites
-				};
-				command.Parameters.Add(requisitesParam);
-				command.ExecuteNonQuery();
-				LoadDataGrid();
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show(ex.Message);
-				sqlConnection.Close();
-			}
-			finally
-			{
-				sqlConnection.Close();
-			}
 		}
 
 		private void organizationsDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -112,6 +65,33 @@ namespace Dormitory
 			}
 		}
 
+		private void addButton_Click(object sender, EventArgs e)
+		{
+			string name = nameTextBox.Text;
+			string address = addressTextBox.Text;
+			string requisites = requisitesTextBox.Text;
+
+			Organization organization = new Organization
+			{
+				Name = name,
+				Address = address,
+				Requisites = requisites
+			};
+
+			try
+			{
+				db.GetTable<Organization>().InsertOnSubmit(organization);
+				db.SubmitChanges();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+				sqlConnection.Close();
+			}
+		//	databaseController.InsertOrganization(name, address, requisites);
+			LoadDataGrid();
+		}
+
 		private void saveButton_Click(object sender, EventArgs e)
 		{
 			Int32.TryParse(organizationIdLabel.Text, out int id);
@@ -119,83 +99,41 @@ namespace Dormitory
 			string address = addressTextBox.Text;
 			string requisites = requisitesTextBox.Text;
 
-			string sqlExpression = "sp_UpdateOrganization";
 			try
 			{
-				sqlConnection.Open();
-				SqlCommand command = new SqlCommand(sqlExpression, sqlConnection);
-				command.CommandType = CommandType.StoredProcedure;
-
-				SqlParameter idParam = new SqlParameter
-				{
-					ParameterName = "@Id",
-					Value = id
-				};
-				command.Parameters.Add(idParam);
-
-				SqlParameter nameParam = new SqlParameter
-				{
-					ParameterName = "@Name",
-					Value = name
-				};
-				command.Parameters.Add(nameParam);
-
-				SqlParameter addressParam = new SqlParameter
-				{
-					ParameterName = "@Address",
-					Value = address
-				};
-				command.Parameters.Add(addressParam);
-
-				SqlParameter requisitesParam = new SqlParameter
-				{
-					ParameterName = "@Requisites",
-					Value = requisites
-				};
-				command.Parameters.Add(requisitesParam);
-
-				command.ExecuteNonQuery();
-				LoadDataGrid();
+				Organization organization = db.GetTable<Organization>().SingleOrDefault(o => o.OrganizationId == id);
+				organization.Name = name;
+				organization.Address = address;
+				organization.Requisites = requisites;
+				db.SubmitChanges();
 			}
 			catch (Exception ex)
 			{
 				MessageBox.Show(ex.Message);
 				sqlConnection.Close();
 			}
-			finally
-			{
-				sqlConnection.Close();
-			}
+			//databaseController.UpdateOrganization(name, address, requisites, id);
+			LoadDataGrid();
 		}
 
 		private void deleteButton_Click(object sender, EventArgs e)
 		{
 			Int32.TryParse(organizationIdLabel.Text, out int id);
-			string sqlExpression = "sp_DeleteOrganization";
+
 			try
 			{
-				sqlConnection.Open();
-				SqlCommand command = new SqlCommand(sqlExpression, sqlConnection);
-				command.CommandType = CommandType.StoredProcedure;
+				Organization organization = db.GetTable<Organization>().SingleOrDefault(o => o.OrganizationId == id);
 
-				SqlParameter IdParam = new SqlParameter
-				{
-					ParameterName = "@Id",
-					Value = id
-				};
-				command.Parameters.Add(IdParam);
-				command.ExecuteNonQuery();
-				LoadDataGrid();
+				db.GetTable<Organization>().DeleteOnSubmit(organization);
+				db.SubmitChanges();
 			}
 			catch (Exception ex)
 			{
 				MessageBox.Show(ex.Message);
 				sqlConnection.Close();
 			}
-			finally
-			{
-				sqlConnection.Close();
-			}
+			//	databaseController.DeleteOrganization(id);
+			LoadDataGrid();
 		}
 
 		private void acceptButton_Click(object sender, EventArgs e)

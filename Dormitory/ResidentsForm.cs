@@ -35,7 +35,7 @@ namespace Dormitory
 			this.roomId = roomId;
 		}
 
-		public static string ShowDialog(int roomId)
+		public static string ShowDialogForNewResident(int roomId)
 		{
 			ResidentsForm residentsForm = new ResidentsForm(roomId);
 			//	this.Show();
