@@ -48,18 +48,18 @@
 			this.organizationsDataGridView.AllowUserToAddRows = false;
 			this.organizationsDataGridView.AllowUserToDeleteRows = false;
 			this.organizationsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.organizationsDataGridView.Location = new System.Drawing.Point(12, 12);
+			this.organizationsDataGridView.Location = new System.Drawing.Point(12, 89);
 			this.organizationsDataGridView.MultiSelect = false;
 			this.organizationsDataGridView.Name = "organizationsDataGridView";
 			this.organizationsDataGridView.ReadOnly = true;
 			this.organizationsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.organizationsDataGridView.Size = new System.Drawing.Size(433, 150);
+			this.organizationsDataGridView.Size = new System.Drawing.Size(710, 261);
 			this.organizationsDataGridView.TabIndex = 0;
 			this.organizationsDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.organizationsDataGridView_CellClick);
 			// 
 			// addButton
 			// 
-			this.addButton.Location = new System.Drawing.Point(556, 203);
+			this.addButton.Location = new System.Drawing.Point(12, 60);
 			this.addButton.Name = "addButton";
 			this.addButton.Size = new System.Drawing.Size(75, 23);
 			this.addButton.TabIndex = 1;
@@ -70,7 +70,7 @@
 			// nameLabel
 			// 
 			this.nameLabel.AutoSize = true;
-			this.nameLabel.Location = new System.Drawing.Point(511, 12);
+			this.nameLabel.Location = new System.Drawing.Point(12, 9);
 			this.nameLabel.Name = "nameLabel";
 			this.nameLabel.Size = new System.Drawing.Size(57, 13);
 			this.nameLabel.TabIndex = 2;
@@ -79,7 +79,7 @@
 			// addressLabel
 			// 
 			this.addressLabel.AutoSize = true;
-			this.addressLabel.Location = new System.Drawing.Point(511, 38);
+			this.addressLabel.Location = new System.Drawing.Point(260, 9);
 			this.addressLabel.Name = "addressLabel";
 			this.addressLabel.Size = new System.Drawing.Size(38, 13);
 			this.addressLabel.TabIndex = 3;
@@ -88,7 +88,7 @@
 			// requisitesLabel
 			// 
 			this.requisitesLabel.AutoSize = true;
-			this.requisitesLabel.Location = new System.Drawing.Point(511, 64);
+			this.requisitesLabel.Location = new System.Drawing.Point(12, 37);
 			this.requisitesLabel.Name = "requisitesLabel";
 			this.requisitesLabel.Size = new System.Drawing.Size(63, 13);
 			this.requisitesLabel.TabIndex = 4;
@@ -96,28 +96,28 @@
 			// 
 			// nameTextBox
 			// 
-			this.nameTextBox.Location = new System.Drawing.Point(595, 9);
+			this.nameTextBox.Location = new System.Drawing.Point(81, 6);
 			this.nameTextBox.Name = "nameTextBox";
 			this.nameTextBox.Size = new System.Drawing.Size(173, 20);
 			this.nameTextBox.TabIndex = 5;
 			// 
 			// addressTextBox
 			// 
-			this.addressTextBox.Location = new System.Drawing.Point(595, 35);
+			this.addressTextBox.Location = new System.Drawing.Point(304, 6);
 			this.addressTextBox.Name = "addressTextBox";
 			this.addressTextBox.Size = new System.Drawing.Size(173, 20);
 			this.addressTextBox.TabIndex = 6;
 			// 
 			// requisitesTextBox
 			// 
-			this.requisitesTextBox.Location = new System.Drawing.Point(595, 61);
+			this.requisitesTextBox.Location = new System.Drawing.Point(81, 34);
 			this.requisitesTextBox.Name = "requisitesTextBox";
-			this.requisitesTextBox.Size = new System.Drawing.Size(173, 20);
+			this.requisitesTextBox.Size = new System.Drawing.Size(242, 20);
 			this.requisitesTextBox.TabIndex = 7;
 			// 
 			// deleteButton
 			// 
-			this.deleteButton.Location = new System.Drawing.Point(718, 203);
+			this.deleteButton.Location = new System.Drawing.Point(179, 60);
 			this.deleteButton.Name = "deleteButton";
 			this.deleteButton.Size = new System.Drawing.Size(75, 23);
 			this.deleteButton.TabIndex = 9;
@@ -127,7 +127,7 @@
 			// 
 			// saveButton
 			// 
-			this.saveButton.Location = new System.Drawing.Point(637, 203);
+			this.saveButton.Location = new System.Drawing.Point(93, 60);
 			this.saveButton.Name = "saveButton";
 			this.saveButton.Size = new System.Drawing.Size(75, 23);
 			this.saveButton.TabIndex = 10;
@@ -138,7 +138,7 @@
 			// acceptButton
 			// 
 			this.acceptButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.acceptButton.Location = new System.Drawing.Point(514, 109);
+			this.acceptButton.Location = new System.Drawing.Point(329, 32);
 			this.acceptButton.Name = "acceptButton";
 			this.acceptButton.Size = new System.Drawing.Size(75, 23);
 			this.acceptButton.TabIndex = 11;
@@ -149,7 +149,7 @@
 			// organizationIdLabel
 			// 
 			this.organizationIdLabel.AutoSize = true;
-			this.organizationIdLabel.Location = new System.Drawing.Point(595, 109);
+			this.organizationIdLabel.Location = new System.Drawing.Point(410, 37);
 			this.organizationIdLabel.Name = "organizationIdLabel";
 			this.organizationIdLabel.Size = new System.Drawing.Size(94, 13);
 			this.organizationIdLabel.TabIndex = 12;
@@ -161,7 +161,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoScroll = true;
-			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.ClientSize = new System.Drawing.Size(734, 364);
 			this.Controls.Add(this.organizationIdLabel);
 			this.Controls.Add(this.acceptButton);
 			this.Controls.Add(this.saveButton);

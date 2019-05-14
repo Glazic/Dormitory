@@ -64,7 +64,7 @@
 			// residentIdLabel
 			// 
 			this.residentIdLabel.AutoSize = true;
-			this.residentIdLabel.Location = new System.Drawing.Point(330, 9);
+			this.residentIdLabel.Location = new System.Drawing.Point(12, 22);
 			this.residentIdLabel.Name = "residentIdLabel";
 			this.residentIdLabel.Size = new System.Drawing.Size(16, 13);
 			this.residentIdLabel.TabIndex = 0;
@@ -119,7 +119,7 @@
 			// passportIdLabel
 			// 
 			this.passportIdLabel.AutoSize = true;
-			this.passportIdLabel.Location = new System.Drawing.Point(366, 9);
+			this.passportIdLabel.Location = new System.Drawing.Point(338, 22);
 			this.passportIdLabel.Name = "passportIdLabel";
 			this.passportIdLabel.Size = new System.Drawing.Size(70, 13);
 			this.passportIdLabel.TabIndex = 6;
@@ -128,7 +128,7 @@
 			// organizationIdLabel
 			// 
 			this.organizationIdLabel.AutoSize = true;
-			this.organizationIdLabel.Location = new System.Drawing.Point(442, 9);
+			this.organizationIdLabel.Location = new System.Drawing.Point(12, 100);
 			this.organizationIdLabel.Name = "organizationIdLabel";
 			this.organizationIdLabel.Size = new System.Drawing.Size(94, 13);
 			this.organizationIdLabel.TabIndex = 7;
@@ -136,42 +136,42 @@
 			// 
 			// surnameTextBox
 			// 
-			this.surnameTextBox.Location = new System.Drawing.Point(124, 6);
+			this.surnameTextBox.Location = new System.Drawing.Point(102, 6);
 			this.surnameTextBox.Name = "surnameTextBox";
 			this.surnameTextBox.Size = new System.Drawing.Size(200, 20);
 			this.surnameTextBox.TabIndex = 9;
 			// 
 			// nameTextBox
 			// 
-			this.nameTextBox.Location = new System.Drawing.Point(124, 32);
+			this.nameTextBox.Location = new System.Drawing.Point(102, 32);
 			this.nameTextBox.Name = "nameTextBox";
 			this.nameTextBox.Size = new System.Drawing.Size(200, 20);
 			this.nameTextBox.TabIndex = 10;
 			// 
 			// patronymicTextBox
 			// 
-			this.patronymicTextBox.Location = new System.Drawing.Point(124, 58);
+			this.patronymicTextBox.Location = new System.Drawing.Point(102, 58);
 			this.patronymicTextBox.Name = "patronymicTextBox";
 			this.patronymicTextBox.Size = new System.Drawing.Size(200, 20);
 			this.patronymicTextBox.TabIndex = 11;
 			// 
 			// phoneNumberTextBox
 			// 
-			this.phoneNumberTextBox.Location = new System.Drawing.Point(124, 110);
+			this.phoneNumberTextBox.Location = new System.Drawing.Point(102, 110);
 			this.phoneNumberTextBox.Name = "phoneNumberTextBox";
 			this.phoneNumberTextBox.Size = new System.Drawing.Size(200, 20);
 			this.phoneNumberTextBox.TabIndex = 12;
 			// 
 			// birthdayDateTimePicker
 			// 
-			this.birthdayDateTimePicker.Location = new System.Drawing.Point(124, 136);
+			this.birthdayDateTimePicker.Location = new System.Drawing.Point(102, 136);
 			this.birthdayDateTimePicker.Name = "birthdayDateTimePicker";
 			this.birthdayDateTimePicker.Size = new System.Drawing.Size(200, 20);
 			this.birthdayDateTimePicker.TabIndex = 16;
 			// 
 			// saveButton
 			// 
-			this.saveButton.Location = new System.Drawing.Point(111, 275);
+			this.saveButton.Location = new System.Drawing.Point(312, 133);
 			this.saveButton.Name = "saveButton";
 			this.saveButton.Size = new System.Drawing.Size(75, 23);
 			this.saveButton.TabIndex = 17;
@@ -181,9 +181,9 @@
 			// 
 			// addButton
 			// 
-			this.addButton.Location = new System.Drawing.Point(9, 275);
+			this.addButton.Location = new System.Drawing.Point(393, 132);
 			this.addButton.Name = "addButton";
-			this.addButton.Size = new System.Drawing.Size(75, 23);
+			this.addButton.Size = new System.Drawing.Size(66, 23);
 			this.addButton.TabIndex = 18;
 			this.addButton.Text = "Добавить";
 			this.addButton.UseVisualStyleBackColor = true;
@@ -192,7 +192,7 @@
 			// passportSeriesLabel
 			// 
 			this.passportSeriesLabel.AutoSize = true;
-			this.passportSeriesLabel.Location = new System.Drawing.Point(12, 165);
+			this.passportSeriesLabel.Location = new System.Drawing.Point(316, 9);
 			this.passportSeriesLabel.Name = "passportSeriesLabel";
 			this.passportSeriesLabel.Size = new System.Drawing.Size(88, 13);
 			this.passportSeriesLabel.TabIndex = 19;
@@ -201,7 +201,7 @@
 			// passportNumberLabel
 			// 
 			this.passportNumberLabel.AutoSize = true;
-			this.passportNumberLabel.Location = new System.Drawing.Point(12, 191);
+			this.passportNumberLabel.Location = new System.Drawing.Point(316, 35);
 			this.passportNumberLabel.Name = "passportNumberLabel";
 			this.passportNumberLabel.Size = new System.Drawing.Size(91, 13);
 			this.passportNumberLabel.TabIndex = 20;
@@ -210,7 +210,7 @@
 			// passportRegistrationLabel
 			// 
 			this.passportRegistrationLabel.AutoSize = true;
-			this.passportRegistrationLabel.Location = new System.Drawing.Point(12, 217);
+			this.passportRegistrationLabel.Location = new System.Drawing.Point(316, 61);
 			this.passportRegistrationLabel.Name = "passportRegistrationLabel";
 			this.passportRegistrationLabel.Size = new System.Drawing.Size(57, 13);
 			this.passportRegistrationLabel.TabIndex = 21;
@@ -218,21 +218,21 @@
 			// 
 			// passportSeriesTextBox
 			// 
-			this.passportSeriesTextBox.Location = new System.Drawing.Point(124, 162);
+			this.passportSeriesTextBox.Location = new System.Drawing.Point(410, 6);
 			this.passportSeriesTextBox.Name = "passportSeriesTextBox";
 			this.passportSeriesTextBox.Size = new System.Drawing.Size(200, 20);
 			this.passportSeriesTextBox.TabIndex = 22;
 			// 
 			// passportNumberTextBox
 			// 
-			this.passportNumberTextBox.Location = new System.Drawing.Point(124, 188);
+			this.passportNumberTextBox.Location = new System.Drawing.Point(410, 32);
 			this.passportNumberTextBox.Name = "passportNumberTextBox";
 			this.passportNumberTextBox.Size = new System.Drawing.Size(200, 20);
 			this.passportNumberTextBox.TabIndex = 23;
 			// 
 			// passportRegistrationTextBox
 			// 
-			this.passportRegistrationTextBox.Location = new System.Drawing.Point(124, 214);
+			this.passportRegistrationTextBox.Location = new System.Drawing.Point(410, 58);
 			this.passportRegistrationTextBox.Name = "passportRegistrationTextBox";
 			this.passportRegistrationTextBox.Size = new System.Drawing.Size(200, 20);
 			this.passportRegistrationTextBox.TabIndex = 24;
@@ -240,7 +240,7 @@
 			// noteLabel
 			// 
 			this.noteLabel.AutoSize = true;
-			this.noteLabel.Location = new System.Drawing.Point(12, 244);
+			this.noteLabel.Location = new System.Drawing.Point(316, 90);
 			this.noteLabel.Name = "noteLabel";
 			this.noteLabel.Size = new System.Drawing.Size(51, 13);
 			this.noteLabel.TabIndex = 25;
@@ -248,7 +248,7 @@
 			// 
 			// noteTextBox
 			// 
-			this.noteTextBox.Location = new System.Drawing.Point(124, 241);
+			this.noteTextBox.Location = new System.Drawing.Point(410, 87);
 			this.noteTextBox.Name = "noteTextBox";
 			this.noteTextBox.Size = new System.Drawing.Size(200, 20);
 			this.noteTextBox.TabIndex = 26;
@@ -264,7 +264,7 @@
 			// 
 			// organizationButton
 			// 
-			this.organizationButton.Location = new System.Drawing.Point(265, 82);
+			this.organizationButton.Location = new System.Drawing.Point(243, 82);
 			this.organizationButton.Name = "organizationButton";
 			this.organizationButton.Size = new System.Drawing.Size(59, 23);
 			this.organizationButton.TabIndex = 28;
@@ -274,7 +274,7 @@
 			// 
 			// organizationTextBox
 			// 
-			this.organizationTextBox.Location = new System.Drawing.Point(124, 84);
+			this.organizationTextBox.Location = new System.Drawing.Point(102, 84);
 			this.organizationTextBox.Name = "organizationTextBox";
 			this.organizationTextBox.ReadOnly = true;
 			this.organizationTextBox.Size = new System.Drawing.Size(135, 20);
@@ -282,9 +282,9 @@
 			// 
 			// settleButton
 			// 
-			this.settleButton.Location = new System.Drawing.Point(227, 275);
+			this.settleButton.Location = new System.Drawing.Point(465, 132);
 			this.settleButton.Name = "settleButton";
-			this.settleButton.Size = new System.Drawing.Size(75, 23);
+			this.settleButton.Size = new System.Drawing.Size(64, 23);
 			this.settleButton.TabIndex = 30;
 			this.settleButton.Text = "Заселить";
 			this.settleButton.UseVisualStyleBackColor = true;
@@ -295,15 +295,15 @@
 			this.livingDataGridView.AllowUserToAddRows = false;
 			this.livingDataGridView.AllowUserToDeleteRows = false;
 			this.livingDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.livingDataGridView.Location = new System.Drawing.Point(9, 316);
+			this.livingDataGridView.Location = new System.Drawing.Point(9, 162);
 			this.livingDataGridView.Name = "livingDataGridView";
 			this.livingDataGridView.ReadOnly = true;
-			this.livingDataGridView.Size = new System.Drawing.Size(707, 146);
+			this.livingDataGridView.Size = new System.Drawing.Size(604, 184);
 			this.livingDataGridView.TabIndex = 31;
 			// 
 			// evictButton
 			// 
-			this.evictButton.Location = new System.Drawing.Point(333, 275);
+			this.evictButton.Location = new System.Drawing.Point(535, 132);
 			this.evictButton.Name = "evictButton";
 			this.evictButton.Size = new System.Drawing.Size(75, 23);
 			this.evictButton.TabIndex = 32;
@@ -314,7 +314,7 @@
 			// roomIdLabel
 			// 
 			this.roomIdLabel.AutoSize = true;
-			this.roomIdLabel.Location = new System.Drawing.Point(574, 9);
+			this.roomIdLabel.Location = new System.Drawing.Point(316, 113);
 			this.roomIdLabel.Name = "roomIdLabel";
 			this.roomIdLabel.Size = new System.Drawing.Size(71, 13);
 			this.roomIdLabel.TabIndex = 33;
@@ -325,7 +325,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoScroll = true;
-			this.ClientSize = new System.Drawing.Size(728, 547);
+			this.ClientSize = new System.Drawing.Size(625, 353);
 			this.Controls.Add(this.roomIdLabel);
 			this.Controls.Add(this.evictButton);
 			this.Controls.Add(this.livingDataGridView);

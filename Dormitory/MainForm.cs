@@ -17,8 +17,6 @@ namespace Dormitory
 		private string userName;
 		private string password;
 		private SqlConnection sqlConnection = new SqlConnection($"Data Source=.\\SQLEXPRESS;Initial Catalog=Dormitory;Integrated Security=True");
-		private DataTable moviesParticipantsDataTable;
-		private DataTable employeesDataTable;
 		//DatabaseController databaseController;
 		DataContext db;
 
@@ -35,8 +33,6 @@ namespace Dormitory
 			this.loginForm = loginForm;
 			this.userName = userName;
 			this.password = password;
-			this.moviesParticipantsDataTable = new DataTable();
-			this.employeesDataTable = new DataTable();
 			this.sqlConnection = new SqlConnection($"Data Source=ANTON\\SQLEXPRESS;Initial Catalog=MoviesShop;User ID={userName};Password={password}");
 		}
 
@@ -69,6 +65,7 @@ namespace Dormitory
 			TabPage myTabPage = new TabPage(section.Number.ToString());
 			DataGridView dataGridView = new DataGridView();
 			dataGridView.MultiSelect = false;
+			dataGridView.Dock = DockStyle.Fill;
 			//dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 			dataGridView.AllowUserToAddRows = false;
 			dataGridView.AllowUserToDeleteRows = false;
@@ -77,34 +74,34 @@ namespace Dormitory
 			dataGridView.ReadOnly = true;
 			dataGridView.Size = new System.Drawing.Size(700, 400);
 			dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick);
-			DataGridViewColumn Column1 = new DataGridViewColumn
+			DataGridViewColumn numberColumn = new DataGridViewColumn
 			{
 				HeaderText = "#",
-				Name = "Column1",
+				Name = "numberColumn",
 				ReadOnly = true,
 				CellTemplate = new DataGridViewTextBoxCell()
 			};
-			DataGridViewLinkColumn Column2 = new DataGridViewLinkColumn
+			DataGridViewLinkColumn nameColumn = new DataGridViewLinkColumn
 			{
 				HeaderText = "ФИО",
-				Name = "Column1",
+				Name = "nameColumn",
 				AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
 				UseColumnTextForLinkValue = true,
 				LinkColor = Color.Blue,
 				VisitedLinkColor = Color.Blue,
 				CellTemplate = new DataGridViewLinkCell()
 			};
-			DataGridViewColumn Column3 = new DataGridViewColumn
+			DataGridViewColumn organizationColumn = new DataGridViewColumn
 			{
 				HeaderText = "Организация",
-				Name = "Column1",
+				Name = "organizationColumn",
 				ReadOnly = true,
 				AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
 				CellTemplate = new DataGridViewTextBoxCell()
 			};
-			dataGridView.Columns.Add(Column1);
-			dataGridView.Columns.Add(Column2);
-			dataGridView.Columns.Add(Column3);
+			dataGridView.Columns.Add(numberColumn);
+			dataGridView.Columns.Add(nameColumn);
+			dataGridView.Columns.Add(organizationColumn);
 			int row = 0;
 			foreach (var room in section.Rooms)
 			{

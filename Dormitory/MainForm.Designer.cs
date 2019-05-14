@@ -45,7 +45,7 @@
             this.backupToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+			this.menuStrip1.Size = new System.Drawing.Size(715, 24);
 			this.menuStrip1.TabIndex = 0;
 			this.menuStrip1.Text = "mainFormMenuStrip";
 			// 
@@ -75,12 +75,12 @@
 			this.sectionsTabControl.Location = new System.Drawing.Point(13, 40);
 			this.sectionsTabControl.Name = "sectionsTabControl";
 			this.sectionsTabControl.SelectedIndex = 0;
-			this.sectionsTabControl.Size = new System.Drawing.Size(700, 400);
+			this.sectionsTabControl.Size = new System.Drawing.Size(688, 378);
 			this.sectionsTabControl.TabIndex = 1;
 			// 
 			// button1
 			// 
-			this.button1.Location = new System.Drawing.Point(107, 462);
+			this.button1.Location = new System.Drawing.Point(13, 424);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(75, 23);
 			this.button1.TabIndex = 2;
@@ -93,7 +93,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoScroll = true;
-			this.ClientSize = new System.Drawing.Size(800, 600);
+			this.ClientSize = new System.Drawing.Size(715, 461);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.sectionsTabControl);
 			this.Controls.Add(this.menuStrip1);

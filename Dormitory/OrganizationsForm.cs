@@ -47,10 +47,16 @@ namespace Dormitory
 		public void LoadDataGrid()
 		{
 			//dataAdapter = databaseController.SelectAllOrganizations();
-			dataAdapter = new SqlDataAdapter("SELECT * FROM Organizations", sqlConnection);
+			dataAdapter = new SqlDataAdapter("SELECT OrganizationId as [ИД], " +
+				"Name as [Название], Address as [Адрес], Requisites as [Реквезиты] " +
+				"FROM Organizations", sqlConnection);
 			dataTable.Clear();
 			dataAdapter.Fill(dataTable);
 			organizationsDataGridView.DataSource = dataTable;
+			organizationsDataGridView.Columns[0].Width = 50;
+			organizationsDataGridView.Columns[1].Width = 200;
+			organizationsDataGridView.Columns[2].Width = 200;
+			organizationsDataGridView.Columns[3].Width = 200;
 		}
 
 		private void organizationsDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -71,69 +77,97 @@ namespace Dormitory
 			string address = addressTextBox.Text;
 			string requisites = requisitesTextBox.Text;
 
-			Organization organization = new Organization
+			if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(address) || string.IsNullOrWhiteSpace(requisites))
 			{
-				Name = name,
-				Address = address,
-				Requisites = requisites
-			};
+				MessageBox.Show("Заполните все поля!");
+				return;
+			}
 
-			try
+			DialogResult dialogResult = MessageBox.Show("Вы уверены, что хотите добавить данную организацию?\n" +
+				$"Название: {name}. \nАдрес: {address}. \nРеквезиты: {requisites}", "Предупреждение", MessageBoxButtons.YesNo);
+			if (dialogResult == DialogResult.Yes)
 			{
-				db.GetTable<Organization>().InsertOnSubmit(organization);
-				db.SubmitChanges();
+				Organization organization = new Organization
+				{
+					Name = name,
+					Address = address,
+					Requisites = requisites
+				};
+
+				try
+				{
+					db.GetTable<Organization>().InsertOnSubmit(organization);
+					db.SubmitChanges();
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show(ex.Message);
+					sqlConnection.Close();
+				}
+				//	databaseController.InsertOrganization(name, address, requisites);
+				LoadDataGrid();
 			}
-			catch (Exception ex)
-			{
-				MessageBox.Show(ex.Message);
-				sqlConnection.Close();
-			}
-		//	databaseController.InsertOrganization(name, address, requisites);
-			LoadDataGrid();
 		}
 
 		private void saveButton_Click(object sender, EventArgs e)
 		{
-			Int32.TryParse(organizationIdLabel.Text, out int id);
 			string name = nameTextBox.Text;
 			string address = addressTextBox.Text;
 			string requisites = requisitesTextBox.Text;
 
-			try
+			if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(address) || string.IsNullOrWhiteSpace(requisites))
 			{
-				Organization organization = db.GetTable<Organization>().SingleOrDefault(o => o.OrganizationId == id);
-				organization.Name = name;
-				organization.Address = address;
-				organization.Requisites = requisites;
-				db.SubmitChanges();
+				MessageBox.Show("Заполните все поля!");
+				return;
 			}
-			catch (Exception ex)
+
+			DialogResult dialogResult = MessageBox.Show("Вы уверены, что хотите сохранить данные изменения?\n" +
+				$"Название: {name}. \nАдрес: {address}. \nРеквезиты: {requisites}", "Предупреждение", MessageBoxButtons.YesNo);
+			if (dialogResult == DialogResult.Yes)
 			{
-				MessageBox.Show(ex.Message);
-				sqlConnection.Close();
+				Int32.TryParse(organizationIdLabel.Text, out int id);
+
+				try
+				{
+					Organization organization = db.GetTable<Organization>().SingleOrDefault(o => o.OrganizationId == id);
+					organization.Name = name;
+					organization.Address = address;
+					organization.Requisites = requisites;
+					db.SubmitChanges();
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show(ex.Message);
+					sqlConnection.Close();
+				}
+				//databaseController.UpdateOrganization(name, address, requisites, id);
+				LoadDataGrid();
 			}
-			//databaseController.UpdateOrganization(name, address, requisites, id);
-			LoadDataGrid();
 		}
 
 		private void deleteButton_Click(object sender, EventArgs e)
 		{
-			Int32.TryParse(organizationIdLabel.Text, out int id);
-
-			try
+			DialogResult dialogResult = MessageBox.Show("Вы уверены, " +
+				"что хотите удалить выбранную организацию?", "Предупреждение", MessageBoxButtons.YesNo);
+			if (dialogResult == DialogResult.Yes)
 			{
-				Organization organization = db.GetTable<Organization>().SingleOrDefault(o => o.OrganizationId == id);
+				Int32.TryParse(organizationIdLabel.Text, out int id);
 
-				db.GetTable<Organization>().DeleteOnSubmit(organization);
-				db.SubmitChanges();
+				try
+				{
+					Organization organization = db.GetTable<Organization>().SingleOrDefault(o => o.OrganizationId == id);
+
+					db.GetTable<Organization>().DeleteOnSubmit(organization);
+					db.SubmitChanges();
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show(ex.Message);
+					sqlConnection.Close();
+				}
+				//	databaseController.DeleteOrganization(id);
+				LoadDataGrid();
 			}
-			catch (Exception ex)
-			{
-				MessageBox.Show(ex.Message);
-				sqlConnection.Close();
-			}
-			//	databaseController.DeleteOrganization(id);
-			LoadDataGrid();
 		}
 
 		private void acceptButton_Click(object sender, EventArgs e)

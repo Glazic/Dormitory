@@ -33,6 +33,9 @@
 			this.settleButton = new System.Windows.Forms.Button();
 			this.addButton = new System.Windows.Forms.Button();
 			this.nameFilterTextBox = new System.Windows.Forms.TextBox();
+			this.searchSurnameLabel = new System.Windows.Forms.Label();
+			this.searchOrganizationLabel = new System.Windows.Forms.Label();
+			this.organizationFilterTextBox = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.residentsDataGridView)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -41,19 +44,19 @@
 			this.residentsDataGridView.AllowUserToAddRows = false;
 			this.residentsDataGridView.AllowUserToDeleteRows = false;
 			this.residentsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.residentsDataGridView.Location = new System.Drawing.Point(12, 12);
+			this.residentsDataGridView.Location = new System.Drawing.Point(12, 92);
 			this.residentsDataGridView.MultiSelect = false;
 			this.residentsDataGridView.Name = "residentsDataGridView";
 			this.residentsDataGridView.ReadOnly = true;
 			this.residentsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.residentsDataGridView.Size = new System.Drawing.Size(714, 216);
+			this.residentsDataGridView.Size = new System.Drawing.Size(724, 254);
 			this.residentsDataGridView.TabIndex = 0;
 			this.residentsDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.residentsDataGridView_CellClick);
 			// 
 			// residentIdLabel
 			// 
 			this.residentIdLabel.AutoSize = true;
-			this.residentIdLabel.Location = new System.Drawing.Point(9, 389);
+			this.residentIdLabel.Location = new System.Drawing.Point(12, 65);
 			this.residentIdLabel.Name = "residentIdLabel";
 			this.residentIdLabel.Size = new System.Drawing.Size(53, 13);
 			this.residentIdLabel.TabIndex = 1;
@@ -62,7 +65,7 @@
 			// settleButton
 			// 
 			this.settleButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.settleButton.Location = new System.Drawing.Point(691, 415);
+			this.settleButton.Location = new System.Drawing.Point(249, 4);
 			this.settleButton.Name = "settleButton";
 			this.settleButton.Size = new System.Drawing.Size(75, 23);
 			this.settleButton.TabIndex = 2;
@@ -72,7 +75,7 @@
 			// 
 			// addButton
 			// 
-			this.addButton.Location = new System.Drawing.Point(303, 415);
+			this.addButton.Location = new System.Drawing.Point(448, 12);
 			this.addButton.Name = "addButton";
 			this.addButton.Size = new System.Drawing.Size(116, 23);
 			this.addButton.TabIndex = 3;
@@ -82,11 +85,37 @@
 			// 
 			// nameFilterTextBox
 			// 
-			this.nameFilterTextBox.Location = new System.Drawing.Point(12, 418);
+			this.nameFilterTextBox.Location = new System.Drawing.Point(143, 6);
 			this.nameFilterTextBox.Name = "nameFilterTextBox";
 			this.nameFilterTextBox.Size = new System.Drawing.Size(100, 20);
 			this.nameFilterTextBox.TabIndex = 4;
 			this.nameFilterTextBox.TextChanged += new System.EventHandler(this.nameFilterTextBox_TextChanged);
+			// 
+			// searchSurnameLabel
+			// 
+			this.searchSurnameLabel.AutoSize = true;
+			this.searchSurnameLabel.Location = new System.Drawing.Point(12, 9);
+			this.searchSurnameLabel.Name = "searchSurnameLabel";
+			this.searchSurnameLabel.Size = new System.Drawing.Size(106, 13);
+			this.searchSurnameLabel.TabIndex = 5;
+			this.searchSurnameLabel.Text = "Поиск по фамилии:";
+			// 
+			// searchOrganizationLabel
+			// 
+			this.searchOrganizationLabel.AutoSize = true;
+			this.searchOrganizationLabel.Location = new System.Drawing.Point(12, 39);
+			this.searchOrganizationLabel.Name = "searchOrganizationLabel";
+			this.searchOrganizationLabel.Size = new System.Drawing.Size(125, 13);
+			this.searchOrganizationLabel.TabIndex = 6;
+			this.searchOrganizationLabel.Text = "Поиск по организации:";
+			// 
+			// organizationFilterTextBox
+			// 
+			this.organizationFilterTextBox.Location = new System.Drawing.Point(143, 36);
+			this.organizationFilterTextBox.Name = "organizationFilterTextBox";
+			this.organizationFilterTextBox.Size = new System.Drawing.Size(100, 20);
+			this.organizationFilterTextBox.TabIndex = 7;
+			this.organizationFilterTextBox.TextChanged += new System.EventHandler(this.organizationFilterTextBox_TextChanged);
 			// 
 			// ResidentsForm
 			// 
@@ -94,7 +123,10 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoScroll = true;
-			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.ClientSize = new System.Drawing.Size(748, 370);
+			this.Controls.Add(this.organizationFilterTextBox);
+			this.Controls.Add(this.searchOrganizationLabel);
+			this.Controls.Add(this.searchSurnameLabel);
 			this.Controls.Add(this.nameFilterTextBox);
 			this.Controls.Add(this.addButton);
 			this.Controls.Add(this.settleButton);
@@ -117,5 +149,8 @@
 		private System.Windows.Forms.Button settleButton;
 		private System.Windows.Forms.Button addButton;
 		private System.Windows.Forms.TextBox nameFilterTextBox;
+		private System.Windows.Forms.Label searchSurnameLabel;
+		private System.Windows.Forms.Label searchOrganizationLabel;
+		private System.Windows.Forms.TextBox organizationFilterTextBox;
 	}
 }

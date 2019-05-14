@@ -44,12 +44,22 @@ namespace Dormitory
 
 		public void LoadDataGrid()
 		{
-			dataAdapter = new SqlDataAdapter("SELECT ResidentId as ИД, Surname as Фамилия, " +
-				"Name as Имя, Patronymic as Отчество, PhoneNumber as Телефон, " +
-				"Birthday as [День рожд.] FROM Residents", sqlConnection);
+			dataAdapter = new SqlDataAdapter("SELECT ResidentId as [ИД], Surname as [Фамилия], " +
+				"Residents.Name as [Имя], Patronymic as [Отчество], PhoneNumber as [Телефон], " +
+				"Birthday as [День рожд.], Organizations.Name as [Организация] " +
+				"FROM Residents " +
+				"LEFT JOIN Organizations ON Residents.ResidentId = Organizations.OrganizationId", sqlConnection);
 			dataTable = new DataTable();
 			dataAdapter.Fill(dataTable);
 			residentsDataGridView.DataSource = dataTable;
+			residentsDataGridView.Columns[0].Width = 50;
+			residentsDataGridView.Columns[1].Width = 120;
+			residentsDataGridView.Columns[2].Width = 120;
+			residentsDataGridView.Columns[3].Width = 120;
+			residentsDataGridView.Columns[4].Width = 100;
+			residentsDataGridView.Columns[5].Width = 80;
+			residentsDataGridView.Columns[6].Width = 80;
+			residentsDataGridView.ClearSelection();
 		}
 
 		private void residentsDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -79,6 +89,13 @@ namespace Dormitory
 		private void nameFilterTextBox_TextChanged(object sender, EventArgs e)
 		{
 			dataTable.DefaultView.RowFilter = string.Format("[{0}] LIKE '%{1}%'", "Фамилия", nameFilterTextBox.Text);
+			residentsDataGridView.ClearSelection();
+		}
+
+		private void organizationFilterTextBox_TextChanged(object sender, EventArgs e)
+		{
+			dataTable.DefaultView.RowFilter = string.Format("[{0}] LIKE '%{1}%'", "Организация", organizationFilterTextBox.Text);
+			residentsDataGridView.ClearSelection();
 		}
 	}
 }
