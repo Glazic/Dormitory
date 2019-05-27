@@ -137,10 +137,10 @@ namespace Dormitory
 	[Table(Name = "Sections")]
 	public class Section
 	{
-		[Column(IsPrimaryKey = true, IsDbGenerated = true)]
-		public int SectionId { get; set; }
+		//[Column(IsPrimaryKey = true, IsDbGenerated = true)]
+		//public int SectionId { get; set; }
 
-		[Column]
+		[Column(IsPrimaryKey = true)]
 		public int Number { get; set; }
 
 		[Column]
@@ -153,7 +153,7 @@ namespace Dormitory
 		public int EmptySeats { get; set; }
 
 		private EntitySet<Room> _Rooms = new EntitySet<Room>();
-		[Association(Storage = "_Rooms", ThisKey = "SectionId", OtherKey = "SectionId")]
+		[Association(Storage = "_Rooms", ThisKey = "Number", OtherKey = "SectionNumber")]
 		public EntitySet<Room> Rooms {
 			get { return this._Rooms; }
 			set { this._Rooms.Assign(value); }
@@ -174,10 +174,10 @@ namespace Dormitory
 		public int Seats { get; set; }
 
 		[Column]
-		public int? SectionId { get; set; }
+		public int? SectionNumber { get; set; }
 
 		private EntityRef<Section> _Section;
-		[Association(Storage = "_Section", ThisKey = "SectionId")]
+		[Association(Storage = "_Section", ThisKey = "SectionNumber", OtherKey = "Number")]
 		public Section Section {
 			get { return this._Section.Entity; }
 			set { this._Section.Entity = value; }
@@ -242,7 +242,7 @@ namespace Dormitory
 		}
 
 		private EntityRef<Room> _Room;
-		[Association(Storage = "_Room", ThisKey = "ResidentRoomsId")]
+		[Association(Storage = "_Room", ThisKey = "RoomId", OtherKey = "RoomId")]
 		public Room Room {
 			get { return this._Room.Entity; }
 			set { this._Room.Entity = value; }

@@ -85,6 +85,12 @@
     <Compile Include="ResidentsForm.Designer.cs">
       <DependentUpon>ResidentsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SettlementForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettlementForm.Designer.cs">
+      <DependentUpon>SettlementForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="TestForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ResidentsForm.resx">
       <DependentUpon>ResidentsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettlementForm.resx">
+      <DependentUpon>SettlementForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForm.resx">
       <DependentUpon>TestForm.cs</DependentUpon>

@@ -158,10 +158,13 @@ namespace Dormitory
 		private void organizationButton_Click(object sender, EventArgs e)
 		{
 			string value = OrganizationsForm.ShowDialog(residentId);
-			Int32.TryParse(value, out int organizationId);
-			Organization organization = db.GetTable<Organization>().SingleOrDefault(o => o.OrganizationId == organizationId);
-			organizationIdLabel.Text = organizationId.ToString();
-			organizationTextBox.Text = organization.Name;
+			if (value != null)
+			{
+				Int32.TryParse(value, out int organizationId);
+				Organization organization = db.GetTable<Organization>().SingleOrDefault(o => o.OrganizationId == organizationId);
+				organizationIdLabel.Text = organizationId.ToString();
+				organizationTextBox.Text = organization.Name;
+			}
 		}
 
 		private void settleButton_Click(object sender, EventArgs e)

@@ -173,11 +173,13 @@ namespace Dormitory
 				}
 				else if (tagObject.roomId != 0)
 				{
-					string result = ResidentsForm.ShowDialogForNewResident(tagObject.roomId);
+					string result = SettlementForm.ShowDialogForNewSettlement(tagObject.roomId);
 					Int32.TryParse(result, out int residentId);
 					if (residentId != 0)
 					{
-						SettleResident(tagObject.roomId, residentId);
+						MessageBox.Show("Успешно добавлено!");
+						LoadTabs();
+				//		SettleResident(tagObject.roomId, residentId);
 					}
 					//	ResidentForm.ShowDialog(tagObject.roomId, 0);
 				}

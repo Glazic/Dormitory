@@ -48,7 +48,7 @@ namespace Dormitory
 		{
 			//dataAdapter = databaseController.SelectAllOrganizations();
 			dataAdapter = new SqlDataAdapter("SELECT OrganizationId as [ИД], " +
-				"Name as [Название], Address as [Адрес], Requisites as [Реквезиты] " +
+				"Name as [Название], Address as [Адрес], Requisites as [Реквизиты] " +
 				"FROM Organizations", sqlConnection);
 			dataTable.Clear();
 			dataAdapter.Fill(dataTable);
