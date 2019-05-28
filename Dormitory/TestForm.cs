@@ -16,9 +16,9 @@ namespace Dormitory
 	{
 		//private SqlConnection sqlConnection = new SqlConnection($"Data Source=.\\SQLEXPRESS;Initial Catalog=Dormitory;Integrated Security=True");
 		//DataContext db;
-		private string connectionString;
-		private string fileName = "test.sdf";
-		private string password = "test";
+		//private string connectionString;
+		//private string fileName = "test.sdf";
+		//private string password = "test";
 
 
 		public TestForm()

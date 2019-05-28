@@ -125,6 +125,12 @@ namespace Dormitory
 		[Column]
 		public string Registration { get; set; }
 
+		[Column]
+		public DateTime? DateOfIssue { get; set; }
+
+		[Column]
+		public string Authority { get; set; }
+
 		private EntityRef<Resident> _Resident;
 		[Association(Storage = "_Resident", OtherKey = "PassportId")]
 		public Resident Resident {
@@ -229,6 +235,12 @@ namespace Dormitory
 		public int RoomId { get; set; }
 
 		[Column]
+		public bool CashPayment { get; set; }
+
+		[Column]
+		public bool BedClothes { get; set; }
+
+		[Column]
 		public DateTime SettlementDate { get; set; }
 
 		[Column]
@@ -248,4 +260,47 @@ namespace Dormitory
 			set { this._Room.Entity = value; }
 		}
 	}
+
+	// Вещи на прокат
+	[Table(Name = "RentThings")]
+	public class RentThing
+	{
+		[Column(IsPrimaryKey = true, IsDbGenerated = true)]
+		public int RentThingId { get; set; }
+
+		[Column]
+		public string Name { get; set; }
+	}
+
+	// проживание
+	[Table(Name = "ResidentRoomsRentThings")]
+	public class ResidentRoomsRentThing
+	{
+		[Column(IsPrimaryKey = true)]
+		public int ResidentRoomsId { get; set; }
+
+		[Column(IsPrimaryKey = true)]
+		public int RentThingId { get; set; }
+
+		[Column(IsPrimaryKey = true)]
+		public DateTime StartRentDate { get; set; }
+
+		[Column]
+		public DateTime EndRentDate { get; set; }
+
+		private EntityRef<ResidentRooms> _ResidentRooms;
+		[Association(Storage = "_ResidentRooms", ThisKey = "ResidentRoomsId", OtherKey = "ResidentRoomsId")]
+		public ResidentRooms ResidentRooms {
+			get { return this._ResidentRooms.Entity; }
+			set { this._ResidentRooms.Entity = value; }
+		}
+
+		private EntityRef<RentThing> _RentThing;
+		[Association(Storage = "_RentThing", ThisKey = "RentThingId", OtherKey = "RentThingId")]
+		public RentThing RentThing {
+			get { return this._RentThing.Entity; }
+			set { this._RentThing.Entity = value; }
+		}
+	}
+
 }

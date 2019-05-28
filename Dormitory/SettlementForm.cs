@@ -14,9 +14,6 @@ namespace Dormitory
 	public partial class SettlementForm : Form
 	{
 		SqlConnection sqlConnection = new SqlConnection($"Data Source=.\\SQLEXPRESS;Initial Catalog=Dormitory;Integrated Security=True");
-		SqlCommand cmd;
-		SqlDataAdapter dataAdapter;
-		DataTable dataTable;
 		DataContext db;
 		int roomId;
 
@@ -49,7 +46,7 @@ namespace Dormitory
 		{
 			//	ResidentForm.ShowDialogForOldResident(tagObject.residentId, tagObject.roomId);
 			string value = ResidentsForm.ShowDialogForNewResident(roomId);
-		//	string value = OrganizationsForm.ShowDialog(residentId);
+			//	string value = OrganizationsForm.ShowDialog(residentId);
 			if (value != null)
 			{
 				Int32.TryParse(value, out int residentId);
@@ -69,61 +66,80 @@ namespace Dormitory
 
 		private void settleButton_Click(object sender, EventArgs e)
 		{
-			//string surname = surnameTextBox.Text;
-			//string name = nameTextBox.Text;
-			//string patronymic = patronymicTextBox.Text;
-			//string phoneNumber = phoneNumberTextBox.Text;
-			//DateTime birthday = birthdayDateTimePicker.Value.Date;
-			//string passportSeries = passportSeriesTextBox.Text;
-			//string passportNumber = passportNumberTextBox.Text;
-			//string passportRegistration = passportRegistrationTextBox.Text;
-			//string note = noteTextBox.Text;
-
-			//Int32.TryParse(organizationIdLabel.Text, out int organizationId);
-			////	Organization organization = db.GetTable<Organization>().FirstOrDefault();
-			//Passport passport = new Passport
-			//{
-			//	Series = passportSeries,
-			//	Number = passportNumber,
-			//	Registration = passportRegistration
-			//};
-			//db.GetTable<Passport>().InsertOnSubmit(passport);
-			//db.SubmitChanges();
-
-			Int32.TryParse(residentIdLabel.Text, out int residentId);	
-			Resident resident = db.GetTable<Resident>().SingleOrDefault(r => r.ResidentId == residentId);
-
-			var exist = db.GetTable<RoomResidents>().Any(r => r.ResidentId == resident.ResidentId);
-			if (exist)
+			DialogResult dialogResult = MessageBox.Show("Вы уверены, что хотите заселить данного жителя?\n",
+				"Предупреждение", MessageBoxButtons.YesNo);
+			if (dialogResult == DialogResult.Yes)
 			{
-				MessageBox.Show("Данный житель уже живет в другой комнате");
+				try
+				{
+					Int32.TryParse(residentIdLabel.Text, out int residentId);
+					Resident resident = db.GetTable<Resident>().SingleOrDefault(r => r.ResidentId == residentId);
+
+					var exist = db.GetTable<RoomResidents>().Any(r => r.ResidentId == resident.ResidentId);
+					if (exist)
+					{
+						MessageBox.Show("Данный житель уже живет в другой комнате");
+					}
+					else
+					{
+						RoomResidents roomResidents = new RoomResidents
+						{
+							RoomId = roomId,
+							ResidentId = resident.ResidentId
+						};
+						db.GetTable<RoomResidents>().InsertOnSubmit(roomResidents);
+
+						bool isCash = cashRadioButton.Checked ? true : false;
+						ResidentRooms residentRooms = new ResidentRooms
+						{
+							ResidentId = resident.ResidentId,
+							RoomId = roomId,
+							CashPayment = isCash,
+							BedClothes = bedClothesCheckBox.Checked,
+							SettlementDate = settlementDateTimePicker.Value
+						};
+						db.GetTable<ResidentRooms>().InsertOnSubmit(residentRooms);
+						db.SubmitChanges();
+
+						if (isRentCheckBox.Checked)
+						{
+							RentThing rentThing = db.GetTable<RentThing>().SingleOrDefault(r => r.Name == "Телевизор");
+							ResidentRoomsRentThing residentRoomsRentThing = new ResidentRoomsRentThing
+							{
+								ResidentRoomsId = residentRooms.ResidentRoomsId,
+								RentThingId = rentThing.RentThingId,
+								StartRentDate = startRentDateTimePicker.Value.Date,
+								EndRentDate = endRentDateTimePicker.Value.Date
+							};
+						}
+						db.SubmitChanges();
+
+						DialogResult = DialogResult.OK;
+						Close();
+					}
+					//db.GetTable<Resident>().InsertOnSubmit(resident);
+					//db.SubmitChanges();
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show(ex.Message);
+				}
+			}
+		}
+
+		private void isRentCheckBox_CheckedChanged(object sender, EventArgs e)
+		{
+			if (isRentCheckBox.Checked == true)
+			{
+				startRentDateTimePicker.Enabled = true;
+				endRentDateTimePicker.Enabled = true;
 			}
 			else
 			{
-				RoomResidents roomResidents = new RoomResidents
-				{
-					RoomId = roomId,
-					ResidentId = resident.ResidentId
-				};
-				db.GetTable<RoomResidents>().InsertOnSubmit(roomResidents);
-
-				ResidentRooms residentRooms = new ResidentRooms
-				{
-					ResidentId = resident.ResidentId,
-					RoomId = roomId,
-					SettlementDate = settlementDateTimePicker.Value
-				};
-				db.GetTable<ResidentRooms>().InsertOnSubmit(residentRooms);
-				db.SubmitChanges();
-
-				DialogResult = DialogResult.OK;
-				Close();
-
+				startRentDateTimePicker.Enabled = false;
+				endRentDateTimePicker.Enabled = false;
 			}
-			//db.GetTable<Resident>().InsertOnSubmit(resident);
-			//db.SubmitChanges();
-
-
 		}
+
 	}
 }

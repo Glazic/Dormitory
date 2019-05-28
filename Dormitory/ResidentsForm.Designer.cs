@@ -30,12 +30,14 @@
 		{
 			this.residentsDataGridView = new System.Windows.Forms.DataGridView();
 			this.residentIdLabel = new System.Windows.Forms.Label();
-			this.settleButton = new System.Windows.Forms.Button();
+			this.selectButton = new System.Windows.Forms.Button();
 			this.addButton = new System.Windows.Forms.Button();
 			this.nameFilterTextBox = new System.Windows.Forms.TextBox();
 			this.searchSurnameLabel = new System.Windows.Forms.Label();
 			this.searchOrganizationLabel = new System.Windows.Forms.Label();
 			this.organizationFilterTextBox = new System.Windows.Forms.TextBox();
+			this.deleteButton = new System.Windows.Forms.Button();
+			this.changeButton = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.residentsDataGridView)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -44,40 +46,44 @@
 			this.residentsDataGridView.AllowUserToAddRows = false;
 			this.residentsDataGridView.AllowUserToDeleteRows = false;
 			this.residentsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.residentsDataGridView.Location = new System.Drawing.Point(12, 92);
+			this.residentsDataGridView.Location = new System.Drawing.Point(15, 170);
+			this.residentsDataGridView.Margin = new System.Windows.Forms.Padding(6);
 			this.residentsDataGridView.MultiSelect = false;
 			this.residentsDataGridView.Name = "residentsDataGridView";
 			this.residentsDataGridView.ReadOnly = true;
 			this.residentsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.residentsDataGridView.Size = new System.Drawing.Size(724, 254);
+			this.residentsDataGridView.Size = new System.Drawing.Size(1075, 411);
 			this.residentsDataGridView.TabIndex = 0;
 			this.residentsDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.residentsDataGridView_CellClick);
 			// 
 			// residentIdLabel
 			// 
 			this.residentIdLabel.AutoSize = true;
-			this.residentIdLabel.Location = new System.Drawing.Point(12, 65);
+			this.residentIdLabel.Location = new System.Drawing.Point(15, 33);
+			this.residentIdLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.residentIdLabel.Name = "residentIdLabel";
-			this.residentIdLabel.Size = new System.Drawing.Size(53, 13);
+			this.residentIdLabel.Size = new System.Drawing.Size(92, 24);
 			this.residentIdLabel.TabIndex = 1;
 			this.residentIdLabel.Text = "residentId";
 			// 
-			// settleButton
+			// selectButton
 			// 
-			this.settleButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.settleButton.Location = new System.Drawing.Point(249, 4);
-			this.settleButton.Name = "settleButton";
-			this.settleButton.Size = new System.Drawing.Size(75, 23);
-			this.settleButton.TabIndex = 2;
-			this.settleButton.Text = "settleButton";
-			this.settleButton.UseVisualStyleBackColor = true;
-			this.settleButton.Click += new System.EventHandler(this.settleButton_Click);
+			this.selectButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+			this.selectButton.Location = new System.Drawing.Point(19, 88);
+			this.selectButton.Margin = new System.Windows.Forms.Padding(6);
+			this.selectButton.Name = "selectButton";
+			this.selectButton.Size = new System.Drawing.Size(113, 35);
+			this.selectButton.TabIndex = 2;
+			this.selectButton.Text = "Выбрать";
+			this.selectButton.UseVisualStyleBackColor = true;
+			this.selectButton.Click += new System.EventHandler(this.settleButton_Click);
 			// 
 			// addButton
 			// 
-			this.addButton.Location = new System.Drawing.Point(448, 12);
+			this.addButton.Location = new System.Drawing.Point(208, 88);
+			this.addButton.Margin = new System.Windows.Forms.Padding(6);
 			this.addButton.Name = "addButton";
-			this.addButton.Size = new System.Drawing.Size(116, 23);
+			this.addButton.Size = new System.Drawing.Size(176, 35);
 			this.addButton.TabIndex = 3;
 			this.addButton.Text = "Добавить нового";
 			this.addButton.UseVisualStyleBackColor = true;
@@ -85,53 +91,81 @@
 			// 
 			// nameFilterTextBox
 			// 
-			this.nameFilterTextBox.Location = new System.Drawing.Point(143, 6);
+			this.nameFilterTextBox.Location = new System.Drawing.Point(208, 135);
+			this.nameFilterTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.nameFilterTextBox.Name = "nameFilterTextBox";
-			this.nameFilterTextBox.Size = new System.Drawing.Size(100, 20);
+			this.nameFilterTextBox.Size = new System.Drawing.Size(180, 29);
 			this.nameFilterTextBox.TabIndex = 4;
 			this.nameFilterTextBox.TextChanged += new System.EventHandler(this.nameFilterTextBox_TextChanged);
 			// 
 			// searchSurnameLabel
 			// 
 			this.searchSurnameLabel.AutoSize = true;
-			this.searchSurnameLabel.Location = new System.Drawing.Point(12, 9);
+			this.searchSurnameLabel.Location = new System.Drawing.Point(15, 138);
+			this.searchSurnameLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.searchSurnameLabel.Name = "searchSurnameLabel";
-			this.searchSurnameLabel.Size = new System.Drawing.Size(106, 13);
+			this.searchSurnameLabel.Size = new System.Drawing.Size(181, 24);
 			this.searchSurnameLabel.TabIndex = 5;
 			this.searchSurnameLabel.Text = "Поиск по фамилии:";
 			// 
 			// searchOrganizationLabel
 			// 
 			this.searchOrganizationLabel.AutoSize = true;
-			this.searchOrganizationLabel.Location = new System.Drawing.Point(12, 39);
+			this.searchOrganizationLabel.Location = new System.Drawing.Point(400, 138);
+			this.searchOrganizationLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.searchOrganizationLabel.Name = "searchOrganizationLabel";
-			this.searchOrganizationLabel.Size = new System.Drawing.Size(125, 13);
+			this.searchOrganizationLabel.Size = new System.Drawing.Size(217, 24);
 			this.searchOrganizationLabel.TabIndex = 6;
 			this.searchOrganizationLabel.Text = "Поиск по организации:";
 			// 
 			// organizationFilterTextBox
 			// 
-			this.organizationFilterTextBox.Location = new System.Drawing.Point(143, 36);
+			this.organizationFilterTextBox.Location = new System.Drawing.Point(629, 135);
+			this.organizationFilterTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.organizationFilterTextBox.Name = "organizationFilterTextBox";
-			this.organizationFilterTextBox.Size = new System.Drawing.Size(100, 20);
+			this.organizationFilterTextBox.Size = new System.Drawing.Size(180, 29);
 			this.organizationFilterTextBox.TabIndex = 7;
 			this.organizationFilterTextBox.TextChanged += new System.EventHandler(this.organizationFilterTextBox_TextChanged);
 			// 
+			// deleteButton
+			// 
+			this.deleteButton.Location = new System.Drawing.Point(532, 88);
+			this.deleteButton.Name = "deleteButton";
+			this.deleteButton.Size = new System.Drawing.Size(113, 35);
+			this.deleteButton.TabIndex = 8;
+			this.deleteButton.Text = "Удалить";
+			this.deleteButton.UseVisualStyleBackColor = true;
+			this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
+			// 
+			// changeButton
+			// 
+			this.changeButton.Location = new System.Drawing.Point(404, 88);
+			this.changeButton.Name = "changeButton";
+			this.changeButton.Size = new System.Drawing.Size(122, 35);
+			this.changeButton.TabIndex = 9;
+			this.changeButton.Text = "Подробнее";
+			this.changeButton.UseVisualStyleBackColor = true;
+			this.changeButton.Click += new System.EventHandler(this.changeButton_Click);
+			// 
 			// ResidentsForm
 			// 
-			this.AcceptButton = this.settleButton;
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AcceptButton = this.selectButton;
+			this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoScroll = true;
-			this.ClientSize = new System.Drawing.Size(748, 370);
+			this.ClientSize = new System.Drawing.Size(1098, 596);
+			this.Controls.Add(this.changeButton);
+			this.Controls.Add(this.deleteButton);
 			this.Controls.Add(this.organizationFilterTextBox);
 			this.Controls.Add(this.searchOrganizationLabel);
 			this.Controls.Add(this.searchSurnameLabel);
 			this.Controls.Add(this.nameFilterTextBox);
 			this.Controls.Add(this.addButton);
-			this.Controls.Add(this.settleButton);
+			this.Controls.Add(this.selectButton);
 			this.Controls.Add(this.residentIdLabel);
 			this.Controls.Add(this.residentsDataGridView);
+			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.Margin = new System.Windows.Forms.Padding(6);
 			this.Name = "ResidentsForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Жители";
@@ -146,11 +180,13 @@
 
 		private System.Windows.Forms.DataGridView residentsDataGridView;
 		private System.Windows.Forms.Label residentIdLabel;
-		private System.Windows.Forms.Button settleButton;
+		private System.Windows.Forms.Button selectButton;
 		private System.Windows.Forms.Button addButton;
 		private System.Windows.Forms.TextBox nameFilterTextBox;
 		private System.Windows.Forms.Label searchSurnameLabel;
 		private System.Windows.Forms.Label searchOrganizationLabel;
 		private System.Windows.Forms.TextBox organizationFilterTextBox;
+		private System.Windows.Forms.Button deleteButton;
+		private System.Windows.Forms.Button changeButton;
 	}
 }

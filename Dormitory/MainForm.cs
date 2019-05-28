@@ -79,7 +79,8 @@ namespace Dormitory
 				HeaderText = "#",
 				Name = "numberColumn",
 				ReadOnly = true,
-				CellTemplate = new DataGridViewTextBoxCell()
+				CellTemplate = new DataGridViewTextBoxCell(),
+				Width = 40
 			};
 			DataGridViewLinkColumn nameColumn = new DataGridViewLinkColumn
 			{
@@ -100,6 +101,7 @@ namespace Dormitory
 				CellTemplate = new DataGridViewTextBoxCell()
 			};
 			dataGridView.Columns.Add(numberColumn);
+			dataGridView.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 			dataGridView.Columns.Add(nameColumn);
 			dataGridView.Columns.Add(organizationColumn);
 			int row = 0;
@@ -116,7 +118,8 @@ namespace Dormitory
 			dataGridView.Rows.Add(room.Seats);
 			for (int i = 0; i < room.Seats; i++)
 			{
-				dataGridView.Rows[row].Cells[0].Value = room.Number + "/ " + room.RoomId;
+				dataGridView.Rows[row + i].Height = 40;
+				dataGridView.Rows[row].Cells[0].Value = room.Number; //+ "/ " + room.RoomId;
 				RoomResidents roomResidents = room.RoomResidents.ElementAtOrDefault(i);
 				Resident resident = null;
 				if (roomResidents != null)
@@ -162,7 +165,7 @@ namespace Dormitory
 		private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
 		{
 			DataGridView dataGridView = (DataGridView)sender;
-			if (e.ColumnIndex == 1)
+			if (e.ColumnIndex == 1 && e.RowIndex != -1)
 			{
 				DataGridViewLinkCell cell = (DataGridViewLinkCell)dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex];
 				dynamic tagObject = cell.Tag;

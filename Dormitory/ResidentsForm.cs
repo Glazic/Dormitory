@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Linq;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Dormitory
 	public partial class ResidentsForm : Form
 	{
 		SqlConnection sqlConnection = new SqlConnection($"Data Source=.\\SQLEXPRESS;Initial Catalog=Dormitory;Integrated Security=True");
-		SqlCommand cmd;
+		DataContext db;
 		SqlDataAdapter dataAdapter;
 		DataTable dataTable;
 		int roomId;
@@ -21,6 +22,7 @@ namespace Dormitory
 		public ResidentsForm()
 		{
 			InitializeComponent();
+			db = new DataContext(sqlConnection);
 		}
 
 		private void residentsForm_Load(object sender, EventArgs e)
@@ -51,14 +53,15 @@ namespace Dormitory
 				"LEFT JOIN Organizations ON Residents.ResidentId = Organizations.OrganizationId", sqlConnection);
 			dataTable = new DataTable();
 			dataAdapter.Fill(dataTable);
-			residentsDataGridView.DataSource = dataTable;
+			residentsDataGridView.RowTemplate.Height = 30;
+			residentsDataGridView.DataSource = dataTable;	
 			residentsDataGridView.Columns[0].Width = 50;
-			residentsDataGridView.Columns[1].Width = 120;
-			residentsDataGridView.Columns[2].Width = 120;
-			residentsDataGridView.Columns[3].Width = 120;
-			residentsDataGridView.Columns[4].Width = 100;
-			residentsDataGridView.Columns[5].Width = 80;
-			residentsDataGridView.Columns[6].Width = 80;
+			residentsDataGridView.Columns[1].Width = 180;
+			residentsDataGridView.Columns[2].Width = 180;
+			residentsDataGridView.Columns[3].Width = 180;
+			residentsDataGridView.Columns[4].Width = 150;
+			residentsDataGridView.Columns[5].Width = 140;
+			residentsDataGridView.Columns[6].Width = 150;
 			residentsDataGridView.ClearSelection();
 		}
 
@@ -97,5 +100,50 @@ namespace Dormitory
 			dataTable.DefaultView.RowFilter = string.Format("[{0}] LIKE '%{1}%'", "Организация", organizationFilterTextBox.Text);
 			residentsDataGridView.ClearSelection();
 		}
+
+		private void deleteButton_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				Int32.TryParse(residentIdLabel.Text, out int residentId);
+				if (residentId == 0)
+				{
+					MessageBox.Show("Выберите жителя");
+				}
+				else
+				{
+					Resident resident = db.GetTable<Resident>().FirstOrDefault(r => r.ResidentId == residentId);
+					db.GetTable<Resident>().DeleteOnSubmit(resident);
+
+					RoomResidents roomResidents = db.GetTable<RoomResidents>().FirstOrDefault(r => (r.ResidentId == residentId));
+					db.GetTable<RoomResidents>().DeleteOnSubmit(roomResidents);
+
+					ResidentRooms residentRooms = db.GetTable<ResidentRooms>()
+						.FirstOrDefault(r => (r.ResidentId == residentId && r.DateOfEviction == null));
+					residentRooms.DateOfEviction = DateTime.Now;
+
+					db.SubmitChanges();
+					LoadDataGrid();
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+		}
+
+		private void changeButton_Click(object sender, EventArgs e)
+		{
+			Int32.TryParse(residentIdLabel.Text, out int residentId);
+			if (residentId == 0)
+			{
+				MessageBox.Show("Выберите жителя");
+			}
+			else {
+				ResidentForm.ShowDialogForOldResident(residentId, 0);
+				LoadDataGrid();
+			}
+		}
+
 	}
 }

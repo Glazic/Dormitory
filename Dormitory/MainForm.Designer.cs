@@ -45,44 +45,51 @@
             this.backupToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Size = new System.Drawing.Size(715, 24);
+			this.menuStrip1.Padding = new System.Windows.Forms.Padding(11, 4, 0, 4);
+			this.menuStrip1.Size = new System.Drawing.Size(951, 37);
 			this.menuStrip1.TabIndex = 0;
 			this.menuStrip1.Text = "mainFormMenuStrip";
 			// 
 			// organizationsToolStripMenuItem
 			// 
+			this.organizationsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 14F);
 			this.organizationsToolStripMenuItem.Name = "organizationsToolStripMenuItem";
-			this.organizationsToolStripMenuItem.Size = new System.Drawing.Size(92, 20);
+			this.organizationsToolStripMenuItem.Size = new System.Drawing.Size(139, 29);
 			this.organizationsToolStripMenuItem.Text = "Организации";
 			this.organizationsToolStripMenuItem.Click += new System.EventHandler(this.OrganizationsToolStripMenuItem_Click);
 			// 
 			// residentsToolStripMenuItem
 			// 
+			this.residentsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 14F);
 			this.residentsToolStripMenuItem.Name = "residentsToolStripMenuItem";
-			this.residentsToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+			this.residentsToolStripMenuItem.Size = new System.Drawing.Size(90, 29);
 			this.residentsToolStripMenuItem.Text = "Жители";
 			this.residentsToolStripMenuItem.Click += new System.EventHandler(this.residentsToolStripMenuItem_Click);
 			// 
 			// backupToolStripMenuItem
 			// 
+			this.backupToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 14F);
 			this.backupToolStripMenuItem.Name = "backupToolStripMenuItem";
-			this.backupToolStripMenuItem.Size = new System.Drawing.Size(111, 20);
+			this.backupToolStripMenuItem.Size = new System.Drawing.Size(171, 29);
 			this.backupToolStripMenuItem.Text = "Копирование БД";
 			this.backupToolStripMenuItem.Click += new System.EventHandler(this.backupToolStripMenuItem_Click);
 			// 
 			// sectionsTabControl
 			// 
-			this.sectionsTabControl.Location = new System.Drawing.Point(13, 40);
+			this.sectionsTabControl.ItemSize = new System.Drawing.Size(0, 29);
+			this.sectionsTabControl.Location = new System.Drawing.Point(15, 43);
+			this.sectionsTabControl.Margin = new System.Windows.Forms.Padding(6);
 			this.sectionsTabControl.Name = "sectionsTabControl";
 			this.sectionsTabControl.SelectedIndex = 0;
-			this.sectionsTabControl.Size = new System.Drawing.Size(688, 378);
+			this.sectionsTabControl.Size = new System.Drawing.Size(921, 593);
 			this.sectionsTabControl.TabIndex = 1;
 			// 
 			// button1
 			// 
-			this.button1.Location = new System.Drawing.Point(13, 424);
+			this.button1.Location = new System.Drawing.Point(649, 0);
+			this.button1.Margin = new System.Windows.Forms.Padding(6);
 			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(75, 23);
+			this.button1.Size = new System.Drawing.Size(23, 42);
 			this.button1.TabIndex = 2;
 			this.button1.Text = "button1";
 			this.button1.UseVisualStyleBackColor = true;
@@ -90,17 +97,19 @@
 			// 
 			// MainForm
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoScroll = true;
-			this.ClientSize = new System.Drawing.Size(715, 461);
+			this.ClientSize = new System.Drawing.Size(951, 644);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.sectionsTabControl);
 			this.Controls.Add(this.menuStrip1);
+			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.MainMenuStrip = this.menuStrip1;
+			this.Margin = new System.Windows.Forms.Padding(6);
 			this.Name = "MainForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "Form1";
+			this.Text = "Общежитие";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
