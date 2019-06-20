@@ -98,11 +98,8 @@ namespace Dormitory
 		[Column]
 		public string Address { get; set; }
 
-		[Column]
-		public string Requisites { get; set; }
-
 		private EntitySet<Resident> _Residents = new EntitySet<Resident>();
-		[Association(Storage = "_Residents", OtherKey = "OrganizationId")]
+		[Association(Storage = "_Residents", ThisKey = "OrganizationId", OtherKey = "OrganizationId")]
 		public EntitySet<Resident> Residents {
 			get { return this._Residents; }
 			set { this._Residents.Assign(value); }
@@ -132,7 +129,7 @@ namespace Dormitory
 		public string Authority { get; set; }
 
 		private EntityRef<Resident> _Resident;
-		[Association(Storage = "_Resident", OtherKey = "PassportId")]
+		[Association(Storage = "_Resident", ThisKey = "PassportId", OtherKey = "PassportId")]
 		public Resident Resident {
 			get { return this._Resident.Entity; }
 			set { this._Resident.Entity = value; }

@@ -31,15 +31,16 @@
 			this.enterButton = new System.Windows.Forms.Button();
 			this.loginLabel = new System.Windows.Forms.Label();
 			this.passwordLabel = new System.Windows.Forms.Label();
-			this.loginTextBox = new System.Windows.Forms.TextBox();
+			this.userNameTextBox = new System.Windows.Forms.TextBox();
 			this.passwordTextBox = new System.Windows.Forms.TextBox();
 			this.SuspendLayout();
 			// 
 			// enterButton
 			// 
-			this.enterButton.Location = new System.Drawing.Point(118, 141);
+			this.enterButton.Location = new System.Drawing.Point(216, 260);
+			this.enterButton.Margin = new System.Windows.Forms.Padding(6);
 			this.enterButton.Name = "enterButton";
-			this.enterButton.Size = new System.Drawing.Size(75, 23);
+			this.enterButton.Size = new System.Drawing.Size(138, 42);
 			this.enterButton.TabIndex = 0;
 			this.enterButton.Text = "Вход";
 			this.enterButton.UseVisualStyleBackColor = true;
@@ -48,47 +49,56 @@
 			// loginLabel
 			// 
 			this.loginLabel.AutoSize = true;
-			this.loginLabel.Location = new System.Drawing.Point(31, 38);
+			this.loginLabel.Location = new System.Drawing.Point(57, 70);
+			this.loginLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.loginLabel.Name = "loginLabel";
-			this.loginLabel.Size = new System.Drawing.Size(38, 13);
+			this.loginLabel.Size = new System.Drawing.Size(64, 24);
 			this.loginLabel.TabIndex = 1;
 			this.loginLabel.Text = "Логин";
 			// 
 			// passwordLabel
 			// 
 			this.passwordLabel.AutoSize = true;
-			this.passwordLabel.Location = new System.Drawing.Point(31, 96);
+			this.passwordLabel.Location = new System.Drawing.Point(57, 177);
+			this.passwordLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.passwordLabel.Name = "passwordLabel";
-			this.passwordLabel.Size = new System.Drawing.Size(45, 13);
+			this.passwordLabel.Size = new System.Drawing.Size(76, 24);
 			this.passwordLabel.TabIndex = 2;
 			this.passwordLabel.Text = "Пароль";
 			// 
-			// loginTextBox
+			// userNameTextBox
 			// 
-			this.loginTextBox.Location = new System.Drawing.Point(86, 35);
-			this.loginTextBox.Name = "loginTextBox";
-			this.loginTextBox.Size = new System.Drawing.Size(170, 20);
-			this.loginTextBox.TabIndex = 3;
+			this.userNameTextBox.Location = new System.Drawing.Point(158, 67);
+			this.userNameTextBox.Margin = new System.Windows.Forms.Padding(6);
+			this.userNameTextBox.Name = "userNameTextBox";
+			this.userNameTextBox.Size = new System.Drawing.Size(308, 29);
+			this.userNameTextBox.TabIndex = 3;
+			this.userNameTextBox.Text = "zaq";
 			// 
 			// passwordTextBox
 			// 
-			this.passwordTextBox.Location = new System.Drawing.Point(86, 93);
+			this.passwordTextBox.Location = new System.Drawing.Point(158, 174);
+			this.passwordTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.passwordTextBox.Name = "passwordTextBox";
-			this.passwordTextBox.Size = new System.Drawing.Size(170, 20);
+			this.passwordTextBox.Size = new System.Drawing.Size(308, 29);
 			this.passwordTextBox.TabIndex = 4;
+			this.passwordTextBox.Text = "zaq";
 			// 
 			// LoginForm
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(309, 175);
+			this.ClientSize = new System.Drawing.Size(567, 323);
 			this.Controls.Add(this.passwordTextBox);
-			this.Controls.Add(this.loginTextBox);
+			this.Controls.Add(this.userNameTextBox);
 			this.Controls.Add(this.passwordLabel);
 			this.Controls.Add(this.loginLabel);
 			this.Controls.Add(this.enterButton);
+			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.Margin = new System.Windows.Forms.Padding(6);
 			this.Name = "LoginForm";
-			this.Text = "LoginForm";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.Text = "Авторизация";
 			this.Load += new System.EventHandler(this.LoginForm_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -100,7 +110,7 @@
 		private System.Windows.Forms.Button enterButton;
 		private System.Windows.Forms.Label loginLabel;
 		private System.Windows.Forms.Label passwordLabel;
-		private System.Windows.Forms.TextBox loginTextBox;
+		private System.Windows.Forms.TextBox userNameTextBox;
 		private System.Windows.Forms.TextBox passwordTextBox;
 	}
 }

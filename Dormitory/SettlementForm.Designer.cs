@@ -47,6 +47,7 @@
 			this.startRentDateTimePicker = new System.Windows.Forms.DateTimePicker();
 			this.endRentDateTimePicker = new System.Windows.Forms.DateTimePicker();
 			this.rentGroupBox = new System.Windows.Forms.GroupBox();
+			this.rentThingsComboBox = new System.Windows.Forms.ComboBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.paymentGroupBox = new System.Windows.Forms.GroupBox();
@@ -67,13 +68,14 @@
 			this.residentIdLabel.Size = new System.Drawing.Size(60, 24);
 			this.residentIdLabel.TabIndex = 0;
 			this.residentIdLabel.Text = "label1";
+			this.residentIdLabel.Visible = false;
 			// 
 			// residentButton
 			// 
 			this.residentButton.Location = new System.Drawing.Point(12, 15);
 			this.residentButton.Margin = new System.Windows.Forms.Padding(6);
 			this.residentButton.Name = "residentButton";
-			this.residentButton.Size = new System.Drawing.Size(168, 33);
+			this.residentButton.Size = new System.Drawing.Size(546, 33);
 			this.residentButton.TabIndex = 31;
 			this.residentButton.Text = "Выбрать жителя";
 			this.residentButton.UseVisualStyleBackColor = true;
@@ -186,10 +188,10 @@
 			// 
 			// settleButton
 			// 
-			this.settleButton.Location = new System.Drawing.Point(450, 323);
+			this.settleButton.Location = new System.Drawing.Point(365, 323);
 			this.settleButton.Margin = new System.Windows.Forms.Padding(6);
 			this.settleButton.Name = "settleButton";
-			this.settleButton.Size = new System.Drawing.Size(108, 33);
+			this.settleButton.Size = new System.Drawing.Size(193, 82);
 			this.settleButton.TabIndex = 44;
 			this.settleButton.Text = "Заселить";
 			this.settleButton.UseVisualStyleBackColor = true;
@@ -198,7 +200,7 @@
 			// isRentCheckBox
 			// 
 			this.isRentCheckBox.AutoSize = true;
-			this.isRentCheckBox.Location = new System.Drawing.Point(9, 46);
+			this.isRentCheckBox.Location = new System.Drawing.Point(9, 31);
 			this.isRentCheckBox.Margin = new System.Windows.Forms.Padding(6);
 			this.isRentCheckBox.Name = "isRentCheckBox";
 			this.isRentCheckBox.Size = new System.Drawing.Size(93, 28);
@@ -220,7 +222,7 @@
 			// startRentDateTimePicker
 			// 
 			this.startRentDateTimePicker.Enabled = false;
-			this.startRentDateTimePicker.Location = new System.Drawing.Point(44, 83);
+			this.startRentDateTimePicker.Location = new System.Drawing.Point(279, 31);
 			this.startRentDateTimePicker.Name = "startRentDateTimePicker";
 			this.startRentDateTimePicker.Size = new System.Drawing.Size(200, 29);
 			this.startRentDateTimePicker.TabIndex = 47;
@@ -228,13 +230,14 @@
 			// endRentDateTimePicker
 			// 
 			this.endRentDateTimePicker.Enabled = false;
-			this.endRentDateTimePicker.Location = new System.Drawing.Point(290, 83);
+			this.endRentDateTimePicker.Location = new System.Drawing.Point(279, 66);
 			this.endRentDateTimePicker.Name = "endRentDateTimePicker";
 			this.endRentDateTimePicker.Size = new System.Drawing.Size(200, 29);
 			this.endRentDateTimePicker.TabIndex = 48;
 			// 
 			// rentGroupBox
 			// 
+			this.rentGroupBox.Controls.Add(this.rentThingsComboBox);
 			this.rentGroupBox.Controls.Add(this.label3);
 			this.rentGroupBox.Controls.Add(this.label2);
 			this.rentGroupBox.Controls.Add(this.startRentDateTimePicker);
@@ -242,15 +245,26 @@
 			this.rentGroupBox.Controls.Add(this.isRentCheckBox);
 			this.rentGroupBox.Location = new System.Drawing.Point(12, 414);
 			this.rentGroupBox.Name = "rentGroupBox";
-			this.rentGroupBox.Size = new System.Drawing.Size(546, 137);
+			this.rentGroupBox.Size = new System.Drawing.Size(546, 110);
 			this.rentGroupBox.TabIndex = 49;
 			this.rentGroupBox.TabStop = false;
 			this.rentGroupBox.Text = "Прокат";
 			// 
+			// rentThingsComboBox
+			// 
+			this.rentThingsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.rentThingsComboBox.Enabled = false;
+			this.rentThingsComboBox.FormattingEnabled = true;
+			this.rentThingsComboBox.Location = new System.Drawing.Point(6, 66);
+			this.rentThingsComboBox.Name = "rentThingsComboBox";
+			this.rentThingsComboBox.Size = new System.Drawing.Size(207, 32);
+			this.rentThingsComboBox.Sorted = true;
+			this.rentThingsComboBox.TabIndex = 57;
+			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(250, 87);
+			this.label3.Location = new System.Drawing.Point(241, 70);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(34, 24);
 			this.label3.TabIndex = 50;
@@ -259,7 +273,7 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(5, 87);
+			this.label2.Location = new System.Drawing.Point(241, 35);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(23, 24);
 			this.label2.TabIndex = 49;
@@ -283,13 +297,13 @@
 			this.cashlessRadioButton.Name = "cashlessRadioButton";
 			this.cashlessRadioButton.Size = new System.Drawing.Size(162, 28);
 			this.cashlessRadioButton.TabIndex = 1;
-			this.cashlessRadioButton.TabStop = true;
 			this.cashlessRadioButton.Text = "Безналичными";
 			this.cashlessRadioButton.UseVisualStyleBackColor = true;
 			// 
 			// cashRadioButton
 			// 
 			this.cashRadioButton.AutoSize = true;
+			this.cashRadioButton.Checked = true;
 			this.cashRadioButton.Location = new System.Drawing.Point(6, 28);
 			this.cashRadioButton.Name = "cashRadioButton";
 			this.cashRadioButton.Size = new System.Drawing.Size(130, 28);
@@ -321,7 +335,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(578, 568);
+			this.ClientSize = new System.Drawing.Size(578, 536);
 			this.Controls.Add(this.residentGroupBox);
 			this.Controls.Add(this.paymentGroupBox);
 			this.Controls.Add(this.rentGroupBox);
@@ -334,7 +348,7 @@
 			this.Margin = new System.Windows.Forms.Padding(6);
 			this.Name = "SettlementForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "SettlementForm";
+			this.Text = "Заселение";
 			this.rentGroupBox.ResumeLayout(false);
 			this.rentGroupBox.PerformLayout();
 			this.paymentGroupBox.ResumeLayout(false);
@@ -373,5 +387,6 @@
 		private System.Windows.Forms.RadioButton cashlessRadioButton;
 		private System.Windows.Forms.RadioButton cashRadioButton;
 		private System.Windows.Forms.GroupBox residentGroupBox;
+		private System.Windows.Forms.ComboBox rentThingsComboBox;
 	}
 }

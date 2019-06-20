@@ -14,26 +14,20 @@ namespace Dormitory
 	public partial class MainForm : Form
 	{
 		private LoginForm loginForm;
-		private string userName;
-		private string password;
-		private SqlConnection sqlConnection = new SqlConnection($"Data Source=.\\SQLEXPRESS;Initial Catalog=Dormitory;Integrated Security=True");
-		//DatabaseController databaseController;
+		private SqlConnection sqlConnection = new SqlConnection();
 		DataContext db;
 
-		public MainForm()
+		public MainForm(SqlConnection sqlConnection)
 		{
+			this.sqlConnection = sqlConnection;
 			InitializeComponent();
-		//	databaseController = new DatabaseController();
 			db = new DataContext(sqlConnection);
 			LoadTabs();		
 		}
 
-		public MainForm(LoginForm loginForm, string userName, string password) : this()
+		public MainForm(LoginForm loginForm, SqlConnection sqlConnection) : this(sqlConnection)
 		{
 			this.loginForm = loginForm;
-			this.userName = userName;
-			this.password = password;
-			this.sqlConnection = new SqlConnection($"Data Source=ANTON\\SQLEXPRESS;Initial Catalog=MoviesShop;User ID={userName};Password={password}");
 		}
 
 		#region LoadTabs
@@ -53,10 +47,6 @@ namespace Dormitory
 			catch (Exception ex)
 			{
 				MessageBox.Show(ex.Message);
-			}
-			finally
-			{
-				sqlConnection.Close();
 			}
 		}
 
@@ -119,7 +109,7 @@ namespace Dormitory
 			for (int i = 0; i < room.Seats; i++)
 			{
 				dataGridView.Rows[row + i].Height = 40;
-				dataGridView.Rows[row].Cells[0].Value = room.Number; //+ "/ " + room.RoomId;
+				dataGridView.Rows[row].Cells[0].Value = room.Number;
 				RoomResidents roomResidents = room.RoomResidents.ElementAtOrDefault(i);
 				Resident resident = null;
 				if (roomResidents != null)
@@ -129,7 +119,7 @@ namespace Dormitory
 				dynamic tagObject = new System.Dynamic.ExpandoObject();
 				if (resident != null)
 				{
-					string fullName = resident.Surname.ToString() + " " + resident.Name.ToString() + " " + resident.Patronymic.ToString() + " " + room.RoomId.ToString();
+					string fullName = resident.Surname.ToString() + " " + resident.Name.ToString() + " " + resident.Patronymic.ToString();
 					tagObject.residentId = resident.ResidentId;
 					tagObject.roomId = room.RoomId;
 					string organizationName = resident.Organization.Name.ToString();
@@ -152,7 +142,7 @@ namespace Dormitory
 
 		private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
 		{
-		//	loginForm.Show();
+			loginForm.Show();
 		}
 
 		private void OrganizationsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -192,8 +182,6 @@ namespace Dormitory
 		private void SettleResident(int roomId, int residentId)
 		{
 			Resident resident = db.GetTable<Resident>().SingleOrDefault(r => r.ResidentId == residentId);
-			Passport passport = db.GetTable<Passport>().SingleOrDefault(p => p.PassportId == resident.PassportId);
-
 			var exist = db.GetTable<RoomResidents>().Any(r => r.ResidentId == residentId);
 			if (exist)
 			{
@@ -222,7 +210,7 @@ namespace Dormitory
 
 		private void residentsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ResidentsForm residentsForm = new ResidentsForm();
+			ResidentsForm residentsForm = new ResidentsForm(sqlConnection);
 			residentsForm.ShowDialog();
 			LoadTabs();
 		}
@@ -232,10 +220,20 @@ namespace Dormitory
 			LoadTabs();
 		}
 
-		private void backupToolStripMenuItem_Click(object sender, EventArgs e)
+		private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			BackupForm backupForm = new BackupForm();
-			backupForm.ShowDialog();
+			SettingsForm settingsForm = new SettingsForm(sqlConnection);
+			settingsForm.ShowDialog();
+		}
+
+		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+		{
+			if (keyData == Keys.Escape)
+			{
+				this.Close();
+				return true;
+			}
+			return base.ProcessCmdKey(ref msg, keyData);
 		}
 	}
 }

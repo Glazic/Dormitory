@@ -25,9 +25,7 @@ namespace Dormitory
 
 		private void residentsForm_Load(object sender, EventArgs e)
 		{
-			// TODO: данная строка кода позволяет загрузить данные в таблицу "dormitoryDataSet.Organizations". При необходимости она может быть перемещена или удалена.
-			//this.organizationsTableAdapter.Fill(this.dormitoryDataSet.Organizations);
-			//LoadDataGrid();
+
 		}
 
 		public SettlementForm(int roomId) : this()
@@ -38,15 +36,12 @@ namespace Dormitory
 		public static string ShowDialogForNewSettlement(int roomId)
 		{
 			SettlementForm settlementForm = new SettlementForm(roomId);
-			//	this.Show();
 			return settlementForm.ShowDialog() == DialogResult.OK ? settlementForm.residentIdLabel.Text : null;
 		}
 
 		private void residentButton_Click(object sender, EventArgs e)
 		{
-			//	ResidentForm.ShowDialogForOldResident(tagObject.residentId, tagObject.roomId);
-			string value = ResidentsForm.ShowDialogForNewResident(roomId);
-			//	string value = OrganizationsForm.ShowDialog(residentId);
+			string value = ResidentsForm.ShowDialogForNewResident(sqlConnection);
 			if (value != null)
 			{
 				Int32.TryParse(value, out int residentId);
@@ -55,10 +50,6 @@ namespace Dormitory
 				surnameTextBox.Text = resident.Surname;
 				nameTextBox.Text = resident.Name;
 				patronymicTextBox.Text = resident.Patronymic;
-				//resident.PhoneNumber = phoneNumberTextBox.Text; DateOfEviction
-				//resident.Birthday = birthdayDateTimePicker.Value.Date;
-				//resident.Note = noteTextBox.Text;
-				//resident.OrganizationId = Int32.Parse(organizationIdLabel.Text);
 				Organization organization = db.GetTable<Organization>().SingleOrDefault(o => o.OrganizationId == resident.OrganizationId);
 				organizationTextBox.Text = organization.Name;
 			}
@@ -66,6 +57,7 @@ namespace Dormitory
 
 		private void settleButton_Click(object sender, EventArgs e)
 		{
+			MessageBox.Show("Добавь проверку на выбор жителя чтобы без выбора жителя нельзя было заселить(заблокировать кнопку заселения)");
 			DialogResult dialogResult = MessageBox.Show("Вы уверены, что хотите заселить данного жителя?\n",
 				"Предупреждение", MessageBoxButtons.YesNo);
 			if (dialogResult == DialogResult.Yes)
@@ -117,8 +109,6 @@ namespace Dormitory
 						DialogResult = DialogResult.OK;
 						Close();
 					}
-					//db.GetTable<Resident>().InsertOnSubmit(resident);
-					//db.SubmitChanges();
 				}
 				catch (Exception ex)
 				{
@@ -128,18 +118,40 @@ namespace Dormitory
 		}
 
 		private void isRentCheckBox_CheckedChanged(object sender, EventArgs e)
-		{
+		{			
 			if (isRentCheckBox.Checked == true)
 			{
+				LoadRentThings();
+				rentThingsComboBox.Enabled = true;
 				startRentDateTimePicker.Enabled = true;
 				endRentDateTimePicker.Enabled = true;
 			}
 			else
 			{
+				rentThingsComboBox.Enabled = false;
 				startRentDateTimePicker.Enabled = false;
 				endRentDateTimePicker.Enabled = false;
 			}
 		}
 
+		private void LoadRentThings()
+		{
+			Table<RentThing> rentThings = db.GetTable<RentThing>();
+			foreach (var thing in rentThings)
+			{
+				rentThingsComboBox.Items.Add(thing.Name);
+			}
+			rentThingsComboBox.SelectedIndex = 0;
+		}
+
+		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+		{
+			if (keyData == Keys.Escape)
+			{
+				this.Close();
+				return true;
+			}
+			return base.ProcessCmdKey(ref msg, keyData);
+		}
 	}
 }

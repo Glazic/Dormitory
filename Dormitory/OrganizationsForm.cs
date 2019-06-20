@@ -24,7 +24,6 @@ namespace Dormitory
 		{
 			InitializeComponent();
 			db = new DataContext(sqlConnection);
-			//		databaseController = new DatabaseController();
 		}
 
 		public OrganizationsForm(int residentId) : this()
@@ -48,15 +47,15 @@ namespace Dormitory
 		{
 			//dataAdapter = databaseController.SelectAllOrganizations();
 			dataAdapter = new SqlDataAdapter("SELECT OrganizationId as [ИД], " +
-				"Name as [Название], Address as [Адрес], Requisites as [Реквизиты] " +
+				"Name as [Название], Address as [Адрес] " +
 				"FROM Organizations", sqlConnection);
 			dataTable.Clear();
 			dataAdapter.Fill(dataTable);
 			organizationsDataGridView.DataSource = dataTable;
 			organizationsDataGridView.Columns[0].Width = 50;
-			organizationsDataGridView.Columns[1].Width = 200;
-			organizationsDataGridView.Columns[2].Width = 200;
-			organizationsDataGridView.Columns[3].Width = 200;
+			organizationsDataGridView.Columns[1].Width = 230;
+			organizationsDataGridView.Columns[2].Width = 350;
+			organizationsDataGridView.ClearSelection();
 		}
 
 		private void organizationsDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -66,113 +65,63 @@ namespace Dormitory
 			{
 				organizationIdLabel.Text = dataRow[0].ToString();
 				nameTextBox.Text = dataRow[1].ToString();
-				addressTextBox.Text = dataRow[2].ToString();
-				requisitesTextBox.Text = dataRow[3].ToString();
-			}
-		}
-
-		private void addButton_Click(object sender, EventArgs e)
-		{
-			string name = nameTextBox.Text;
-			string address = addressTextBox.Text;
-			string requisites = requisitesTextBox.Text;
-
-			if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(address) || string.IsNullOrWhiteSpace(requisites))
-			{
-				MessageBox.Show("Заполните все поля!");
-				return;
-			}
-
-			DialogResult dialogResult = MessageBox.Show("Вы уверены, что хотите добавить данную организацию?\n" +
-				$"Название: {name}. \nАдрес: {address}. \nРеквезиты: {requisites}", "Предупреждение", MessageBoxButtons.YesNo);
-			if (dialogResult == DialogResult.Yes)
-			{
-				Organization organization = new Organization
-				{
-					Name = name,
-					Address = address,
-					Requisites = requisites
-				};
-
-				try
-				{
-					db.GetTable<Organization>().InsertOnSubmit(organization);
-					db.SubmitChanges();
-				}
-				catch (Exception ex)
-				{
-					MessageBox.Show(ex.Message);
-					sqlConnection.Close();
-				}
-				//	databaseController.InsertOrganization(name, address, requisites);
-				LoadDataGrid();
-			}
-		}
-
-		private void saveButton_Click(object sender, EventArgs e)
-		{
-			string name = nameTextBox.Text;
-			string address = addressTextBox.Text;
-			string requisites = requisitesTextBox.Text;
-
-			if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(address) || string.IsNullOrWhiteSpace(requisites))
-			{
-				MessageBox.Show("Заполните все поля!");
-				return;
-			}
-
-			DialogResult dialogResult = MessageBox.Show("Вы уверены, что хотите сохранить данные изменения?\n" +
-				$"Название: {name}. \nАдрес: {address}. \nРеквезиты: {requisites}", "Предупреждение", MessageBoxButtons.YesNo);
-			if (dialogResult == DialogResult.Yes)
-			{
-				Int32.TryParse(organizationIdLabel.Text, out int id);
-
-				try
-				{
-					Organization organization = db.GetTable<Organization>().SingleOrDefault(o => o.OrganizationId == id);
-					organization.Name = name;
-					organization.Address = address;
-					organization.Requisites = requisites;
-					db.SubmitChanges();
-				}
-				catch (Exception ex)
-				{
-					MessageBox.Show(ex.Message);
-					sqlConnection.Close();
-				}
-				//databaseController.UpdateOrganization(name, address, requisites, id);
-				LoadDataGrid();
-			}
-		}
-
-		private void deleteButton_Click(object sender, EventArgs e)
-		{
-			DialogResult dialogResult = MessageBox.Show("Вы уверены, " +
-				"что хотите удалить выбранную организацию?", "Предупреждение", MessageBoxButtons.YesNo);
-			if (dialogResult == DialogResult.Yes)
-			{
-				Int32.TryParse(organizationIdLabel.Text, out int id);
-
-				try
-				{
-					Organization organization = db.GetTable<Organization>().SingleOrDefault(o => o.OrganizationId == id);
-
-					db.GetTable<Organization>().DeleteOnSubmit(organization);
-					db.SubmitChanges();
-				}
-				catch (Exception ex)
-				{
-					MessageBox.Show(ex.Message);
-					sqlConnection.Close();
-				}
-				//	databaseController.DeleteOrganization(id);
-				LoadDataGrid();
+				//addressTextBox.Text = dataRow[2].ToString();
 			}
 		}
 
 		private void acceptButton_Click(object sender, EventArgs e)
 		{
 			this.Close();
+		}
+
+		private void updateButton_Click(object sender, EventArgs e)
+		{
+			SqlConnection testConnection = new SqlConnection();
+			try
+			{
+				System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+				SqlConnectionStringBuilder sConnB = new SqlConnectionStringBuilder()
+				{
+					DataSource = Properties.Settings.Default.adminServerName,
+					InitialCatalog = Properties.Settings.Default.adminServerDatabase,
+					UserID = LoginForm.UserName,
+					Password = LoginForm.Password
+				};
+				testConnection.ConnectionString = sConnB.ConnectionString;
+				testConnection.Open();
+				if (testConnection.State == ConnectionState.Open)
+				{
+					dataAdapter = new SqlDataAdapter("SELECT OrganizationId as [ИД], " +
+						"Name as [Название], PhysicAddress as [Адрес] " +
+						"FROM Organizations", testConnection);
+					dataTable.Clear();
+					dataAdapter.Fill(dataTable);
+					organizationsDataGridView.DataSource = dataTable;
+					organizationsDataGridView.Columns[0].Width = 50;
+					organizationsDataGridView.Columns[1].Width = 200;
+					organizationsDataGridView.Columns[2].Width = 200;
+					organizationsDataGridView.ClearSelection();
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				testConnection.Close();
+				System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+			}
+		}
+
+		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+		{
+			if (keyData == Keys.Escape)
+			{
+				this.Close();
+				return true;
+			}
+			return base.ProcessCmdKey(ref msg, keyData);
 		}
 	}
 }

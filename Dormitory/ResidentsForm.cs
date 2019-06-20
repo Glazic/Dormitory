@@ -17,30 +17,23 @@ namespace Dormitory
 		DataContext db;
 		SqlDataAdapter dataAdapter;
 		DataTable dataTable;
-		int roomId;
+		//int roomId;
 
-		public ResidentsForm()
+		public ResidentsForm(SqlConnection sqlConnection)
 		{
+			this.sqlConnection = sqlConnection;
 			InitializeComponent();
 			db = new DataContext(sqlConnection);
 		}
 
 		private void residentsForm_Load(object sender, EventArgs e)
 		{
-			// TODO: данная строка кода позволяет загрузить данные в таблицу "dormitoryDataSet.Organizations". При необходимости она может быть перемещена или удалена.
-			//this.organizationsTableAdapter.Fill(this.dormitoryDataSet.Organizations);
 			LoadDataGrid();
 		}
 
-		public ResidentsForm(int roomId) : this()
+		public static string ShowDialogForNewResident(SqlConnection sqlConnection)
 		{
-			this.roomId = roomId;
-		}
-
-		public static string ShowDialogForNewResident(int roomId)
-		{
-			ResidentsForm residentsForm = new ResidentsForm(roomId);
-			//	this.Show();
+			ResidentsForm residentsForm = new ResidentsForm(sqlConnection);
 			return residentsForm.ShowDialog() == DialogResult.OK ? residentsForm.residentIdLabel.Text : null;
 		}
 
@@ -50,7 +43,7 @@ namespace Dormitory
 				"Residents.Name as [Имя], Patronymic as [Отчество], PhoneNumber as [Телефон], " +
 				"Birthday as [День рожд.], Organizations.Name as [Организация] " +
 				"FROM Residents " +
-				"LEFT JOIN Organizations ON Residents.ResidentId = Organizations.OrganizationId", sqlConnection);
+				"LEFT JOIN Organizations ON Residents.OrganizationId = Organizations.OrganizationId", sqlConnection);
 			dataTable = new DataTable();
 			dataAdapter.Fill(dataTable);
 			residentsDataGridView.RowTemplate.Height = 30;
@@ -71,9 +64,6 @@ namespace Dormitory
 			if (dataRow != null)
 			{
 				residentIdLabel.Text = dataRow[0].ToString();
-				//nameTextBox.Text = dataRow[1].ToString();
-				//addressTextBox.Text = dataRow[2].ToString();
-				//requisitesTextBox.Text = dataRow[3].ToString();
 			}
 		}
 
@@ -145,5 +135,14 @@ namespace Dormitory
 			}
 		}
 
+		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+		{
+			if (keyData == Keys.Escape)
+			{
+				this.Close();
+				return true;
+			}
+			return base.ProcessCmdKey(ref msg, keyData);
+		}
 	}
 }

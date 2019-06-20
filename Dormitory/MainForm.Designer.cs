@@ -29,34 +29,25 @@
 		private void InitializeComponent()
 		{
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-			this.organizationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.residentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.backupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.organizationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.sectionsTabControl = new System.Windows.Forms.TabControl();
-			this.button1 = new System.Windows.Forms.Button();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// menuStrip1
 			// 
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.organizationsToolStripMenuItem,
             this.residentsToolStripMenuItem,
-            this.backupToolStripMenuItem});
+            this.organizationsToolStripMenuItem,
+            this.settingsToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.Padding = new System.Windows.Forms.Padding(11, 4, 0, 4);
 			this.menuStrip1.Size = new System.Drawing.Size(951, 37);
 			this.menuStrip1.TabIndex = 0;
 			this.menuStrip1.Text = "mainFormMenuStrip";
-			// 
-			// organizationsToolStripMenuItem
-			// 
-			this.organizationsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 14F);
-			this.organizationsToolStripMenuItem.Name = "organizationsToolStripMenuItem";
-			this.organizationsToolStripMenuItem.Size = new System.Drawing.Size(139, 29);
-			this.organizationsToolStripMenuItem.Text = "Организации";
-			this.organizationsToolStripMenuItem.Click += new System.EventHandler(this.OrganizationsToolStripMenuItem_Click);
 			// 
 			// residentsToolStripMenuItem
 			// 
@@ -66,13 +57,21 @@
 			this.residentsToolStripMenuItem.Text = "Жители";
 			this.residentsToolStripMenuItem.Click += new System.EventHandler(this.residentsToolStripMenuItem_Click);
 			// 
-			// backupToolStripMenuItem
+			// organizationsToolStripMenuItem
 			// 
-			this.backupToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 14F);
-			this.backupToolStripMenuItem.Name = "backupToolStripMenuItem";
-			this.backupToolStripMenuItem.Size = new System.Drawing.Size(171, 29);
-			this.backupToolStripMenuItem.Text = "Копирование БД";
-			this.backupToolStripMenuItem.Click += new System.EventHandler(this.backupToolStripMenuItem_Click);
+			this.organizationsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 14F);
+			this.organizationsToolStripMenuItem.Name = "organizationsToolStripMenuItem";
+			this.organizationsToolStripMenuItem.Size = new System.Drawing.Size(139, 29);
+			this.organizationsToolStripMenuItem.Text = "Организации";
+			this.organizationsToolStripMenuItem.Click += new System.EventHandler(this.OrganizationsToolStripMenuItem_Click);
+			// 
+			// settingsToolStripMenuItem
+			// 
+			this.settingsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 14F);
+			this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+			this.settingsToolStripMenuItem.Size = new System.Drawing.Size(117, 29);
+			this.settingsToolStripMenuItem.Text = "Настройки";
+			this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
 			// 
 			// sectionsTabControl
 			// 
@@ -84,24 +83,12 @@
 			this.sectionsTabControl.Size = new System.Drawing.Size(921, 593);
 			this.sectionsTabControl.TabIndex = 1;
 			// 
-			// button1
-			// 
-			this.button1.Location = new System.Drawing.Point(649, 0);
-			this.button1.Margin = new System.Windows.Forms.Padding(6);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(23, 42);
-			this.button1.TabIndex = 2;
-			this.button1.Text = "button1";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.button1_Click);
-			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoScroll = true;
 			this.ClientSize = new System.Drawing.Size(951, 644);
-			this.Controls.Add(this.button1);
 			this.Controls.Add(this.sectionsTabControl);
 			this.Controls.Add(this.menuStrip1);
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -124,8 +111,7 @@
 		private System.Windows.Forms.ToolStripMenuItem organizationsToolStripMenuItem;
 		private System.Windows.Forms.TabControl sectionsTabControl;
 		private System.Windows.Forms.ToolStripMenuItem residentsToolStripMenuItem;
-		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.ToolStripMenuItem backupToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
 	}
 }
 

@@ -49,15 +49,12 @@ namespace Dormitory
 		public static string ShowDialog(int residentId)
 		{
 			ResidentForm residentForm = new ResidentForm(residentId);
-			//	this.Show();
 			return residentForm.ShowDialog() == DialogResult.OK ? residentForm.nameLabel.Text : "";
 		}
 
 		public static string ShowDialogForOldResident(int residentId, int roomId = 0)
 		{
 			ResidentForm residentForm = new ResidentForm(residentId, roomId);
-
-			//	this.Show();
 			return residentForm.ShowDialog() == DialogResult.OK ? residentForm.nameLabel.Text : "";
 		}
 
@@ -65,13 +62,14 @@ namespace Dormitory
 		{
 			LoadLivingDataGridView();
 			LoadRentDataGridView();
+			LoadRentThings();
 		}
 
 		private void LoadLivingDataGridView()
 		{
 			dataAdapter = new SqlDataAdapter("SELECT SectionNumber AS [Секция], " +
-				"Number AS [Комната], SettlementDate as [Дата заселения], " +
-				"DateOfEviction as [Дата выселения]" +
+				"Number AS [Комната], CashPayment as [Оплата], " +
+				"SettlementDate as [Заселение], DateOfEviction as [Выселение]" +
 				"FROM View_ResidentRooms " +
 				$"WHERE ResidentId = {residentId}", sqlConnection);
 			dataTable = new DataTable();
@@ -79,9 +77,9 @@ namespace Dormitory
 			livingDataGridView.DataSource = dataTable;
 			livingDataGridView.Columns[0].Width = 80;
 			livingDataGridView.Columns[1].Width = 90;
-			livingDataGridView.Columns[2].Width = 180;
-			livingDataGridView.Columns[3].Width = 180;
-
+			livingDataGridView.Columns[2].Width = 140;
+			livingDataGridView.Columns[3].Width = 160;
+			livingDataGridView.Columns[4].Width = 160;
 		}
 
 		private void LoadRentDataGridView()
@@ -97,9 +95,19 @@ namespace Dormitory
 			dataTable = new DataTable();
 			dataAdapter.Fill(dataTable);
 			rentDataGridView.DataSource = dataTable;
-			rentDataGridView.Columns[0].Width = 130;
-			rentDataGridView.Columns[1].Width = 180;
-			rentDataGridView.Columns[2].Width = 170;
+			rentDataGridView.Columns[0].Width = 210;
+			rentDataGridView.Columns[1].Width = 200;
+			rentDataGridView.Columns[2].Width = 200;
+		}
+
+		private void LoadRentThings()
+		{
+			Table<RentThing> rentThings = db.GetTable<RentThing>();
+			foreach (var thing in rentThings)
+			{
+				rentThingsComboBox.Items.Add(thing.Name);
+			}
+			rentThingsComboBox.SelectedIndex = 0;
 		}
 
 		private void okButton_Click(object sender, EventArgs e)
@@ -251,6 +259,11 @@ namespace Dormitory
 
 		private void evictButton_Click(object sender, EventArgs e)
 		{
+			EvictResident(roomId, residentId);
+		}
+
+		private void EvictResident(int roomId, int residentId)
+		{
 			DialogResult dialogResult = MessageBox.Show("Вы уверены, что хотите выселить данного жителя?\n",
 				"Предупреждение", MessageBoxButtons.YesNo);
 			if (dialogResult == DialogResult.Yes)
@@ -259,14 +272,10 @@ namespace Dormitory
 				{
 					Resident resident = db.GetTable<Resident>().FirstOrDefault(r => r.ResidentId == residentId);
 					RoomResidents roomResidents = db.GetTable<RoomResidents>().FirstOrDefault(r => (r.ResidentId == residentId && r.RoomId == roomId));
-
 					db.GetTable<RoomResidents>().DeleteOnSubmit(roomResidents);
-
 					ResidentRooms residentRooms = db.GetTable<ResidentRooms>()
 						.FirstOrDefault(r => (r.ResidentId == residentId && r.RoomId == roomId && r.DateOfEviction == null));
-
 					residentRooms.DateOfEviction = DateTime.Now;
-
 					db.SubmitChanges();
 				}
 				catch (Exception ex)
@@ -384,5 +393,14 @@ namespace Dormitory
 			}
 		}
 
+		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+		{
+			if (keyData == Keys.Escape)
+			{
+				this.Close();
+				return true;
+			}
+			return base.ProcessCmdKey(ref msg, keyData);
+		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dormitory.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,6 +7,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -14,6 +16,8 @@ namespace Dormitory
 {
 	public partial class LoginForm : Form
 	{
+		public static string UserName { get; set; }
+		public static string Password { get; set; }
 		private SqlConnection sqlConnection;
 
 		public LoginForm()
@@ -24,57 +28,49 @@ namespace Dormitory
 		private void enterButton_Click(object sender, EventArgs e)
 		{
 			SqlConnection sqlConnection = new SqlConnection();
-			string login = loginTextBox.Text;
+			string userName = userNameTextBox.Text;
 			string password = passwordTextBox.Text;
 
-			if (string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(password))
+			if (string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(password))
 			{
+			//	SystemSounds.Beep.Play();
+			//	SystemSounds.Asterisk.Play();
+				SystemSounds.Exclamation.Play();
+			//	SystemSounds.Question.Play();
 				MessageBox.Show("Введите логин и пароль!");
 				return;
 			}
 			try
 			{
-				sqlConnection.ConnectionString = $"Data Source=.\\SQLEXPRESS;Initial Catalog=Dormitory;Integrated Security=True";
-				//sqlConnection.ConnectionString = $"Data Source=.\\SQLEXPRESS;Initial Catalog=Dormitory;User ID={userName};Password={password}";
-
-				//SqlConnection sqlConnection = new SqlConnection();
-				string query = "SELECT COUNT(*) AS cnt FROM Users " +
-					$"WHERE Login = '{login}' AND Password = '{password}'";
-				SqlCommand cmd = new SqlCommand(query, sqlConnection);
-				cmd.Parameters.Clear();
+				System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+				SqlConnectionStringBuilder sConnB = new SqlConnectionStringBuilder()
+				{
+					DataSource = Properties.Settings.Default.userServerName,
+					InitialCatalog = Properties.Settings.Default.userServerDatabase,
+					UserID = userName,
+					Password = password
+				};
+				sqlConnection.ConnectionString = sConnB.ConnectionString;
 				sqlConnection.Open();
-
-				if (cmd.ExecuteScalar().ToString() == "1")
-				{
-					MessageBox.Show("YOU ARE GRANTED WITH ACCESS");
-					MainForm mainForm = new MainForm();
-					mainForm.Show();
-					this.Hide();
-				}
-				else
-				{
-					MessageBox.Show("Неверный логин и/или пароль");
-					loginTextBox.Clear();
-					passwordTextBox.Clear();
-				}
-				sqlConnection.Close();
-
-
-				//MainForm mainForm = new MainForm(this, userName, password);
-				////	MainForm mainForm = new MainForm(this, "zaq", "zaq");
-				//MainForm mainForm = new MainForm();
-				//		mainForm.Show();
-				//		this.Hide();
+				System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+				MainForm mainForm = new MainForm(this, sqlConnection);
+				mainForm.Show();
+				this.Hide();
+				LoginForm.UserName = userName;
+				LoginForm.Password = password;
 			}
 			catch (SqlException)
 			{
-				MessageBox.Show("Не удалось выполнить вход", "Ошибка");
+				MessageBox.Show("Не удалось выполнить вход.\nУбедитесь, что введены правильные логин и(или) пароль", "Ошибка");
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
 			}
 			finally
 			{
-				//sqlConnection.Close();
+				sqlConnection.Close();
 			}
-
 		}
 
 		private void LoginForm_Load(object sender, EventArgs e)
@@ -84,10 +80,9 @@ namespace Dormitory
 				sqlConnection = new SqlConnection($"Data Source=.\\SQLEXPRESS;Initial Catalog=Dormitory;Integrated Security=True");
 				sqlConnection.Open();
 			}
-			catch (SqlException)
+			catch (SqlException ex)
 			{
-				MessageBox.Show("Не удалось подключиться к базе данных", "Ошибка");
-
+				MessageBox.Show("Не удалось подключиться к базе данных. Ошибка:\n" + ex.Message, "Ошибка");
 				OpenFileDialog dlg = new OpenFileDialog();
 				string filePath = "";
 				dlg.Filter = "Sql scripts(*.sql)|*.sql|All Files(*.*)|*.*";
@@ -96,13 +91,9 @@ namespace Dormitory
 				{
 					filePath = dlg.FileName;
 				}
-
 				SqlConnection myConn = new SqlConnection("Data Source =.\\SQLEXPRESS; Integrated Security = True");
-
 				string script = File.ReadAllText(filePath);
-
 				IEnumerable<string> commandStrings = Regex.Split(script, @"^\s*GO\s*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);
-
 				try
 				{
 					myConn.Open();
@@ -118,9 +109,9 @@ namespace Dormitory
 					}
 					MessageBox.Show("База данных создана");
 				}
-				catch (SqlException)
+				catch (SqlException sqlEx)
 				{
-					MessageBox.Show("Ошибка");
+					MessageBox.Show("Ошибка подключения:\n" + sqlEx.Message);
 				}
 				finally
 				{
@@ -133,5 +124,20 @@ namespace Dormitory
 			}
 		}
 
+		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+		{
+			if (keyData == Keys.Escape)
+			{
+				this.Close();
+				return true;
+			}
+			return base.ProcessCmdKey(ref msg, keyData);
+		}
+
+		private void settingsButton_Click(object sender, EventArgs e)
+		{
+			SettingsForm settingsForm = new SettingsForm(sqlConnection);
+			settingsForm.ShowDialog();
+		}
 	}
 }

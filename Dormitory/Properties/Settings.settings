@@ -10,5 +10,29 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=ANTON\SQLEXPRESS;Initial Catalog=Dormitory;Integrated Security=True</Value>
     </Setting>
+    <Setting Name="userServerName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.\SQLEXPRESS</Value>
+    </Setting>
+    <Setting Name="userServerDatabase" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Dormitory</Value>
+    </Setting>
+    <Setting Name="adminServerName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">WS-10315828\SQLEXPRESS</Value>
+    </Setting>
+    <Setting Name="adminServerDatabase" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DormitoryAdmin</Value>
+    </Setting>
+    <Setting Name="backupsFolderPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="restoreFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="savesIntervalHours" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="savesDurationHours" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">30</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
