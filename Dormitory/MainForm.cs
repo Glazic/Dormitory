@@ -6,6 +6,7 @@ using System.Data.Linq;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Windows.Forms;
 
@@ -56,7 +57,6 @@ namespace Dormitory
 			DataGridView dataGridView = new DataGridView();
 			dataGridView.MultiSelect = false;
 			dataGridView.Dock = DockStyle.Fill;
-			//dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 			dataGridView.AllowUserToAddRows = false;
 			dataGridView.AllowUserToDeleteRows = false;
 			dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -147,7 +147,7 @@ namespace Dormitory
 
 		private void OrganizationsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			OrganizationsForm organizationsForm = new OrganizationsForm();
+			OrganizationsForm organizationsForm = new OrganizationsForm(sqlConnection);
 			organizationsForm.ShowDialog();
 			LoadTabs();
 		}
@@ -161,52 +161,51 @@ namespace Dormitory
 				dynamic tagObject = cell.Tag;
 				if (tagObject.residentId != 0 && tagObject.roomId != 0)
 				{
-					ResidentForm.ShowDialogForOldResident(tagObject.residentId, tagObject.roomId);
+					ResidentForm.ShowDialogForOldResident(sqlConnection, tagObject.residentId, tagObject.roomId);
 					LoadTabs();
 				}
 				else if (tagObject.roomId != 0)
 				{
-					string result = SettlementForm.ShowDialogForNewSettlement(tagObject.roomId);
+					string result = SettlementForm.ShowDialogForNewSettlement(sqlConnection, tagObject.roomId);
 					Int32.TryParse(result, out int residentId);
 					if (residentId != 0)
 					{
 						MessageBox.Show("Успешно добавлено!");
 						LoadTabs();
-				//		SettleResident(tagObject.roomId, residentId);
 					}
-					//	ResidentForm.ShowDialog(tagObject.roomId, 0);
 				}
 			}
 		}
 
-		private void SettleResident(int roomId, int residentId)
-		{
-			Resident resident = db.GetTable<Resident>().SingleOrDefault(r => r.ResidentId == residentId);
-			var exist = db.GetTable<RoomResidents>().Any(r => r.ResidentId == residentId);
-			if (exist)
-			{
-				MessageBox.Show("Данный житель уже живет в другой комнате");
-			}
-			else
-			{
-				RoomResidents roomResidents = new RoomResidents
-				{
-					RoomId = roomId,
-					ResidentId = resident.ResidentId
-				};
-				db.GetTable<RoomResidents>().InsertOnSubmit(roomResidents);
+		//private void SettleResident(int roomId, int residentId)
+		//{
+		//	Resident resident = db.GetTable<Resident>().SingleOrDefault(r => r.ResidentId == residentId);
+		//	var exist = db.GetTable<RoomResidents>().Any(r => r.ResidentId == residentId);
+		//	if (exist)
+		//	{
+		//		SystemSounds.Exclamation.Play();
+		//		MessageBox.Show("Данный житель уже живет в другой комнате");
+		//	}
+		//	else
+		//	{
+		//		RoomResidents roomResidents = new RoomResidents
+		//		{
+		//			RoomId = roomId,
+		//			ResidentId = resident.ResidentId
+		//		};
+		//		db.GetTable<RoomResidents>().InsertOnSubmit(roomResidents);
 
-				ResidentRooms residentRooms = new ResidentRooms
-				{
-					ResidentId = resident.ResidentId,
-					RoomId = roomId,
-					SettlementDate = DateTime.Now
-				};
-				db.GetTable<ResidentRooms>().InsertOnSubmit(residentRooms);
-				db.SubmitChanges();
-				LoadTabs();
-			}
-		}
+		//		ResidentRooms residentRooms = new ResidentRooms
+		//		{
+		//			ResidentId = resident.ResidentId,
+		//			RoomId = roomId,
+		//			SettlementDate = DateTime.Now
+		//		};
+		//		db.GetTable<ResidentRooms>().InsertOnSubmit(residentRooms);
+		//		db.SubmitChanges();
+		//		LoadTabs();
+		//	}
+		//}
 
 		private void residentsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
@@ -224,6 +223,7 @@ namespace Dormitory
 		{
 			SettingsForm settingsForm = new SettingsForm(sqlConnection);
 			settingsForm.ShowDialog();
+			LoadTabs();
 		}
 
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -234,6 +234,12 @@ namespace Dormitory
 				return true;
 			}
 			return base.ProcessCmdKey(ref msg, keyData);
+		}
+
+		private void historyToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			HistoryRecordsForm historyRecordsForm = new HistoryRecordsForm();
+			historyRecordsForm.ShowDialog();
 		}
 	}
 }

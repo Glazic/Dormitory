@@ -35,10 +35,6 @@
 			this.browseBackupButton = new System.Windows.Forms.Button();
 			this.browseRestoreButton = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.savesDurationHoursNumericUpDown = new System.Windows.Forms.NumericUpDown();
-			this.label4 = new System.Windows.Forms.Label();
-			this.savesIntervalHoursNumericUpDown = new System.Windows.Forms.NumericUpDown();
-			this.label3 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -51,151 +47,103 @@
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.label7 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
+			this.checkUserServerConnectionButton = new System.Windows.Forms.Button();
 			this.userServerNameTextBox = new System.Windows.Forms.TextBox();
 			this.userServerDatabaseTextBox = new System.Windows.Forms.TextBox();
-			this.checkUserServerConnectionButton = new System.Windows.Forms.Button();
 			this.saveSettingsButton = new System.Windows.Forms.Button();
-			this.organizationsDataGridView = new System.Windows.Forms.DataGridView();
 			this.sqlScriptFileTextBox = new System.Windows.Forms.TextBox();
 			this.browseSqlScriptButton = new System.Windows.Forms.Button();
 			this.runSqlScriptButton = new System.Windows.Forms.Button();
-			this.connectBut = new System.Windows.Forms.Button();
+			this.groupBox5 = new System.Windows.Forms.GroupBox();
+			this.label9 = new System.Windows.Forms.Label();
 			this.groupBox1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.savesDurationHoursNumericUpDown)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.savesIntervalHoursNumericUpDown)).BeginInit();
 			this.groupBox2.SuspendLayout();
 			this.groupBox4.SuspendLayout();
 			this.groupBox3.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.organizationsDataGridView)).BeginInit();
+			this.groupBox5.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// backupsFolderPathTextBox
 			// 
-			this.backupsFolderPathTextBox.Location = new System.Drawing.Point(9, 71);
+			this.backupsFolderPathTextBox.Location = new System.Drawing.Point(9, 74);
 			this.backupsFolderPathTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.backupsFolderPathTextBox.Name = "backupsFolderPathTextBox";
-			this.backupsFolderPathTextBox.Size = new System.Drawing.Size(309, 29);
-			this.backupsFolderPathTextBox.TabIndex = 2;
+			this.backupsFolderPathTextBox.Size = new System.Drawing.Size(276, 29);
+			this.backupsFolderPathTextBox.TabIndex = 11;
 			// 
 			// restoreFilePathTextBox
 			// 
-			this.restoreFilePathTextBox.Location = new System.Drawing.Point(9, 136);
+			this.restoreFilePathTextBox.Location = new System.Drawing.Point(9, 164);
 			this.restoreFilePathTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.restoreFilePathTextBox.Name = "restoreFilePathTextBox";
-			this.restoreFilePathTextBox.Size = new System.Drawing.Size(309, 29);
-			this.restoreFilePathTextBox.TabIndex = 3;
+			this.restoreFilePathTextBox.Size = new System.Drawing.Size(276, 29);
+			this.restoreFilePathTextBox.TabIndex = 14;
 			// 
 			// backupButton
 			// 
-			this.backupButton.Location = new System.Drawing.Point(480, 70);
+			this.backupButton.Location = new System.Drawing.Point(300, 73);
 			this.backupButton.Margin = new System.Windows.Forms.Padding(6);
 			this.backupButton.Name = "backupButton";
-			this.backupButton.Size = new System.Drawing.Size(138, 33);
-			this.backupButton.TabIndex = 8;
+			this.backupButton.Size = new System.Drawing.Size(117, 33);
+			this.backupButton.TabIndex = 13;
 			this.backupButton.Text = "Сохранить";
 			this.backupButton.UseVisualStyleBackColor = true;
 			this.backupButton.Click += new System.EventHandler(this.backupButton_Click);
 			// 
 			// restoreButton
 			// 
-			this.restoreButton.Location = new System.Drawing.Point(480, 136);
+			this.restoreButton.Location = new System.Drawing.Point(300, 163);
 			this.restoreButton.Margin = new System.Windows.Forms.Padding(6);
 			this.restoreButton.Name = "restoreButton";
-			this.restoreButton.Size = new System.Drawing.Size(138, 33);
-			this.restoreButton.TabIndex = 9;
+			this.restoreButton.Size = new System.Drawing.Size(117, 33);
+			this.restoreButton.TabIndex = 16;
 			this.restoreButton.Text = "Загрузить";
 			this.restoreButton.UseVisualStyleBackColor = true;
 			this.restoreButton.Click += new System.EventHandler(this.restoreButton_Click);
 			// 
 			// browseBackupButton
 			// 
-			this.browseBackupButton.Location = new System.Drawing.Point(330, 70);
+			this.browseBackupButton.Location = new System.Drawing.Point(300, 29);
 			this.browseBackupButton.Margin = new System.Windows.Forms.Padding(6);
 			this.browseBackupButton.Name = "browseBackupButton";
-			this.browseBackupButton.Size = new System.Drawing.Size(138, 33);
-			this.browseBackupButton.TabIndex = 10;
+			this.browseBackupButton.Size = new System.Drawing.Size(117, 32);
+			this.browseBackupButton.TabIndex = 12;
 			this.browseBackupButton.Text = "Обзор";
 			this.browseBackupButton.UseVisualStyleBackColor = true;
 			this.browseBackupButton.Click += new System.EventHandler(this.browseBackupButton_Click);
 			// 
 			// browseRestoreButton
 			// 
-			this.browseRestoreButton.Location = new System.Drawing.Point(330, 135);
+			this.browseRestoreButton.Location = new System.Drawing.Point(300, 118);
 			this.browseRestoreButton.Margin = new System.Windows.Forms.Padding(6);
 			this.browseRestoreButton.Name = "browseRestoreButton";
-			this.browseRestoreButton.Size = new System.Drawing.Size(138, 33);
-			this.browseRestoreButton.TabIndex = 11;
+			this.browseRestoreButton.Size = new System.Drawing.Size(117, 32);
+			this.browseRestoreButton.TabIndex = 15;
 			this.browseRestoreButton.Text = "Обзор";
 			this.browseRestoreButton.UseVisualStyleBackColor = true;
 			this.browseRestoreButton.Click += new System.EventHandler(this.browseRestoreButton_Click);
 			// 
 			// groupBox1
 			// 
-			this.groupBox1.Controls.Add(this.savesDurationHoursNumericUpDown);
-			this.groupBox1.Controls.Add(this.label4);
-			this.groupBox1.Controls.Add(this.savesIntervalHoursNumericUpDown);
-			this.groupBox1.Controls.Add(this.label3);
 			this.groupBox1.Controls.Add(this.label2);
 			this.groupBox1.Controls.Add(this.label1);
 			this.groupBox1.Controls.Add(this.backupButton);
 			this.groupBox1.Controls.Add(this.backupsFolderPathTextBox);
+			this.groupBox1.Controls.Add(this.browseRestoreButton);
+			this.groupBox1.Controls.Add(this.browseBackupButton);
 			this.groupBox1.Controls.Add(this.restoreFilePathTextBox);
 			this.groupBox1.Controls.Add(this.restoreButton);
-			this.groupBox1.Controls.Add(this.browseBackupButton);
-			this.groupBox1.Controls.Add(this.browseRestoreButton);
-			this.groupBox1.Location = new System.Drawing.Point(12, 12);
+			this.groupBox1.Location = new System.Drawing.Point(12, 274);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(644, 267);
-			this.groupBox1.TabIndex = 18;
+			this.groupBox1.Size = new System.Drawing.Size(428, 209);
+			this.groupBox1.TabIndex = 10;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Настройка резервного копирования";
-			// 
-			// savesDurationHoursNumericUpDown
-			// 
-			this.savesDurationHoursNumericUpDown.Location = new System.Drawing.Point(330, 221);
-			this.savesDurationHoursNumericUpDown.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-			this.savesDurationHoursNumericUpDown.Name = "savesDurationHoursNumericUpDown";
-			this.savesDurationHoursNumericUpDown.Size = new System.Drawing.Size(120, 29);
-			this.savesDurationHoursNumericUpDown.TabIndex = 17;
-			// 
-			// label4
-			// 
-			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(6, 221);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(306, 24);
-			this.label4.TabIndex = 16;
-			this.label4.Text = "Длительность хранения (в днях)";
-			// 
-			// savesIntervalHoursNumericUpDown
-			// 
-			this.savesIntervalHoursNumericUpDown.Location = new System.Drawing.Point(330, 179);
-			this.savesIntervalHoursNumericUpDown.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-			this.savesIntervalHoursNumericUpDown.Name = "savesIntervalHoursNumericUpDown";
-			this.savesIntervalHoursNumericUpDown.Size = new System.Drawing.Size(120, 29);
-			this.savesIntervalHoursNumericUpDown.TabIndex = 15;
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(6, 181);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(291, 24);
-			this.label3.TabIndex = 14;
-			this.label3.Text = "Интервал сохранения (в часах)";
 			// 
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(6, 106);
+			this.label2.Location = new System.Drawing.Point(5, 122);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(279, 24);
 			this.label2.TabIndex = 13;
@@ -204,7 +152,7 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(6, 41);
+			this.label1.Location = new System.Drawing.Point(6, 35);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(235, 24);
 			this.label1.TabIndex = 12;
@@ -214,10 +162,10 @@
 			// 
 			this.groupBox2.Controls.Add(this.groupBox4);
 			this.groupBox2.Controls.Add(this.groupBox3);
-			this.groupBox2.Location = new System.Drawing.Point(12, 285);
+			this.groupBox2.Location = new System.Drawing.Point(12, 12);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(531, 271);
-			this.groupBox2.TabIndex = 19;
+			this.groupBox2.Size = new System.Drawing.Size(694, 256);
+			this.groupBox2.TabIndex = 1;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Настройки подключения";
 			// 
@@ -228,17 +176,17 @@
 			this.groupBox4.Controls.Add(this.checkAdminServerConnectionButton);
 			this.groupBox4.Controls.Add(this.adminServerDatabaseTextBox);
 			this.groupBox4.Controls.Add(this.adminServerNameTextBox);
-			this.groupBox4.Location = new System.Drawing.Point(272, 28);
+			this.groupBox4.Location = new System.Drawing.Point(360, 28);
 			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(245, 215);
-			this.groupBox4.TabIndex = 9;
+			this.groupBox4.Size = new System.Drawing.Size(328, 206);
+			this.groupBox4.TabIndex = 6;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Администратор";
 			// 
 			// label8
 			// 
 			this.label8.AutoSize = true;
-			this.label8.Location = new System.Drawing.Point(59, 93);
+			this.label8.Location = new System.Drawing.Point(96, 93);
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(130, 24);
 			this.label8.TabIndex = 8;
@@ -247,7 +195,7 @@
 			// label6
 			// 
 			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(30, 34);
+			this.label6.Location = new System.Drawing.Point(80, 34);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(177, 24);
 			this.label6.TabIndex = 1;
@@ -255,10 +203,10 @@
 			// 
 			// checkAdminServerConnectionButton
 			// 
-			this.checkAdminServerConnectionButton.Location = new System.Drawing.Point(28, 159);
+			this.checkAdminServerConnectionButton.Location = new System.Drawing.Point(100, 155);
 			this.checkAdminServerConnectionButton.Name = "checkAdminServerConnectionButton";
-			this.checkAdminServerConnectionButton.Size = new System.Drawing.Size(179, 29);
-			this.checkAdminServerConnectionButton.TabIndex = 7;
+			this.checkAdminServerConnectionButton.Size = new System.Drawing.Size(126, 32);
+			this.checkAdminServerConnectionButton.TabIndex = 9;
 			this.checkAdminServerConnectionButton.Text = "Проверка";
 			this.checkAdminServerConnectionButton.UseVisualStyleBackColor = true;
 			this.checkAdminServerConnectionButton.Click += new System.EventHandler(this.checkAdminServerConnectionButton_Click);
@@ -267,34 +215,34 @@
 			// 
 			this.adminServerDatabaseTextBox.Location = new System.Drawing.Point(6, 120);
 			this.adminServerDatabaseTextBox.Name = "adminServerDatabaseTextBox";
-			this.adminServerDatabaseTextBox.Size = new System.Drawing.Size(233, 29);
-			this.adminServerDatabaseTextBox.TabIndex = 5;
+			this.adminServerDatabaseTextBox.Size = new System.Drawing.Size(316, 29);
+			this.adminServerDatabaseTextBox.TabIndex = 8;
 			// 
 			// adminServerNameTextBox
 			// 
 			this.adminServerNameTextBox.Location = new System.Drawing.Point(6, 61);
 			this.adminServerNameTextBox.Name = "adminServerNameTextBox";
-			this.adminServerNameTextBox.Size = new System.Drawing.Size(233, 29);
-			this.adminServerNameTextBox.TabIndex = 3;
+			this.adminServerNameTextBox.Size = new System.Drawing.Size(316, 29);
+			this.adminServerNameTextBox.TabIndex = 7;
 			// 
 			// groupBox3
 			// 
 			this.groupBox3.Controls.Add(this.label7);
 			this.groupBox3.Controls.Add(this.label5);
+			this.groupBox3.Controls.Add(this.checkUserServerConnectionButton);
 			this.groupBox3.Controls.Add(this.userServerNameTextBox);
 			this.groupBox3.Controls.Add(this.userServerDatabaseTextBox);
-			this.groupBox3.Controls.Add(this.checkUserServerConnectionButton);
 			this.groupBox3.Location = new System.Drawing.Point(10, 28);
 			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new System.Drawing.Size(245, 215);
-			this.groupBox3.TabIndex = 8;
+			this.groupBox3.Size = new System.Drawing.Size(328, 206);
+			this.groupBox3.TabIndex = 2;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Пользователь";
 			// 
 			// label7
 			// 
 			this.label7.AutoSize = true;
-			this.label7.Location = new System.Drawing.Point(53, 93);
+			this.label7.Location = new System.Drawing.Point(101, 93);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(130, 24);
 			this.label7.TabIndex = 7;
@@ -303,131 +251,123 @@
 			// label5
 			// 
 			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(44, 34);
+			this.label5.Location = new System.Drawing.Point(83, 34);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(177, 24);
 			this.label5.TabIndex = 0;
 			this.label5.Text = "Название сервера";
 			// 
+			// checkUserServerConnectionButton
+			// 
+			this.checkUserServerConnectionButton.Location = new System.Drawing.Point(105, 155);
+			this.checkUserServerConnectionButton.Name = "checkUserServerConnectionButton";
+			this.checkUserServerConnectionButton.Size = new System.Drawing.Size(126, 32);
+			this.checkUserServerConnectionButton.TabIndex = 5;
+			this.checkUserServerConnectionButton.Text = "Проверка";
+			this.checkUserServerConnectionButton.UseVisualStyleBackColor = true;
+			this.checkUserServerConnectionButton.Click += new System.EventHandler(this.checkUserServerConnectionButton_Click);
+			// 
 			// userServerNameTextBox
 			// 
 			this.userServerNameTextBox.Location = new System.Drawing.Point(6, 61);
 			this.userServerNameTextBox.Name = "userServerNameTextBox";
-			this.userServerNameTextBox.Size = new System.Drawing.Size(233, 29);
-			this.userServerNameTextBox.TabIndex = 2;
+			this.userServerNameTextBox.Size = new System.Drawing.Size(316, 29);
+			this.userServerNameTextBox.TabIndex = 3;
 			// 
 			// userServerDatabaseTextBox
 			// 
 			this.userServerDatabaseTextBox.Location = new System.Drawing.Point(6, 120);
 			this.userServerDatabaseTextBox.Name = "userServerDatabaseTextBox";
-			this.userServerDatabaseTextBox.Size = new System.Drawing.Size(233, 29);
+			this.userServerDatabaseTextBox.Size = new System.Drawing.Size(316, 29);
 			this.userServerDatabaseTextBox.TabIndex = 4;
-			// 
-			// checkUserServerConnectionButton
-			// 
-			this.checkUserServerConnectionButton.Location = new System.Drawing.Point(26, 158);
-			this.checkUserServerConnectionButton.Name = "checkUserServerConnectionButton";
-			this.checkUserServerConnectionButton.Size = new System.Drawing.Size(179, 29);
-			this.checkUserServerConnectionButton.TabIndex = 6;
-			this.checkUserServerConnectionButton.Text = "Проверка";
-			this.checkUserServerConnectionButton.UseVisualStyleBackColor = true;
-			this.checkUserServerConnectionButton.Click += new System.EventHandler(this.checkUserServerConnectionButton_Click);
 			// 
 			// saveSettingsButton
 			// 
-			this.saveSettingsButton.Location = new System.Drawing.Point(554, 407);
+			this.saveSettingsButton.Location = new System.Drawing.Point(448, 441);
 			this.saveSettingsButton.Name = "saveSettingsButton";
-			this.saveSettingsButton.Size = new System.Drawing.Size(118, 42);
-			this.saveSettingsButton.TabIndex = 20;
-			this.saveSettingsButton.Text = "Сохранить";
+			this.saveSettingsButton.Size = new System.Drawing.Size(258, 42);
+			this.saveSettingsButton.TabIndex = 21;
+			this.saveSettingsButton.Text = "Сохранить настройки";
 			this.saveSettingsButton.UseVisualStyleBackColor = true;
 			this.saveSettingsButton.Click += new System.EventHandler(this.saveSettingsButton_Click);
 			// 
-			// organizationsDataGridView
-			// 
-			this.organizationsDataGridView.AllowUserToAddRows = false;
-			this.organizationsDataGridView.AllowUserToDeleteRows = false;
-			this.organizationsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.organizationsDataGridView.Location = new System.Drawing.Point(48, 565);
-			this.organizationsDataGridView.Margin = new System.Windows.Forms.Padding(6);
-			this.organizationsDataGridView.MultiSelect = false;
-			this.organizationsDataGridView.Name = "organizationsDataGridView";
-			this.organizationsDataGridView.ReadOnly = true;
-			this.organizationsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.organizationsDataGridView.Size = new System.Drawing.Size(539, 102);
-			this.organizationsDataGridView.TabIndex = 17;
-			// 
 			// sqlScriptFileTextBox
 			// 
-			this.sqlScriptFileTextBox.Location = new System.Drawing.Point(554, 288);
+			this.sqlScriptFileTextBox.Location = new System.Drawing.Point(9, 65);
 			this.sqlScriptFileTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.sqlScriptFileTextBox.Name = "sqlScriptFileTextBox";
-			this.sqlScriptFileTextBox.Size = new System.Drawing.Size(114, 29);
-			this.sqlScriptFileTextBox.TabIndex = 13;
+			this.sqlScriptFileTextBox.Size = new System.Drawing.Size(246, 29);
+			this.sqlScriptFileTextBox.TabIndex = 18;
 			// 
 			// browseSqlScriptButton
 			// 
-			this.browseSqlScriptButton.Location = new System.Drawing.Point(554, 366);
+			this.browseSqlScriptButton.Location = new System.Drawing.Point(9, 106);
 			this.browseSqlScriptButton.Margin = new System.Windows.Forms.Padding(6);
 			this.browseSqlScriptButton.Name = "browseSqlScriptButton";
-			this.browseSqlScriptButton.Size = new System.Drawing.Size(118, 32);
-			this.browseSqlScriptButton.TabIndex = 12;
-			this.browseSqlScriptButton.Text = "browse sql";
+			this.browseSqlScriptButton.Size = new System.Drawing.Size(119, 32);
+			this.browseSqlScriptButton.TabIndex = 19;
+			this.browseSqlScriptButton.Text = "Обзор";
 			this.browseSqlScriptButton.UseVisualStyleBackColor = true;
 			this.browseSqlScriptButton.Click += new System.EventHandler(this.browseSqlScriptButton_Click);
 			// 
 			// runSqlScriptButton
 			// 
-			this.runSqlScriptButton.Location = new System.Drawing.Point(554, 329);
+			this.runSqlScriptButton.Location = new System.Drawing.Point(136, 106);
 			this.runSqlScriptButton.Margin = new System.Windows.Forms.Padding(6);
 			this.runSqlScriptButton.Name = "runSqlScriptButton";
-			this.runSqlScriptButton.Size = new System.Drawing.Size(76, 29);
-			this.runSqlScriptButton.TabIndex = 14;
-			this.runSqlScriptButton.Text = "run sql";
+			this.runSqlScriptButton.Size = new System.Drawing.Size(119, 32);
+			this.runSqlScriptButton.TabIndex = 20;
+			this.runSqlScriptButton.Text = "Выполнить";
 			this.runSqlScriptButton.UseVisualStyleBackColor = true;
 			this.runSqlScriptButton.Click += new System.EventHandler(this.runSqlScriptButton_Click);
 			// 
-			// connectBut
+			// groupBox5
 			// 
-			this.connectBut.Location = new System.Drawing.Point(552, 499);
-			this.connectBut.Margin = new System.Windows.Forms.Padding(6);
-			this.connectBut.Name = "connectBut";
-			this.connectBut.Size = new System.Drawing.Size(96, 42);
-			this.connectBut.TabIndex = 15;
-			this.connectBut.Text = "Подключение";
-			this.connectBut.UseVisualStyleBackColor = true;
-			this.connectBut.Click += new System.EventHandler(this.connectBut_Click);
+			this.groupBox5.Controls.Add(this.label9);
+			this.groupBox5.Controls.Add(this.sqlScriptFileTextBox);
+			this.groupBox5.Controls.Add(this.browseSqlScriptButton);
+			this.groupBox5.Controls.Add(this.runSqlScriptButton);
+			this.groupBox5.Location = new System.Drawing.Point(446, 274);
+			this.groupBox5.Name = "groupBox5";
+			this.groupBox5.Size = new System.Drawing.Size(260, 150);
+			this.groupBox5.TabIndex = 17;
+			this.groupBox5.TabStop = false;
+			this.groupBox5.Text = "Создание базы данных";
+			// 
+			// label9
+			// 
+			this.label9.AutoSize = true;
+			this.label9.Location = new System.Drawing.Point(6, 35);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(114, 24);
+			this.label9.TabIndex = 0;
+			this.label9.Text = "SQL скрипт";
 			// 
 			// SettingsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(688, 692);
+			this.ClientSize = new System.Drawing.Size(714, 492);
+			this.Controls.Add(this.groupBox5);
 			this.Controls.Add(this.saveSettingsButton);
 			this.Controls.Add(this.groupBox2);
-			this.Controls.Add(this.sqlScriptFileTextBox);
 			this.Controls.Add(this.groupBox1);
-			this.Controls.Add(this.organizationsDataGridView);
-			this.Controls.Add(this.connectBut);
-			this.Controls.Add(this.runSqlScriptButton);
-			this.Controls.Add(this.browseSqlScriptButton);
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.Margin = new System.Windows.Forms.Padding(6);
 			this.Name = "SettingsForm";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Настройки";
 			this.Load += new System.EventHandler(this.BackupForm_Load);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.savesDurationHoursNumericUpDown)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.savesIntervalHoursNumericUpDown)).EndInit();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox4.PerformLayout();
 			this.groupBox3.ResumeLayout(false);
 			this.groupBox3.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.organizationsDataGridView)).EndInit();
+			this.groupBox5.ResumeLayout(false);
+			this.groupBox5.PerformLayout();
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
@@ -441,10 +381,6 @@
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.NumericUpDown savesIntervalHoursNumericUpDown;
-		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.NumericUpDown savesDurationHoursNumericUpDown;
 		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Label label5;
@@ -459,10 +395,10 @@
 		private System.Windows.Forms.Label label8;
 		private System.Windows.Forms.GroupBox groupBox3;
 		private System.Windows.Forms.Label label7;
-		private System.Windows.Forms.DataGridView organizationsDataGridView;
 		private System.Windows.Forms.TextBox sqlScriptFileTextBox;
 		private System.Windows.Forms.Button browseSqlScriptButton;
 		private System.Windows.Forms.Button runSqlScriptButton;
-		private System.Windows.Forms.Button connectBut;
+		private System.Windows.Forms.GroupBox groupBox5;
+		private System.Windows.Forms.Label label9;
 	}
 }

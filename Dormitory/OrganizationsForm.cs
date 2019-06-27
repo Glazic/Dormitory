@@ -8,33 +8,33 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.Linq;
+using System.Media;
 
 namespace Dormitory
 {
 	public partial class OrganizationsForm : Form
 	{
-		SqlConnection sqlConnection = new SqlConnection($"Data Source=.\\SQLEXPRESS;Initial Catalog=Dormitory;Integrated Security=True");
+		SqlConnection sqlConnection;
 		DataContext db;
-		//	DatabaseController databaseController;
 		SqlDataAdapter dataAdapter;
-		DataTable dataTable = new DataTable();
+		DataTable dataTable = new DataTable("Organizations");
 		int residentId = 0;
 
-		public OrganizationsForm()
+		public OrganizationsForm(SqlConnection sqlConnection)
 		{
 			InitializeComponent();
-			db = new DataContext(sqlConnection);
+			this.sqlConnection = sqlConnection;
+			db = new DataContext(this.sqlConnection);
 		}
 
-		public OrganizationsForm(int residentId) : this()
+		public OrganizationsForm(SqlConnection sqlConnection, int residentId) : this(sqlConnection)
 		{
 			this.residentId = residentId;
 		}
 
-		public static string ShowDialog(int residentId)
+		public static string ShowDialog(SqlConnection sqlConnection, int residentId)
 		{
-			OrganizationsForm residentForm = new OrganizationsForm(residentId);
-			//	this.Show();
+			OrganizationsForm residentForm = new OrganizationsForm(sqlConnection, residentId);
 			return residentForm.ShowDialog() == DialogResult.OK ? residentForm.organizationIdLabel.Text : null;
 		}
 
@@ -45,7 +45,6 @@ namespace Dormitory
 
 		public void LoadDataGrid()
 		{
-			//dataAdapter = databaseController.SelectAllOrganizations();
 			dataAdapter = new SqlDataAdapter("SELECT OrganizationId as [ИД], " +
 				"Name as [Название], Address as [Адрес] " +
 				"FROM Organizations", sqlConnection);
@@ -53,8 +52,8 @@ namespace Dormitory
 			dataAdapter.Fill(dataTable);
 			organizationsDataGridView.DataSource = dataTable;
 			organizationsDataGridView.Columns[0].Width = 50;
-			organizationsDataGridView.Columns[1].Width = 230;
-			organizationsDataGridView.Columns[2].Width = 350;
+			organizationsDataGridView.Columns[1].Width = 440;
+			organizationsDataGridView.Columns[2].Width = 280;
 			organizationsDataGridView.ClearSelection();
 		}
 
@@ -65,7 +64,7 @@ namespace Dormitory
 			{
 				organizationIdLabel.Text = dataRow[0].ToString();
 				nameTextBox.Text = dataRow[1].ToString();
-				//addressTextBox.Text = dataRow[2].ToString();
+				addressTextBox.Text = dataRow[2].ToString();
 			}
 		}
 
@@ -76,40 +75,76 @@ namespace Dormitory
 
 		private void updateButton_Click(object sender, EventArgs e)
 		{
-			SqlConnection testConnection = new SqlConnection();
+			SqlConnection adminConnection = new SqlConnection();
 			try
 			{
 				System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
-				SqlConnectionStringBuilder sConnB = new SqlConnectionStringBuilder()
+				SqlConnectionStringBuilder adminConnB = new SqlConnectionStringBuilder()
 				{
 					DataSource = Properties.Settings.Default.adminServerName,
 					InitialCatalog = Properties.Settings.Default.adminServerDatabase,
 					UserID = LoginForm.UserName,
 					Password = LoginForm.Password
 				};
-				testConnection.ConnectionString = sConnB.ConnectionString;
-				testConnection.Open();
-				if (testConnection.State == ConnectionState.Open)
+				adminConnection.ConnectionString = adminConnB.ConnectionString;
+				adminConnection.Open();
+				if (adminConnection.State == ConnectionState.Open)
 				{
-					dataAdapter = new SqlDataAdapter("SELECT OrganizationId as [ИД], " +
+					DataTable updateDataTable = new DataTable("UpdateOrganizations");
+					SqlDataAdapter updateDataAdapter = new SqlDataAdapter("SELECT OrganizationId as [ИД], " +
 						"Name as [Название], PhysicAddress as [Адрес] " +
-						"FROM Organizations", testConnection);
-					dataTable.Clear();
-					dataAdapter.Fill(dataTable);
-					organizationsDataGridView.DataSource = dataTable;
-					organizationsDataGridView.Columns[0].Width = 50;
-					organizationsDataGridView.Columns[1].Width = 200;
-					organizationsDataGridView.Columns[2].Width = 200;
+						"FROM Organizations", adminConnection);
+					updateDataAdapter.Fill(updateDataTable);
+
+					sqlConnection.Open();
+					string tmpTable = "create table #Organizations " +
+						"(OrganizationId int, Name nvarchar(100), Address nvarchar(100))";
+					SqlCommand cmd = new SqlCommand(tmpTable, sqlConnection);
+					cmd.ExecuteNonQuery();
+					using (SqlBulkCopy bulkCopy = new SqlBulkCopy(sqlConnection))
+					{
+						bulkCopy.ColumnMappings.Add("[ИД]", "OrganizationId");
+						bulkCopy.ColumnMappings.Add("[Название]", "Name");
+						bulkCopy.ColumnMappings.Add("[Адрес]", "Address");
+						bulkCopy.DestinationTableName = "#Organizations";
+						try
+						{
+							bulkCopy.WriteToServer(updateDataTable);
+						}
+						catch (Exception ex)
+						{
+							SystemSounds.Exclamation.Play();
+							MessageBox.Show("Ошибка записи данных с сервера на сервер. \n" + ex.Message);
+						}
+					}
+					string mergeSql = "merge into Organizations as Target " +
+						"using #Organizations as Source " +
+						"on " +
+						"Target.OrganizationId=Source.OrganizationId " +
+						"when matched then " +
+							"update set Target.Name=Source.Name, Target.Address=Source.Address " +
+						"when not matched then " +
+							"insert (OrganizationId,Name,Address) values (Source.OrganizationId,Source.Name,Source.Address) " +
+						"when not matched by Source then delete; ";
+					cmd.CommandText = mergeSql;
+					cmd.ExecuteNonQuery();
+
+					cmd.CommandText = "drop table #Organizations";
+					cmd.ExecuteNonQuery();
+
+					organizationsDataGridView.DataSource = updateDataTable;
 					organizationsDataGridView.ClearSelection();
 				}
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show(ex.Message);
+				SystemSounds.Exclamation.Play();
+				MessageBox.Show("Ошибка обновления данных организаций. \n" + ex.Message);
 			}
 			finally
 			{
-				testConnection.Close();
+				adminConnection.Close();
+				sqlConnection.Close();
 				System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
 			}
 		}
@@ -122,6 +157,12 @@ namespace Dormitory
 				return true;
 			}
 			return base.ProcessCmdKey(ref msg, keyData);
+		}
+
+		private void nameFilterTextBox_TextChanged(object sender, EventArgs e)
+		{
+			dataTable.DefaultView.RowFilter = string.Format("[{0}] LIKE '%{1}%'", "Название", nameFilterTextBox.Text);
+			organizationsDataGridView.ClearSelection();
 		}
 	}
 }

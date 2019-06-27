@@ -54,7 +54,6 @@
 			this.organizationLabel = new System.Windows.Forms.Label();
 			this.organizationButton = new System.Windows.Forms.Button();
 			this.organizationTextBox = new System.Windows.Forms.TextBox();
-			this.settleButton = new System.Windows.Forms.Button();
 			this.livingDataGridView = new System.Windows.Forms.DataGridView();
 			this.evictButton = new System.Windows.Forms.Button();
 			this.roomIdLabel = new System.Windows.Forms.Label();
@@ -168,7 +167,7 @@
 			this.surnameTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.surnameTextBox.Name = "surnameTextBox";
 			this.surnameTextBox.Size = new System.Drawing.Size(277, 29);
-			this.surnameTextBox.TabIndex = 9;
+			this.surnameTextBox.TabIndex = 2;
 			// 
 			// nameTextBox
 			// 
@@ -176,7 +175,7 @@
 			this.nameTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.nameTextBox.Name = "nameTextBox";
 			this.nameTextBox.Size = new System.Drawing.Size(277, 29);
-			this.nameTextBox.TabIndex = 10;
+			this.nameTextBox.TabIndex = 3;
 			// 
 			// patronymicTextBox
 			// 
@@ -184,7 +183,7 @@
 			this.patronymicTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.patronymicTextBox.Name = "patronymicTextBox";
 			this.patronymicTextBox.Size = new System.Drawing.Size(277, 29);
-			this.patronymicTextBox.TabIndex = 11;
+			this.patronymicTextBox.TabIndex = 4;
 			// 
 			// phoneNumberTextBox
 			// 
@@ -192,7 +191,7 @@
 			this.phoneNumberTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.phoneNumberTextBox.Name = "phoneNumberTextBox";
 			this.phoneNumberTextBox.Size = new System.Drawing.Size(277, 29);
-			this.phoneNumberTextBox.TabIndex = 12;
+			this.phoneNumberTextBox.TabIndex = 7;
 			// 
 			// birthdayDateTimePicker
 			// 
@@ -203,16 +202,16 @@
 			this.birthdayDateTimePicker.Margin = new System.Windows.Forms.Padding(6);
 			this.birthdayDateTimePicker.Name = "birthdayDateTimePicker";
 			this.birthdayDateTimePicker.Size = new System.Drawing.Size(277, 29);
-			this.birthdayDateTimePicker.TabIndex = 16;
+			this.birthdayDateTimePicker.TabIndex = 6;
 			// 
 			// saveButton
 			// 
 			this.saveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.saveButton.Location = new System.Drawing.Point(553, 555);
+			this.saveButton.Location = new System.Drawing.Point(513, 546);
 			this.saveButton.Margin = new System.Windows.Forms.Padding(6);
 			this.saveButton.Name = "saveButton";
-			this.saveButton.Size = new System.Drawing.Size(116, 33);
-			this.saveButton.TabIndex = 17;
+			this.saveButton.Size = new System.Drawing.Size(182, 42);
+			this.saveButton.TabIndex = 22;
 			this.saveButton.Text = "Сохранить";
 			this.saveButton.UseVisualStyleBackColor = true;
 			this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
@@ -220,11 +219,11 @@
 			// addButton
 			// 
 			this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.addButton.Location = new System.Drawing.Point(681, 555);
+			this.addButton.Location = new System.Drawing.Point(730, 546);
 			this.addButton.Margin = new System.Windows.Forms.Padding(6);
 			this.addButton.Name = "addButton";
-			this.addButton.Size = new System.Drawing.Size(116, 33);
-			this.addButton.TabIndex = 18;
+			this.addButton.Size = new System.Drawing.Size(182, 42);
+			this.addButton.TabIndex = 23;
 			this.addButton.Text = "Добавить";
 			this.addButton.UseVisualStyleBackColor = true;
 			this.addButton.Click += new System.EventHandler(this.addButton_Click);
@@ -265,7 +264,7 @@
 			this.passportSeriesTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.passportSeriesTextBox.Name = "passportSeriesTextBox";
 			this.passportSeriesTextBox.Size = new System.Drawing.Size(266, 29);
-			this.passportSeriesTextBox.TabIndex = 22;
+			this.passportSeriesTextBox.TabIndex = 10;
 			// 
 			// passportNumberTextBox
 			// 
@@ -273,7 +272,7 @@
 			this.passportNumberTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.passportNumberTextBox.Name = "passportNumberTextBox";
 			this.passportNumberTextBox.Size = new System.Drawing.Size(266, 29);
-			this.passportNumberTextBox.TabIndex = 23;
+			this.passportNumberTextBox.TabIndex = 11;
 			// 
 			// passportRegistrationTextBox
 			// 
@@ -281,7 +280,7 @@
 			this.passportRegistrationTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.passportRegistrationTextBox.Name = "passportRegistrationTextBox";
 			this.passportRegistrationTextBox.Size = new System.Drawing.Size(266, 29);
-			this.passportRegistrationTextBox.TabIndex = 24;
+			this.passportRegistrationTextBox.TabIndex = 12;
 			// 
 			// noteLabel
 			// 
@@ -299,7 +298,7 @@
 			this.noteTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.noteTextBox.Name = "noteTextBox";
 			this.noteTextBox.Size = new System.Drawing.Size(277, 29);
-			this.noteTextBox.TabIndex = 26;
+			this.noteTextBox.TabIndex = 8;
 			// 
 			// organizationLabel
 			// 
@@ -317,7 +316,7 @@
 			this.organizationButton.Margin = new System.Windows.Forms.Padding(6);
 			this.organizationButton.Name = "organizationButton";
 			this.organizationButton.Size = new System.Drawing.Size(103, 29);
-			this.organizationButton.TabIndex = 28;
+			this.organizationButton.TabIndex = 5;
 			this.organizationButton.Text = "Выбрать";
 			this.organizationButton.UseVisualStyleBackColor = true;
 			this.organizationButton.Click += new System.EventHandler(this.organizationButton_Click);
@@ -329,19 +328,7 @@
 			this.organizationTextBox.Name = "organizationTextBox";
 			this.organizationTextBox.ReadOnly = true;
 			this.organizationTextBox.Size = new System.Drawing.Size(162, 29);
-			this.organizationTextBox.TabIndex = 29;
-			// 
-			// settleButton
-			// 
-			this.settleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.settleButton.Location = new System.Drawing.Point(937, 555);
-			this.settleButton.Margin = new System.Windows.Forms.Padding(6);
-			this.settleButton.Name = "settleButton";
-			this.settleButton.Size = new System.Drawing.Size(116, 33);
-			this.settleButton.TabIndex = 30;
-			this.settleButton.Text = "Заселить";
-			this.settleButton.UseVisualStyleBackColor = true;
-			this.settleButton.Click += new System.EventHandler(this.settleButton_Click);
+			this.organizationTextBox.TabIndex = 0;
 			// 
 			// livingDataGridView
 			// 
@@ -354,16 +341,16 @@
 			this.livingDataGridView.ReadOnly = true;
 			this.livingDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.livingDataGridView.Size = new System.Drawing.Size(674, 172);
-			this.livingDataGridView.TabIndex = 31;
+			this.livingDataGridView.TabIndex = 15;
 			// 
 			// evictButton
 			// 
 			this.evictButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.evictButton.Location = new System.Drawing.Point(809, 555);
+			this.evictButton.Location = new System.Drawing.Point(946, 546);
 			this.evictButton.Margin = new System.Windows.Forms.Padding(6);
 			this.evictButton.Name = "evictButton";
-			this.evictButton.Size = new System.Drawing.Size(116, 33);
-			this.evictButton.TabIndex = 32;
+			this.evictButton.Size = new System.Drawing.Size(182, 42);
+			this.evictButton.TabIndex = 24;
 			this.evictButton.Text = "Выселить";
 			this.evictButton.UseVisualStyleBackColor = true;
 			this.evictButton.Click += new System.EventHandler(this.evictButton_Click);
@@ -396,7 +383,7 @@
 			this.passportAuthorityTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.passportAuthorityTextBox.Name = "passportAuthorityTextBox";
 			this.passportAuthorityTextBox.Size = new System.Drawing.Size(266, 29);
-			this.passportAuthorityTextBox.TabIndex = 35;
+			this.passportAuthorityTextBox.TabIndex = 14;
 			// 
 			// passportDateOfIssueDateTimePicker
 			// 
@@ -405,7 +392,7 @@
 			this.passportDateOfIssueDateTimePicker.Margin = new System.Windows.Forms.Padding(6);
 			this.passportDateOfIssueDateTimePicker.Name = "passportDateOfIssueDateTimePicker";
 			this.passportDateOfIssueDateTimePicker.Size = new System.Drawing.Size(266, 29);
-			this.passportDateOfIssueDateTimePicker.TabIndex = 36;
+			this.passportDateOfIssueDateTimePicker.TabIndex = 13;
 			// 
 			// residentGroupBox
 			// 
@@ -432,7 +419,7 @@
 			this.residentGroupBox.Name = "residentGroupBox";
 			this.residentGroupBox.Padding = new System.Windows.Forms.Padding(6);
 			this.residentGroupBox.Size = new System.Drawing.Size(460, 327);
-			this.residentGroupBox.TabIndex = 37;
+			this.residentGroupBox.TabIndex = 1;
 			this.residentGroupBox.TabStop = false;
 			this.residentGroupBox.Text = "Общее";
 			// 
@@ -455,7 +442,7 @@
 			this.passportGroupBox.Name = "passportGroupBox";
 			this.passportGroupBox.Padding = new System.Windows.Forms.Padding(6);
 			this.passportGroupBox.Size = new System.Drawing.Size(460, 243);
-			this.passportGroupBox.TabIndex = 38;
+			this.passportGroupBox.TabIndex = 9;
 			this.passportGroupBox.TabStop = false;
 			this.passportGroupBox.Text = "Паспорт";
 			// 
@@ -480,7 +467,7 @@
 			this.rentDataGridView.ReadOnly = true;
 			this.rentDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.rentDataGridView.Size = new System.Drawing.Size(659, 172);
-			this.rentDataGridView.TabIndex = 39;
+			this.rentDataGridView.TabIndex = 17;
 			// 
 			// label3
 			// 
@@ -505,14 +492,14 @@
 			this.startRentDateTimePicker.Location = new System.Drawing.Point(81, 214);
 			this.startRentDateTimePicker.Name = "startRentDateTimePicker";
 			this.startRentDateTimePicker.Size = new System.Drawing.Size(200, 29);
-			this.startRentDateTimePicker.TabIndex = 51;
+			this.startRentDateTimePicker.TabIndex = 18;
 			// 
 			// endRentDateTimePicker
 			// 
-			this.endRentDateTimePicker.Location = new System.Drawing.Point(81, 250);
+			this.endRentDateTimePicker.Location = new System.Drawing.Point(81, 253);
 			this.endRentDateTimePicker.Name = "endRentDateTimePicker";
 			this.endRentDateTimePicker.Size = new System.Drawing.Size(200, 29);
-			this.endRentDateTimePicker.TabIndex = 52;
+			this.endRentDateTimePicker.TabIndex = 19;
 			// 
 			// rentButton
 			// 
@@ -520,8 +507,8 @@
 			this.rentButton.Location = new System.Drawing.Point(287, 250);
 			this.rentButton.Margin = new System.Windows.Forms.Padding(6);
 			this.rentButton.Name = "rentButton";
-			this.rentButton.Size = new System.Drawing.Size(116, 29);
-			this.rentButton.TabIndex = 55;
+			this.rentButton.Size = new System.Drawing.Size(176, 33);
+			this.rentButton.TabIndex = 21;
 			this.rentButton.Text = "Прокат";
 			this.rentButton.UseVisualStyleBackColor = true;
 			this.rentButton.Click += new System.EventHandler(this.rentButton_Click);
@@ -534,7 +521,7 @@
 			this.rentThingsComboBox.Name = "rentThingsComboBox";
 			this.rentThingsComboBox.Size = new System.Drawing.Size(176, 32);
 			this.rentThingsComboBox.Sorted = true;
-			this.rentThingsComboBox.TabIndex = 56;
+			this.rentThingsComboBox.TabIndex = 20;
 			// 
 			// rentGroupBox
 			// 
@@ -547,8 +534,8 @@
 			this.rentGroupBox.Controls.Add(this.startRentDateTimePicker);
 			this.rentGroupBox.Location = new System.Drawing.Point(484, 216);
 			this.rentGroupBox.Name = "rentGroupBox";
-			this.rentGroupBox.Size = new System.Drawing.Size(677, 289);
-			this.rentGroupBox.TabIndex = 57;
+			this.rentGroupBox.Size = new System.Drawing.Size(677, 297);
+			this.rentGroupBox.TabIndex = 16;
 			this.rentGroupBox.TabStop = false;
 			this.rentGroupBox.Text = "Прокат";
 			// 
@@ -564,7 +551,6 @@
 			this.Controls.Add(this.roomIdLabel);
 			this.Controls.Add(this.evictButton);
 			this.Controls.Add(this.livingDataGridView);
-			this.Controls.Add(this.settleButton);
 			this.Controls.Add(this.addButton);
 			this.Controls.Add(this.saveButton);
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -613,7 +599,6 @@
 		private System.Windows.Forms.Label organizationLabel;
 		private System.Windows.Forms.Button organizationButton;
 		private System.Windows.Forms.TextBox organizationTextBox;
-		private System.Windows.Forms.Button settleButton;
 		private System.Windows.Forms.DataGridView livingDataGridView;
 		private System.Windows.Forms.Button evictButton;
 		private System.Windows.Forms.Label roomIdLabel;

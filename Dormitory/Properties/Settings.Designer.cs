@@ -23,16 +23,6 @@ namespace Dormitory.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ANTON\\SQLEXPRESS;Initial Catalog=Dormitory;Integrated Security=True")]
-        public string DormitoryConnectionString {
-            get {
-                return ((string)(this["DormitoryConnectionString"]));
-            }
-        }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(".\\SQLEXPRESS")]
@@ -102,30 +92,6 @@ namespace Dormitory.Properties {
             }
             set {
                 this["restoreFilePath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int savesIntervalHours {
-            get {
-                return ((int)(this["savesIntervalHours"]));
-            }
-            set {
-                this["savesIntervalHours"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("30")]
-        public int savesDurationHours {
-            get {
-                return ((int)(this["savesDurationHours"]));
-            }
-            set {
-                this["savesDurationHours"] = value;
             }
         }
     }

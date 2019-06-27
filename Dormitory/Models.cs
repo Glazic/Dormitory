@@ -7,24 +7,10 @@ using System.Text;
 
 namespace Dormitory
 {
-	//public class Person
-	//{
-	//	// имя
-	//	[Column]
-	//	public string Name { get; set; }
-	//	// фамилия
-	//	[Column]
-	//	public string Surname { get; set; }
-	//	// отчество
-	//	[Column]
-	//	public string Patronymic { get; set; }
-	//}
-
 	// житель
 	[Table(Name = "Residents")]
 	public class Resident
 	{
-		//[Column(IsPrimaryKey = true, IsDbGenerated = true, AutoSync = AutoSync.Always)]
 		[Column(IsPrimaryKey = true, IsDbGenerated = true)]
 		public int ResidentId { get; set; }
 
@@ -73,17 +59,6 @@ namespace Dormitory
 			set { this._ResidentRooms.Assign(value); }
 		}
 	}
-
-	////public class User : Person
-	////{
-	////	public int UserId { get; set; }
-
-	////	public string Login { get; set; }
-
-	////	public string Password { get; set; }
-
-	////	public string Role { get; set; }
-	////}
 
 	// организация
 	[Table(Name = "Organizations")]
@@ -140,9 +115,6 @@ namespace Dormitory
 	[Table(Name = "Sections")]
 	public class Section
 	{
-		//[Column(IsPrimaryKey = true, IsDbGenerated = true)]
-		//public int SectionId { get; set; }
-
 		[Column(IsPrimaryKey = true)]
 		public int Number { get; set; }
 
@@ -185,20 +157,6 @@ namespace Dormitory
 			get { return this._Section.Entity; }
 			set { this._Section.Entity = value; }
 		}
-
-		//private EntitySet<Resident> _Residents = new EntitySet<Resident>();
-		//[Association(Storage = "_Residents", OtherKey = "ResidentId")]
-		//public EntitySet<Resident> Residents {
-		//	get { return this._Residents; }
-		//	set { this._Residents.Assign(value); }
-		//}
-
-		//private EntitySet<ResidentsRooms> _ResidentsRooms = new EntitySet<ResidentsRooms>();
-		//[Association(Storage = "_ResidentsRooms", OtherKey = "ResidentsRoomsId")]
-		//public EntitySet<ResidentsRooms> ResidentsRooms {
-		//	get { return this._ResidentsRooms; }
-		//	set { this._ResidentsRooms.Assign(value); }
-		//}
 
 		private EntitySet<RoomResidents> _RoomResidents = new EntitySet<RoomResidents>();
 		[Association(Storage = "_RoomResidents", ThisKey = "RoomId", OtherKey = "RoomId")]
@@ -269,7 +227,7 @@ namespace Dormitory
 		public string Name { get; set; }
 	}
 
-	// проживание
+	// Проживание
 	[Table(Name = "ResidentRoomsRentThings")]
 	public class ResidentRoomsRentThing
 	{
@@ -300,4 +258,20 @@ namespace Dormitory
 		}
 	}
 
+	// История
+	[Table(Name = "HistoryRecords")]
+	public class HistoryRecord
+	{
+		[Column(IsPrimaryKey = true, IsDbGenerated = true)]
+		public int HistoryRecordId { get; set; }
+
+		[Column]
+		public string UserName { get; set; }
+
+		[Column]
+		public string Action { get; set; }
+
+		[Column]
+		public DateTime DateOfAction { get; set; }
+	}
 }

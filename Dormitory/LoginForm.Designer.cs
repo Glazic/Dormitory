@@ -28,20 +28,22 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
 			this.enterButton = new System.Windows.Forms.Button();
 			this.loginLabel = new System.Windows.Forms.Label();
 			this.passwordLabel = new System.Windows.Forms.Label();
 			this.userNameTextBox = new System.Windows.Forms.TextBox();
 			this.passwordTextBox = new System.Windows.Forms.TextBox();
+			this.settingsButton = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// enterButton
 			// 
-			this.enterButton.Location = new System.Drawing.Point(216, 260);
+			this.enterButton.Location = new System.Drawing.Point(158, 266);
 			this.enterButton.Margin = new System.Windows.Forms.Padding(6);
 			this.enterButton.Name = "enterButton";
 			this.enterButton.Size = new System.Drawing.Size(138, 42);
-			this.enterButton.TabIndex = 0;
+			this.enterButton.TabIndex = 5;
 			this.enterButton.Text = "Вход";
 			this.enterButton.UseVisualStyleBackColor = true;
 			this.enterButton.Click += new System.EventHandler(this.enterButton_Click);
@@ -84,17 +86,29 @@
 			this.passwordTextBox.TabIndex = 4;
 			this.passwordTextBox.Text = "zaq";
 			// 
+			// settingsButton
+			// 
+			this.settingsButton.Location = new System.Drawing.Point(305, 266);
+			this.settingsButton.Name = "settingsButton";
+			this.settingsButton.Size = new System.Drawing.Size(138, 42);
+			this.settingsButton.TabIndex = 6;
+			this.settingsButton.Text = "Настройки";
+			this.settingsButton.UseVisualStyleBackColor = true;
+			this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
+			// 
 			// LoginForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(567, 323);
+			this.Controls.Add(this.settingsButton);
 			this.Controls.Add(this.passwordTextBox);
 			this.Controls.Add(this.userNameTextBox);
 			this.Controls.Add(this.passwordLabel);
 			this.Controls.Add(this.loginLabel);
 			this.Controls.Add(this.enterButton);
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Margin = new System.Windows.Forms.Padding(6);
 			this.Name = "LoginForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -112,5 +126,6 @@
 		private System.Windows.Forms.Label passwordLabel;
 		private System.Windows.Forms.TextBox userNameTextBox;
 		private System.Windows.Forms.TextBox passwordTextBox;
+		private System.Windows.Forms.Button settingsButton;
 	}
 }

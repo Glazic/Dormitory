@@ -76,7 +76,7 @@
 			this.residentButton.Margin = new System.Windows.Forms.Padding(6);
 			this.residentButton.Name = "residentButton";
 			this.residentButton.Size = new System.Drawing.Size(546, 33);
-			this.residentButton.TabIndex = 31;
+			this.residentButton.TabIndex = 1;
 			this.residentButton.Text = "Выбрать жителя";
 			this.residentButton.UseVisualStyleBackColor = true;
 			this.residentButton.Click += new System.EventHandler(this.residentButton_Click);
@@ -88,7 +88,7 @@
 			this.organizationTextBox.Name = "organizationTextBox";
 			this.organizationTextBox.ReadOnly = true;
 			this.organizationTextBox.Size = new System.Drawing.Size(363, 29);
-			this.organizationTextBox.TabIndex = 41;
+			this.organizationTextBox.TabIndex = 6;
 			// 
 			// organizationLabel
 			// 
@@ -107,7 +107,7 @@
 			this.patronymicTextBox.Name = "patronymicTextBox";
 			this.patronymicTextBox.ReadOnly = true;
 			this.patronymicTextBox.Size = new System.Drawing.Size(363, 29);
-			this.patronymicTextBox.TabIndex = 38;
+			this.patronymicTextBox.TabIndex = 5;
 			// 
 			// nameTextBox
 			// 
@@ -116,7 +116,7 @@
 			this.nameTextBox.Name = "nameTextBox";
 			this.nameTextBox.ReadOnly = true;
 			this.nameTextBox.Size = new System.Drawing.Size(363, 29);
-			this.nameTextBox.TabIndex = 37;
+			this.nameTextBox.TabIndex = 4;
 			// 
 			// surnameTextBox
 			// 
@@ -125,7 +125,7 @@
 			this.surnameTextBox.Name = "surnameTextBox";
 			this.surnameTextBox.ReadOnly = true;
 			this.surnameTextBox.Size = new System.Drawing.Size(363, 29);
-			this.surnameTextBox.TabIndex = 36;
+			this.surnameTextBox.TabIndex = 3;
 			// 
 			// patronymicLabel
 			// 
@@ -174,7 +174,7 @@
 			this.settlementDateTimePicker.Margin = new System.Windows.Forms.Padding(6);
 			this.settlementDateTimePicker.Name = "settlementDateTimePicker";
 			this.settlementDateTimePicker.Size = new System.Drawing.Size(363, 29);
-			this.settlementDateTimePicker.TabIndex = 43;
+			this.settlementDateTimePicker.TabIndex = 7;
 			// 
 			// settlementDateLabel
 			// 
@@ -192,7 +192,7 @@
 			this.settleButton.Margin = new System.Windows.Forms.Padding(6);
 			this.settleButton.Name = "settleButton";
 			this.settleButton.Size = new System.Drawing.Size(193, 82);
-			this.settleButton.TabIndex = 44;
+			this.settleButton.TabIndex = 13;
 			this.settleButton.Text = "Заселить";
 			this.settleButton.UseVisualStyleBackColor = true;
 			this.settleButton.Click += new System.EventHandler(this.settleButton_Click);
@@ -204,7 +204,7 @@
 			this.isRentCheckBox.Margin = new System.Windows.Forms.Padding(6);
 			this.isRentCheckBox.Name = "isRentCheckBox";
 			this.isRentCheckBox.Size = new System.Drawing.Size(93, 28);
-			this.isRentCheckBox.TabIndex = 45;
+			this.isRentCheckBox.TabIndex = 13;
 			this.isRentCheckBox.Text = "Прокат";
 			this.isRentCheckBox.UseVisualStyleBackColor = true;
 			this.isRentCheckBox.CheckedChanged += new System.EventHandler(this.isRentCheckBox_CheckedChanged);
@@ -215,7 +215,7 @@
 			this.bedClothesCheckBox.Location = new System.Drawing.Point(218, 323);
 			this.bedClothesCheckBox.Name = "bedClothesCheckBox";
 			this.bedClothesCheckBox.Size = new System.Drawing.Size(138, 28);
-			this.bedClothesCheckBox.TabIndex = 46;
+			this.bedClothesCheckBox.TabIndex = 11;
 			this.bedClothesCheckBox.Text = "Постельное";
 			this.bedClothesCheckBox.UseVisualStyleBackColor = true;
 			// 
@@ -225,7 +225,7 @@
 			this.startRentDateTimePicker.Location = new System.Drawing.Point(279, 31);
 			this.startRentDateTimePicker.Name = "startRentDateTimePicker";
 			this.startRentDateTimePicker.Size = new System.Drawing.Size(200, 29);
-			this.startRentDateTimePicker.TabIndex = 47;
+			this.startRentDateTimePicker.TabIndex = 15;
 			// 
 			// endRentDateTimePicker
 			// 
@@ -233,7 +233,7 @@
 			this.endRentDateTimePicker.Location = new System.Drawing.Point(279, 66);
 			this.endRentDateTimePicker.Name = "endRentDateTimePicker";
 			this.endRentDateTimePicker.Size = new System.Drawing.Size(200, 29);
-			this.endRentDateTimePicker.TabIndex = 48;
+			this.endRentDateTimePicker.TabIndex = 16;
 			// 
 			// rentGroupBox
 			// 
@@ -246,7 +246,7 @@
 			this.rentGroupBox.Location = new System.Drawing.Point(12, 414);
 			this.rentGroupBox.Name = "rentGroupBox";
 			this.rentGroupBox.Size = new System.Drawing.Size(546, 110);
-			this.rentGroupBox.TabIndex = 49;
+			this.rentGroupBox.TabIndex = 12;
 			this.rentGroupBox.TabStop = false;
 			this.rentGroupBox.Text = "Прокат";
 			// 
@@ -259,7 +259,7 @@
 			this.rentThingsComboBox.Name = "rentThingsComboBox";
 			this.rentThingsComboBox.Size = new System.Drawing.Size(207, 32);
 			this.rentThingsComboBox.Sorted = true;
-			this.rentThingsComboBox.TabIndex = 57;
+			this.rentThingsComboBox.TabIndex = 14;
 			// 
 			// label3
 			// 
@@ -286,7 +286,7 @@
 			this.paymentGroupBox.Location = new System.Drawing.Point(12, 309);
 			this.paymentGroupBox.Name = "paymentGroupBox";
 			this.paymentGroupBox.Size = new System.Drawing.Size(190, 99);
-			this.paymentGroupBox.TabIndex = 50;
+			this.paymentGroupBox.TabIndex = 8;
 			this.paymentGroupBox.TabStop = false;
 			this.paymentGroupBox.Text = "Оплата";
 			// 
@@ -296,7 +296,7 @@
 			this.cashlessRadioButton.Location = new System.Drawing.Point(6, 62);
 			this.cashlessRadioButton.Name = "cashlessRadioButton";
 			this.cashlessRadioButton.Size = new System.Drawing.Size(162, 28);
-			this.cashlessRadioButton.TabIndex = 1;
+			this.cashlessRadioButton.TabIndex = 10;
 			this.cashlessRadioButton.Text = "Безналичными";
 			this.cashlessRadioButton.UseVisualStyleBackColor = true;
 			// 
@@ -307,7 +307,7 @@
 			this.cashRadioButton.Location = new System.Drawing.Point(6, 28);
 			this.cashRadioButton.Name = "cashRadioButton";
 			this.cashRadioButton.Size = new System.Drawing.Size(130, 28);
-			this.cashRadioButton.TabIndex = 0;
+			this.cashRadioButton.TabIndex = 9;
 			this.cashRadioButton.TabStop = true;
 			this.cashRadioButton.Text = "Наличными";
 			this.cashRadioButton.UseVisualStyleBackColor = true;
@@ -327,7 +327,7 @@
 			this.residentGroupBox.Location = new System.Drawing.Point(12, 60);
 			this.residentGroupBox.Name = "residentGroupBox";
 			this.residentGroupBox.Size = new System.Drawing.Size(546, 240);
-			this.residentGroupBox.TabIndex = 51;
+			this.residentGroupBox.TabIndex = 2;
 			this.residentGroupBox.TabStop = false;
 			this.residentGroupBox.Text = "Житель";
 			// 

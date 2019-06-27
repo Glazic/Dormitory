@@ -6,6 +6,7 @@ using System.Data.Linq;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Windows.Forms;
 
@@ -13,14 +14,15 @@ namespace Dormitory
 {
 	public partial class SettlementForm : Form
 	{
-		SqlConnection sqlConnection = new SqlConnection($"Data Source=.\\SQLEXPRESS;Initial Catalog=Dormitory;Integrated Security=True");
+		SqlConnection sqlConnection;
 		DataContext db;
 		int roomId;
 
-		public SettlementForm()
+		public SettlementForm(SqlConnection sqlConnection)
 		{
 			InitializeComponent();
-			db = new DataContext(sqlConnection);
+			this.sqlConnection = sqlConnection;
+			db = new DataContext(this.sqlConnection);
 		}
 
 		private void residentsForm_Load(object sender, EventArgs e)
@@ -28,14 +30,14 @@ namespace Dormitory
 
 		}
 
-		public SettlementForm(int roomId) : this()
+		public SettlementForm(SqlConnection sqlConnection, int roomId) : this(sqlConnection)
 		{
 			this.roomId = roomId;
 		}
 
-		public static string ShowDialogForNewSettlement(int roomId)
+		public static string ShowDialogForNewSettlement(SqlConnection sqlConnection, int roomId)
 		{
-			SettlementForm settlementForm = new SettlementForm(roomId);
+			SettlementForm settlementForm = new SettlementForm(sqlConnection, roomId);
 			return settlementForm.ShowDialog() == DialogResult.OK ? settlementForm.residentIdLabel.Text : null;
 		}
 
@@ -57,7 +59,6 @@ namespace Dormitory
 
 		private void settleButton_Click(object sender, EventArgs e)
 		{
-			MessageBox.Show("Добавь проверку на выбор жителя чтобы без выбора жителя нельзя было заселить(заблокировать кнопку заселения)");
 			DialogResult dialogResult = MessageBox.Show("Вы уверены, что хотите заселить данного жителя?\n",
 				"Предупреждение", MessageBoxButtons.YesNo);
 			if (dialogResult == DialogResult.Yes)
@@ -70,6 +71,7 @@ namespace Dormitory
 					var exist = db.GetTable<RoomResidents>().Any(r => r.ResidentId == resident.ResidentId);
 					if (exist)
 					{
+						SystemSounds.Exclamation.Play();
 						MessageBox.Show("Данный житель уже живет в другой комнате");
 					}
 					else
@@ -103,6 +105,7 @@ namespace Dormitory
 								StartRentDate = startRentDateTimePicker.Value.Date,
 								EndRentDate = endRentDateTimePicker.Value.Date
 							};
+							db.GetTable<ResidentRoomsRentThing>().InsertOnSubmit(residentRoomsRentThing);
 						}
 						db.SubmitChanges();
 
@@ -112,6 +115,7 @@ namespace Dormitory
 				}
 				catch (Exception ex)
 				{
+					SystemSounds.Exclamation.Play();
 					MessageBox.Show(ex.Message);
 				}
 			}

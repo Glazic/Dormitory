@@ -29,11 +29,14 @@
 		private void InitializeComponent()
 		{
 			this.organizationsDataGridView = new System.Windows.Forms.DataGridView();
-			this.nameLabel = new System.Windows.Forms.Label();
 			this.nameTextBox = new System.Windows.Forms.TextBox();
 			this.acceptButton = new System.Windows.Forms.Button();
 			this.organizationIdLabel = new System.Windows.Forms.Label();
 			this.updateButton = new System.Windows.Forms.Button();
+			this.addressTextBox = new System.Windows.Forms.TextBox();
+			this.addressLabel = new System.Windows.Forms.Label();
+			this.searchSurnameLabel = new System.Windows.Forms.Label();
+			this.nameFilterTextBox = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.organizationsDataGridView)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -42,32 +45,23 @@
 			this.organizationsDataGridView.AllowUserToAddRows = false;
 			this.organizationsDataGridView.AllowUserToDeleteRows = false;
 			this.organizationsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.organizationsDataGridView.Location = new System.Drawing.Point(15, 62);
+			this.organizationsDataGridView.Location = new System.Drawing.Point(15, 150);
 			this.organizationsDataGridView.Margin = new System.Windows.Forms.Padding(6);
 			this.organizationsDataGridView.MultiSelect = false;
 			this.organizationsDataGridView.Name = "organizationsDataGridView";
 			this.organizationsDataGridView.ReadOnly = true;
 			this.organizationsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.organizationsDataGridView.Size = new System.Drawing.Size(675, 292);
+			this.organizationsDataGridView.Size = new System.Drawing.Size(813, 259);
 			this.organizationsDataGridView.TabIndex = 0;
 			this.organizationsDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.organizationsDataGridView_CellClick);
 			// 
-			// nameLabel
-			// 
-			this.nameLabel.AutoSize = true;
-			this.nameLabel.Location = new System.Drawing.Point(165, 20);
-			this.nameLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-			this.nameLabel.Name = "nameLabel";
-			this.nameLabel.Size = new System.Drawing.Size(97, 24);
-			this.nameLabel.TabIndex = 2;
-			this.nameLabel.Text = "Название";
-			// 
 			// nameTextBox
 			// 
-			this.nameTextBox.Location = new System.Drawing.Point(274, 20);
+			this.nameTextBox.Location = new System.Drawing.Point(15, 59);
 			this.nameTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.nameTextBox.Name = "nameTextBox";
-			this.nameTextBox.Size = new System.Drawing.Size(266, 29);
+			this.nameTextBox.ReadOnly = true;
+			this.nameTextBox.Size = new System.Drawing.Size(813, 29);
 			this.nameTextBox.TabIndex = 5;
 			// 
 			// acceptButton
@@ -76,7 +70,7 @@
 			this.acceptButton.Location = new System.Drawing.Point(15, 15);
 			this.acceptButton.Margin = new System.Windows.Forms.Padding(6);
 			this.acceptButton.Name = "acceptButton";
-			this.acceptButton.Size = new System.Drawing.Size(138, 35);
+			this.acceptButton.Size = new System.Drawing.Size(175, 35);
 			this.acceptButton.TabIndex = 11;
 			this.acceptButton.Text = "Выбрать";
 			this.acceptButton.UseVisualStyleBackColor = true;
@@ -86,7 +80,7 @@
 			// 
 			this.organizationIdLabel.AutoSize = true;
 			this.organizationIdLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.organizationIdLabel.Location = new System.Drawing.Point(152, 3);
+			this.organizationIdLabel.Location = new System.Drawing.Point(521, 111);
 			this.organizationIdLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.organizationIdLabel.Name = "organizationIdLabel";
 			this.organizationIdLabel.Size = new System.Drawing.Size(40, 17);
@@ -96,14 +90,52 @@
 			// 
 			// updateButton
 			// 
-			this.updateButton.Location = new System.Drawing.Point(552, 15);
+			this.updateButton.Location = new System.Drawing.Point(653, 100);
 			this.updateButton.Margin = new System.Windows.Forms.Padding(6);
 			this.updateButton.Name = "updateButton";
-			this.updateButton.Size = new System.Drawing.Size(138, 35);
+			this.updateButton.Size = new System.Drawing.Size(175, 35);
 			this.updateButton.TabIndex = 13;
 			this.updateButton.Text = "Обновить";
 			this.updateButton.UseVisualStyleBackColor = true;
 			this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
+			// 
+			// addressTextBox
+			// 
+			this.addressTextBox.Location = new System.Drawing.Point(291, 18);
+			this.addressTextBox.Margin = new System.Windows.Forms.Padding(6);
+			this.addressTextBox.Name = "addressTextBox";
+			this.addressTextBox.ReadOnly = true;
+			this.addressTextBox.Size = new System.Drawing.Size(537, 29);
+			this.addressTextBox.TabIndex = 15;
+			// 
+			// addressLabel
+			// 
+			this.addressLabel.AutoSize = true;
+			this.addressLabel.Location = new System.Drawing.Point(212, 20);
+			this.addressLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+			this.addressLabel.Name = "addressLabel";
+			this.addressLabel.Size = new System.Drawing.Size(67, 24);
+			this.addressLabel.TabIndex = 14;
+			this.addressLabel.Text = "Адрес";
+			// 
+			// searchSurnameLabel
+			// 
+			this.searchSurnameLabel.AutoSize = true;
+			this.searchSurnameLabel.Location = new System.Drawing.Point(15, 105);
+			this.searchSurnameLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+			this.searchSurnameLabel.Name = "searchSurnameLabel";
+			this.searchSurnameLabel.Size = new System.Drawing.Size(189, 24);
+			this.searchSurnameLabel.TabIndex = 17;
+			this.searchSurnameLabel.Text = "Поиск по названию:";
+			// 
+			// nameFilterTextBox
+			// 
+			this.nameFilterTextBox.Location = new System.Drawing.Point(216, 102);
+			this.nameFilterTextBox.Margin = new System.Windows.Forms.Padding(6);
+			this.nameFilterTextBox.Name = "nameFilterTextBox";
+			this.nameFilterTextBox.Size = new System.Drawing.Size(293, 29);
+			this.nameFilterTextBox.TabIndex = 16;
+			this.nameFilterTextBox.TextChanged += new System.EventHandler(this.nameFilterTextBox_TextChanged);
 			// 
 			// OrganizationsForm
 			// 
@@ -111,12 +143,15 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoScroll = true;
-			this.ClientSize = new System.Drawing.Size(705, 361);
+			this.ClientSize = new System.Drawing.Size(843, 424);
+			this.Controls.Add(this.searchSurnameLabel);
+			this.Controls.Add(this.nameFilterTextBox);
+			this.Controls.Add(this.addressTextBox);
+			this.Controls.Add(this.addressLabel);
 			this.Controls.Add(this.updateButton);
 			this.Controls.Add(this.organizationIdLabel);
 			this.Controls.Add(this.acceptButton);
 			this.Controls.Add(this.nameTextBox);
-			this.Controls.Add(this.nameLabel);
 			this.Controls.Add(this.organizationsDataGridView);
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.Margin = new System.Windows.Forms.Padding(6);
@@ -133,10 +168,13 @@
 		#endregion
 
 		private System.Windows.Forms.DataGridView organizationsDataGridView;
-		private System.Windows.Forms.Label nameLabel;
 		private System.Windows.Forms.TextBox nameTextBox;
 		private System.Windows.Forms.Button acceptButton;
 		private System.Windows.Forms.Label organizationIdLabel;
 		private System.Windows.Forms.Button updateButton;
+		private System.Windows.Forms.TextBox addressTextBox;
+		private System.Windows.Forms.Label addressLabel;
+		private System.Windows.Forms.Label searchSurnameLabel;
+		private System.Windows.Forms.TextBox nameFilterTextBox;
 	}
 }

@@ -28,11 +28,13 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.residentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.organizationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.sectionsTabControl = new System.Windows.Forms.TabControl();
+			this.historyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -41,7 +43,8 @@
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.residentsToolStripMenuItem,
             this.organizationsToolStripMenuItem,
-            this.settingsToolStripMenuItem});
+            this.settingsToolStripMenuItem,
+            this.historyToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.Padding = new System.Windows.Forms.Padding(11, 4, 0, 4);
@@ -83,6 +86,13 @@
 			this.sectionsTabControl.Size = new System.Drawing.Size(921, 593);
 			this.sectionsTabControl.TabIndex = 1;
 			// 
+			// historyToolStripMenuItem
+			// 
+			this.historyToolStripMenuItem.Name = "historyToolStripMenuItem";
+			this.historyToolStripMenuItem.Size = new System.Drawing.Size(57, 29);
+			this.historyToolStripMenuItem.Text = "History";
+			this.historyToolStripMenuItem.Click += new System.EventHandler(this.historyToolStripMenuItem_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -92,6 +102,7 @@
 			this.Controls.Add(this.sectionsTabControl);
 			this.Controls.Add(this.menuStrip1);
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MainMenuStrip = this.menuStrip1;
 			this.Margin = new System.Windows.Forms.Padding(6);
 			this.Name = "MainForm";
@@ -112,6 +123,7 @@
 		private System.Windows.Forms.TabControl sectionsTabControl;
 		private System.Windows.Forms.ToolStripMenuItem residentsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem historyToolStripMenuItem;
 	}
 }
 

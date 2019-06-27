@@ -2,14 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Dormitory.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="DormitoryConnectionString" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=ANTON\SQLEXPRESS;Initial Catalog=Dormitory;Integrated Security=True&lt;/ConnectionString&gt;
-  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
-&lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=ANTON\SQLEXPRESS;Initial Catalog=Dormitory;Integrated Security=True</Value>
-    </Setting>
     <Setting Name="userServerName" Type="System.String" Scope="User">
       <Value Profile="(Default)">.\SQLEXPRESS</Value>
     </Setting>
@@ -27,12 +19,6 @@
     </Setting>
     <Setting Name="restoreFilePath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="savesIntervalHours" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="savesDurationHours" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">30</Value>
     </Setting>
   </Settings>
 </SettingsFile>

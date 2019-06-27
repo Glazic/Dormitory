@@ -17,11 +17,8 @@ namespace Dormitory
 	{
 		private SqlConnection sqlConnection = new SqlConnection();
 		private SqlCommand command;
-		private SqlDataReader reader;
-		SqlDataAdapter dataAdapter;
 		DataTable dataTable = new DataTable();
 		string sql = "";
-		string connectionString = "";
 
 		public SettingsForm()
 		{
@@ -37,7 +34,6 @@ namespace Dormitory
 		{
 			try
 			{
-				sqlConnection = new SqlConnection(connectionString);
 				sqlConnection.Open();
 				sql = "BACKUP DATABASE " + userServerDatabaseTextBox.Text + " TO DISK = '" + backupsFolderPathTextBox.Text + "\\"
 					+ userServerDatabaseTextBox.Text + "-" + DateTime.Now.ToString("dd-MM-yyyy-hh/mm/ss") + ".bak'";
@@ -45,11 +41,17 @@ namespace Dormitory
 				command.ExecuteNonQuery();
 				sqlConnection.Close();
 				sqlConnection.Dispose();
-				MessageBox.Show("successfull");
+				SystemSounds.Exclamation.Play();
+				MessageBox.Show("Успешно сохранено!");
 			}
 			catch (Exception ex)
 			{
+				SystemSounds.Exclamation.Play();
 				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				sqlConnection.Close();
 			}
 		}
 
@@ -75,97 +77,74 @@ namespace Dormitory
 
 		private void restoreButton_Click(object sender, EventArgs e)
 		{
+			SqlConnection myConn = new SqlConnection("Data Source =.\\SQLEXPRESS; Integrated Security = True");
 			try
 			{
-				sqlConnection = new SqlConnection(connectionString);
-				sqlConnection.Open();
+				myConn.Open();
 				sql = "use master " +
 					" ALTER DATABASE " + userServerDatabaseTextBox.Text + " SET SINGLE_USER WITH ROLLBACK IMMEDIATE;";
 				sql += "RESTORE DATABASE " + userServerDatabaseTextBox.Text + " FROM DISK = '" + restoreFilePathTextBox.Text + "' WITH REPLACE;";
-				command = new SqlCommand(sql, sqlConnection);
+				command = new SqlCommand(sql, myConn);
 				command.ExecuteNonQuery();
-				sqlConnection.Close();
-				sqlConnection.Dispose();
-				MessageBox.Show("successfull");
+				myConn.Close();
+				myConn.Dispose();
+				SystemSounds.Exclamation.Play();
+				MessageBox.Show("Успешно восстановлено!");
+			}
+			catch (Exception ex)
+			{
+				SystemSounds.Exclamation.Play();
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{
+				myConn.Close();
+			}
+		}
+
+		private void browseSqlScriptButton_Click(object sender, EventArgs e)
+		{
+			OpenFileDialog dlg = new OpenFileDialog();
+			dlg.Filter = "Sql скрипт(*.sql)|*.sql|Все файлы(*.*)|*.*";
+			dlg.FilterIndex = 0;
+			if (dlg.ShowDialog() == DialogResult.OK)
+			{
+				sqlScriptFileTextBox.Text = dlg.FileName;
+			}
+		}
+
+		private void runSqlScriptButton_Click(object sender, EventArgs e)
+		{
+			SqlConnection myConn = new SqlConnection("Data Source =.\\SQLEXPRESS; Integrated Security = True");
+			string script = File.ReadAllText(sqlScriptFileTextBox.Text);
+			System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+			IEnumerable<string> commandStrings = Regex.Split(script, @"^\s*GO\s*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+			try
+			{
+				myConn.Open();
+				foreach (string commandString in commandStrings)
+				{
+					if (commandString.Trim() != "")
+					{
+						using (var command = new SqlCommand(commandString, myConn))
+						{
+							command.ExecuteNonQuery();
+						}
+					}
+				}
+				SystemSounds.Beep.Play();
+				MessageBox.Show("Успешно выполено");
 			}
 			catch (Exception ex)
 			{
 				MessageBox.Show(ex.Message);
 			}
+			finally
+			{
+				myConn.Close();
+				System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+			}
 		}
-
-		//private void browseSqlScriptButton_Click(object sender, EventArgs e)
-		//{
-		//	OpenFileDialog dlg = new OpenFileDialog();
-		//	dlg.Filter = "Sql скрипт(*.sql)|*.sql|Все файлы(*.*)|*.*";
-		//	dlg.FilterIndex = 0;
-		//	if (dlg.ShowDialog() == DialogResult.OK)
-		//	{
-		//		sqlScriptFileTextBox.Text = dlg.FileName;
-		//	}
-		//}
-
-		//private void runSqlScriptButton_Click(object sender, EventArgs e)
-		//{
-		//	SqlConnection myConn = new SqlConnection("Data Source =.\\SQLEXPRESS; Integrated Security = True");
-		//	string script = File.ReadAllText(sqlScriptFileTextBox.Text);
-		//	System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
-		//	IEnumerable<string> commandStrings = Regex.Split(script, @"^\s*GO\s*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);
-		//	try
-		//	{
-		//		myConn.Open();
-		//		foreach (string commandString in commandStrings)
-		//		{
-		//			if (commandString.Trim() != "")
-		//			{
-		//				using (var command = new SqlCommand(commandString, myConn))
-		//				{
-		//					command.ExecuteNonQuery();
-		//				}
-		//			}
-		//		}
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		MessageBox.Show(ex.Message);
-		//	}
-		//	finally
-		//	{
-		//		myConn.Close();
-		//		System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
-		//	}
-		//	MessageBox.Show("loaded");
-		//}
-
-		//private void connectBut_Click(object sender, EventArgs e)
-		//{
-		//	try
-		//	{
-		//		// sqlConnection.ConnectionString = $"Data Source=WATCH1\\SQLEXPRESS;Initial Catalog=Dormitory;Integrated Security=True";
-		//		// sqlConnection.ConnectionString = $"Data Source={textBox1.Text};Initial Catalog=Dormitory;User ID=zaq;Password=zaq";
-		//		System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
-		//		sqlConnection.ConnectionString = $"Data Source={textBox1.Text}\\SQLEXPRESS;Initial Catalog=DormitoryAdmin;User ID=igor;Password=igor";
-		//		sqlConnection.Open();
-		//		dataAdapter = new SqlDataAdapter("SELECT OrganizationId as [ИД], " +
-		//	"Name as [Название], PhysicAddress as [Адрес] " +
-		//	"FROM Organizations", sqlConnection);
-		//		dataTable.Clear();
-		//		dataAdapter.Fill(dataTable);
-		//		organizationsDataGridView.DataSource = dataTable;
-		//		organizationsDataGridView.Columns[0].Width = 50;
-		//		organizationsDataGridView.Columns[1].Width = 200;
-		//		organizationsDataGridView.Columns[2].Width = 200;
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		MessageBox.Show(ex.Message);
-		//	}
-		//	finally
-		//	{
-		//		sqlConnection.Close();
-		//		System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
-		//	}
-		//}
 
 		private void saveSettingsButton_Click(object sender, EventArgs e)
 		{
@@ -178,9 +157,14 @@ namespace Dormitory
 				Properties.Settings.Default.adminServerDatabase = adminServerDatabaseTextBox.Text;
 				Properties.Settings.Default.backupsFolderPath = backupsFolderPathTextBox.Text;
 				Properties.Settings.Default.restoreFilePath = restoreFilePathTextBox.Text;
-				Properties.Settings.Default.savesIntervalHours = Convert.ToInt32(savesIntervalHoursNumericUpDown.Value);
-				Properties.Settings.Default.savesDurationHours = Convert.ToInt32(savesDurationHoursNumericUpDown.Value);
 				Properties.Settings.Default.Save();
+				SqlConnectionStringBuilder sConnB = new SqlConnectionStringBuilder()
+				{
+					DataSource = Properties.Settings.Default.userServerName,
+					InitialCatalog = Properties.Settings.Default.userServerDatabase,
+					IntegratedSecurity = true
+				};
+				HistoryRecordsController.ChangeSqlConnection(sConnB.ConnectionString);
 			}
 			catch (Exception ex)
 			{
@@ -200,8 +184,6 @@ namespace Dormitory
 			adminServerDatabaseTextBox.Text = Properties.Settings.Default.adminServerDatabase;
 			backupsFolderPathTextBox.Text = Properties.Settings.Default.backupsFolderPath;
 			restoreFilePathTextBox.Text = Properties.Settings.Default.restoreFilePath;
-			savesIntervalHoursNumericUpDown.Value = Properties.Settings.Default.savesIntervalHours;
-			savesDurationHoursNumericUpDown.Value = Properties.Settings.Default.savesDurationHours;
 		}
 
 		private void checkAdminServerConnectionButton_Click(object sender, EventArgs e)
@@ -275,21 +257,6 @@ namespace Dormitory
 				return true;
 			}
 			return base.ProcessCmdKey(ref msg, keyData);
-		}
-
-		private void browseSqlScriptButton_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void runSqlScriptButton_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void connectBut_Click(object sender, EventArgs e)
-		{
-
 		}
 	}
 }

@@ -11,6 +11,7 @@ using System.Media;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Dormitory;
 
 namespace Dormitory
 {
@@ -33,10 +34,7 @@ namespace Dormitory
 
 			if (string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(password))
 			{
-			//	SystemSounds.Beep.Play();
-			//	SystemSounds.Asterisk.Play();
 				SystemSounds.Exclamation.Play();
-			//	SystemSounds.Question.Play();
 				MessageBox.Show("Введите логин и пароль!");
 				return;
 			}
@@ -48,10 +46,12 @@ namespace Dormitory
 					DataSource = Properties.Settings.Default.userServerName,
 					InitialCatalog = Properties.Settings.Default.userServerDatabase,
 					UserID = userName,
-					Password = password
+					Password = password,
 				};
 				sqlConnection.ConnectionString = sConnB.ConnectionString;
 				sqlConnection.Open();
+				HistoryRecordsController.ChangeUser(userName);
+				HistoryRecordsController.WriteAboutAuthorization(true);
 				System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
 				MainForm mainForm = new MainForm(this, sqlConnection);
 				mainForm.Show();
@@ -61,10 +61,14 @@ namespace Dormitory
 			}
 			catch (SqlException)
 			{
+				HistoryRecordsController.ChangeUser(userName);
+				HistoryRecordsController.WriteAboutAuthorization(false);
+				SystemSounds.Exclamation.Play();
 				MessageBox.Show("Не удалось выполнить вход.\nУбедитесь, что введены правильные логин и(или) пароль", "Ошибка");
 			}
 			catch (Exception ex)
 			{
+				SystemSounds.Exclamation.Play();
 				MessageBox.Show(ex.Message);
 			}
 			finally
@@ -77,11 +81,19 @@ namespace Dormitory
 		{
 			try
 			{
-				sqlConnection = new SqlConnection($"Data Source=.\\SQLEXPRESS;Initial Catalog=Dormitory;Integrated Security=True");
+				SqlConnectionStringBuilder sConnB = new SqlConnectionStringBuilder()
+				{
+					DataSource = Properties.Settings.Default.userServerName,
+					InitialCatalog = Properties.Settings.Default.userServerDatabase,
+					IntegratedSecurity = true
+				};
+				sqlConnection = new SqlConnection(sConnB.ConnectionString);
 				sqlConnection.Open();
+				HistoryRecordsController.ChangeSqlConnection(sConnB.ConnectionString);
 			}
 			catch (SqlException ex)
 			{
+				SystemSounds.Exclamation.Play();
 				MessageBox.Show("Не удалось подключиться к базе данных. Ошибка:\n" + ex.Message, "Ошибка");
 				OpenFileDialog dlg = new OpenFileDialog();
 				string filePath = "";
@@ -91,7 +103,12 @@ namespace Dormitory
 				{
 					filePath = dlg.FileName;
 				}
-				SqlConnection myConn = new SqlConnection("Data Source =.\\SQLEXPRESS; Integrated Security = True");
+				SqlConnectionStringBuilder sConnB2 = new SqlConnectionStringBuilder()
+				{
+					DataSource = Properties.Settings.Default.userServerName,
+					IntegratedSecurity = true
+				};
+				SqlConnection myConn = new SqlConnection(sConnB2.ConnectionString);
 				string script = File.ReadAllText(filePath);
 				IEnumerable<string> commandStrings = Regex.Split(script, @"^\s*GO\s*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);
 				try
@@ -107,10 +124,12 @@ namespace Dormitory
 							}
 						}
 					}
+					SystemSounds.Beep.Play();
 					MessageBox.Show("База данных создана");
 				}
 				catch (SqlException sqlEx)
 				{
+					SystemSounds.Exclamation.Play();
 					MessageBox.Show("Ошибка подключения:\n" + sqlEx.Message);
 				}
 				finally

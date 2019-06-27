@@ -6,6 +6,7 @@ using System.Data.Linq;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Windows.Forms;
 
@@ -13,20 +14,21 @@ namespace Dormitory
 {
 	public partial class ResidentForm : Form
 	{
-		SqlConnection sqlConnection = new SqlConnection($"Data Source=.\\SQLEXPRESS;Initial Catalog=Dormitory;Integrated Security=True");
+		SqlConnection sqlConnection;
 		DataContext db;
 		SqlDataAdapter dataAdapter;
 		DataTable dataTable;
 		int residentId = 0;
 		int roomId = 0;
 
-		public ResidentForm()
+		public ResidentForm(SqlConnection sqlConnection)
 		{
 			InitializeComponent();
-			db = new DataContext(sqlConnection);
+			this.sqlConnection = sqlConnection;
+			db = new DataContext(this.sqlConnection);
 		}
 
-		public ResidentForm(int residentId) : this()
+		public ResidentForm(SqlConnection sqlConnection, int residentId) : this(sqlConnection)
 		{
 			residentIdLabel.Text = residentId.ToString();
 			this.residentId = residentId;
@@ -34,9 +36,8 @@ namespace Dormitory
 			LoadDataGrid();
 		}
 
-		public ResidentForm(int residentId, int roomId) : this()
+		public ResidentForm(SqlConnection sqlConnection, int residentId, int roomId) : this(sqlConnection)
 		{
-			settleButton.Enabled = false;
 			addButton.Enabled = false;
 			residentIdLabel.Text = residentId.ToString();
 			roomIdLabel.Text = roomId.ToString();
@@ -46,15 +47,15 @@ namespace Dormitory
 			LoadDataGrid();
 		}
 
-		public static string ShowDialog(int residentId)
+		public static string ShowDialog(SqlConnection sqlConnection, int residentId)
 		{
-			ResidentForm residentForm = new ResidentForm(residentId);
+			ResidentForm residentForm = new ResidentForm(sqlConnection, residentId);
 			return residentForm.ShowDialog() == DialogResult.OK ? residentForm.nameLabel.Text : "";
 		}
 
-		public static string ShowDialogForOldResident(int residentId, int roomId = 0)
+		public static string ShowDialogForOldResident(SqlConnection sqlConnection, int residentId, int roomId = 0)
 		{
-			ResidentForm residentForm = new ResidentForm(residentId, roomId);
+			ResidentForm residentForm = new ResidentForm(sqlConnection, residentId, roomId);
 			return residentForm.ShowDialog() == DialogResult.OK ? residentForm.nameLabel.Text : "";
 		}
 
@@ -121,41 +122,49 @@ namespace Dormitory
 			{
 				return;
 			}
-
-			string surname = surnameTextBox.Text;
-			string name = nameTextBox.Text;
-			string patronymic = patronymicTextBox.Text;
-			string phoneNumber = phoneNumberTextBox.Text;
-			DateTime birthday = birthdayDateTimePicker.Value.Date;
-			string passportSeries = passportSeriesTextBox.Text;
-			string passportNumber = passportNumberTextBox.Text;
-			string passportRegistration = passportRegistrationTextBox.Text;
-			string note = noteTextBox.Text;
-
-			Organization organization = db.GetTable<Organization>().FirstOrDefault();
-			Passport passport = new Passport
+			try
 			{
-				Series = passportSeries,
-				Number = passportNumber,
-				Registration = passportRegistration
-			};
-			db.GetTable<Passport>().InsertOnSubmit(passport);
-			db.SubmitChanges();
+				string surname = surnameTextBox.Text;
+				string name = nameTextBox.Text;
+				string patronymic = patronymicTextBox.Text;
+				string phoneNumber = phoneNumberTextBox.Text;
+				DateTime birthday = birthdayDateTimePicker.Value.Date;
+				string passportSeries = passportSeriesTextBox.Text;
+				string passportNumber = passportNumberTextBox.Text;
+				string passportRegistration = passportRegistrationTextBox.Text;
+				string note = noteTextBox.Text;
 
-			Resident resident = new Resident
+				Organization organization = db.GetTable<Organization>().FirstOrDefault();
+				Passport passport = new Passport
+				{
+					Series = passportSeries,
+					Number = passportNumber,
+					Registration = passportRegistration
+				};
+				db.GetTable<Passport>().InsertOnSubmit(passport);
+				db.SubmitChanges();
+
+				Resident resident = new Resident
+				{
+					Surname = surname,
+					Name = name,
+					Patronymic = patronymic,
+					PhoneNumber = phoneNumber,
+					Birthday = birthday,
+					Note = note,
+					PassportId = passport.PassportId,
+					OrganizationId = organization.OrganizationId
+				};
+				db.GetTable<Resident>().InsertOnSubmit(resident);
+				db.SubmitChanges();
+				SystemSounds.Beep.Play();
+				MessageBox.Show("Успешно добавлен!");
+			}
+			catch (Exception ex)
 			{
-				Surname = surname,
-				Name = name,
-				Patronymic = patronymic,
-				PhoneNumber = phoneNumber,
-				Birthday = birthday,
-				Note = note,
-				PassportId = passport.PassportId,
-				OrganizationId = organization.OrganizationId
-			};
-
-			db.GetTable<Resident>().InsertOnSubmit(resident);
-			db.SubmitChanges();
+				SystemSounds.Exclamation.Play();
+				MessageBox.Show("Ошибка при добавлении жителя. \n" + ex.Message);
+			}
 		}
 
 		private void saveButton_Click(object sender, EventArgs e)
@@ -176,16 +185,19 @@ namespace Dormitory
 				passport.Series = passportSeriesTextBox.Text;
 				passport.Registration = passportRegistrationTextBox.Text;
 				db.SubmitChanges();
+				SystemSounds.Beep.Play();
+				MessageBox.Show("Успешно сохранено!");
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show(ex.Message);
+				SystemSounds.Exclamation.Play();
+				MessageBox.Show("Ошибка при сохранении изменений. \n" + ex.Message);
 			}
 		}
 
 		private void organizationButton_Click(object sender, EventArgs e)
 		{
-			string value = OrganizationsForm.ShowDialog(residentId);
+			string value = OrganizationsForm.ShowDialog(sqlConnection, residentId);
 			if (value != null)
 			{
 				Int32.TryParse(value, out int organizationId);
@@ -195,71 +207,72 @@ namespace Dormitory
 			}
 		}
 
-		private void settleButton_Click(object sender, EventArgs e)
-		{
-			try
-			{
-				string surname = surnameTextBox.Text;
-				string name = nameTextBox.Text;
-				string patronymic = patronymicTextBox.Text;
-				string phoneNumber = phoneNumberTextBox.Text;
-				DateTime birthday = birthdayDateTimePicker.Value.Date;
-				string passportSeries = passportSeriesTextBox.Text;
-				string passportNumber = passportNumberTextBox.Text;
-				string passportRegistration = passportRegistrationTextBox.Text;
-				string note = noteTextBox.Text;
+	//	private void settleButton_Click(object sender, EventArgs e)
+	//	{
+			//try
+			//{
+			//	string surname = surnameTextBox.Text;
+			//	string name = nameTextBox.Text;
+			//	string patronymic = patronymicTextBox.Text;
+			//	string phoneNumber = phoneNumberTextBox.Text;
+			//	DateTime birthday = birthdayDateTimePicker.Value.Date;
+			//	string passportSeries = passportSeriesTextBox.Text;
+			//	string passportNumber = passportNumberTextBox.Text;
+			//	string passportRegistration = passportRegistrationTextBox.Text;
+			//	string note = noteTextBox.Text;
 
-				Int32.TryParse(organizationIdLabel.Text, out int organizationId);
-				//	Organization organization = db.GetTable<Organization>().FirstOrDefault();
-				Passport passport = new Passport
-				{
-					Series = passportSeries,
-					Number = passportNumber,
-					Registration = passportRegistration
-				};
-				db.GetTable<Passport>().InsertOnSubmit(passport);
-				db.SubmitChanges();
+			//	Int32.TryParse(organizationIdLabel.Text, out int organizationId);
+			//	//	Organization organization = db.GetTable<Organization>().FirstOrDefault();
+			//	Passport passport = new Passport
+			//	{
+			//		Series = passportSeries,
+			//		Number = passportNumber,
+			//		Registration = passportRegistration
+			//	};
+			//	db.GetTable<Passport>().InsertOnSubmit(passport);
+			//	db.SubmitChanges();
 
-				Resident resident = new Resident
-				{
-					Surname = surname,
-					Name = name,
-					Patronymic = patronymic,
-					PhoneNumber = phoneNumber,
-					Birthday = birthday,
-					Note = note,
-					PassportId = passport.PassportId,
-					OrganizationId = organizationId
-				};
+			//	Resident resident = new Resident
+			//	{
+			//		Surname = surname,
+			//		Name = name,
+			//		Patronymic = patronymic,
+			//		PhoneNumber = phoneNumber,
+			//		Birthday = birthday,
+			//		Note = note,
+			//		PassportId = passport.PassportId,
+			//		OrganizationId = organizationId
+			//	};
 
-				db.GetTable<Resident>().InsertOnSubmit(resident);
-				db.SubmitChanges();
+			//	db.GetTable<Resident>().InsertOnSubmit(resident);
+			//	db.SubmitChanges();
 
-				RoomResidents roomResidents = new RoomResidents
-				{
-					RoomId = roomId,
-					ResidentId = resident.ResidentId
-				};
-				db.GetTable<RoomResidents>().InsertOnSubmit(roomResidents);
+			//	RoomResidents roomResidents = new RoomResidents
+			//	{
+			//		RoomId = roomId,
+			//		ResidentId = resident.ResidentId
+			//	};
+			//	db.GetTable<RoomResidents>().InsertOnSubmit(roomResidents);
 
-				ResidentRooms residentRooms = new ResidentRooms
-				{
-					ResidentId = resident.ResidentId,
-					RoomId = roomId,
-					SettlementDate = DateTime.Now
-				};
-				db.GetTable<ResidentRooms>().InsertOnSubmit(residentRooms);
-				db.SubmitChanges();
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show(ex.Message);
-			}
-		}
+			//	ResidentRooms residentRooms = new ResidentRooms
+			//	{
+			//		ResidentId = resident.ResidentId,
+			//		RoomId = roomId,
+			//		SettlementDate = DateTime.Now
+			//	};
+			//	db.GetTable<ResidentRooms>().InsertOnSubmit(residentRooms);
+			//	db.SubmitChanges();
+			//}
+			//catch (Exception ex)
+			//{
+			//	MessageBox.Show(ex.Message);
+			//}
+	//	}
 
 		private void evictButton_Click(object sender, EventArgs e)
 		{
 			EvictResident(roomId, residentId);
+			LoadLivingDataGridView();
 		}
 
 		private void EvictResident(int roomId, int residentId)
@@ -277,10 +290,13 @@ namespace Dormitory
 						.FirstOrDefault(r => (r.ResidentId == residentId && r.RoomId == roomId && r.DateOfEviction == null));
 					residentRooms.DateOfEviction = DateTime.Now;
 					db.SubmitChanges();
+					SystemSounds.Beep.Play();
+					MessageBox.Show("Житель успешно выселен!");
 				}
 				catch (Exception ex)
 				{
-					MessageBox.Show(ex.Message);
+					SystemSounds.Exclamation.Play();
+					MessageBox.Show("Ошибка выселения жителя. \n" + ex.Message);
 				}
 			}
 		}
@@ -318,49 +334,55 @@ namespace Dormitory
 
 			if (string.IsNullOrWhiteSpace(surnameTextBox.Text))
 			{
+				SystemSounds.Exclamation.Play();
 				MessageBox.Show("Введите фамилию!");
 				return false;
 			}
 			if (string.IsNullOrWhiteSpace(nameTextBox.Text))
 			{
+				SystemSounds.Exclamation.Play();
 				MessageBox.Show("Введите имя!");
 				return false;
 			}
 			if (string.IsNullOrWhiteSpace(patronymicTextBox.Text))
 			{
+				SystemSounds.Exclamation.Play();
 				MessageBox.Show("Введите отчество!");
 				return false;
 			}
 			if (string.IsNullOrWhiteSpace(phoneNumberTextBox.Text))
 			{
+				SystemSounds.Exclamation.Play();
 				MessageBox.Show("Введите номер телефона!");
 				return false;
 			}
 
 			if (string.IsNullOrWhiteSpace(passportSeriesTextBox.Text))
 			{
+				SystemSounds.Exclamation.Play();
 				MessageBox.Show("Введите серию паспорта!");
 				return false;
 			}
 			if (string.IsNullOrWhiteSpace(passportNumberTextBox.Text))
 			{
+				SystemSounds.Exclamation.Play();
 				MessageBox.Show("Введите номер паспорта!");
 				return false;
 			}
 			if (string.IsNullOrWhiteSpace(passportRegistrationTextBox.Text))
 			{
+				SystemSounds.Exclamation.Play();
 				MessageBox.Show("Введите прописку!");
 				return false;
 			}
-
 			return true;
-
 		}
-
+		
 		private void rentButton_Click(object sender, EventArgs e)
 		{
 			if (startRentDateTimePicker.Value.Date > endRentDateTimePicker.Value.Date)
 			{
+				SystemSounds.Exclamation.Play();
 				MessageBox.Show("Нельзя добавить данный прокат. Дата начала проката должна быть раньше даты окончания.");
 				return;
 			}
@@ -368,28 +390,35 @@ namespace Dormitory
 				"Предупреждение", MessageBoxButtons.YesNo);
 			if (dialogResult == DialogResult.Yes)
 			{
-				try
-				{
-					ResidentRooms residentRooms = db.GetTable<ResidentRooms>()
-						.FirstOrDefault(r => (r.ResidentId == residentId && r.DateOfEviction == null));
+				RentThing();
+			}
+		}
 
-					RentThing rentThing = db.GetTable<RentThing>().SingleOrDefault(r => r.Name == "Телевизор");
-					ResidentRoomsRentThing residentRoomsRentThing = new ResidentRoomsRentThing
-					{
-						ResidentRoomsId = residentRooms.ResidentRoomsId,
-						RentThingId = rentThing.RentThingId,
-						StartRentDate = startRentDateTimePicker.Value.Date,
-						EndRentDate = endRentDateTimePicker.Value.Date
-					};
-					db.GetTable<ResidentRoomsRentThing>().InsertOnSubmit(residentRoomsRentThing);
-					db.SubmitChanges();
-					LoadRentDataGridView();
-					MessageBox.Show("Добавлено");
-				}
-				catch (Exception ex)
+		private void RentThing()
+		{
+			try
+			{
+				ResidentRooms residentRooms = db.GetTable<ResidentRooms>()
+					.FirstOrDefault(r => (r.ResidentId == residentId && r.DateOfEviction == null));
+
+				RentThing rentThing = db.GetTable<RentThing>().SingleOrDefault(r => r.Name == "Телевизор");
+				ResidentRoomsRentThing residentRoomsRentThing = new ResidentRoomsRentThing
 				{
-					MessageBox.Show(ex.Message);
-				}
+					ResidentRoomsId = residentRooms.ResidentRoomsId,
+					RentThingId = rentThing.RentThingId,
+					StartRentDate = startRentDateTimePicker.Value.Date,
+					EndRentDate = endRentDateTimePicker.Value.Date
+				};
+				db.GetTable<ResidentRoomsRentThing>().InsertOnSubmit(residentRoomsRentThing);
+				db.SubmitChanges();
+				LoadRentDataGridView();
+				SystemSounds.Beep.Play();
+				MessageBox.Show("Прокат успешно добавлен!");
+			}
+			catch (Exception ex)
+			{
+				SystemSounds.Exclamation.Play();
+				MessageBox.Show("Ошибка проката. " + ex.Message);
 			}
 		}
 

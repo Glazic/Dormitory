@@ -13,11 +13,10 @@ namespace Dormitory
 {
 	public partial class ResidentsForm : Form
 	{
-		SqlConnection sqlConnection = new SqlConnection($"Data Source=.\\SQLEXPRESS;Initial Catalog=Dormitory;Integrated Security=True");
+		SqlConnection sqlConnection;
 		DataContext db;
 		SqlDataAdapter dataAdapter;
 		DataTable dataTable;
-		//int roomId;
 
 		public ResidentsForm(SqlConnection sqlConnection)
 		{
@@ -74,7 +73,7 @@ namespace Dormitory
 
 		private void addButton_Click(object sender, EventArgs e)
 		{
-			ResidentForm residentForm = new ResidentForm();
+			ResidentForm residentForm = new ResidentForm(sqlConnection);
 			residentForm.ShowDialog();
 			LoadDataGrid();
 		}
@@ -130,7 +129,7 @@ namespace Dormitory
 				MessageBox.Show("Выберите жителя");
 			}
 			else {
-				ResidentForm.ShowDialogForOldResident(residentId, 0);
+				ResidentForm.ShowDialogForOldResident(sqlConnection, residentId, 0);
 				LoadDataGrid();
 			}
 		}
