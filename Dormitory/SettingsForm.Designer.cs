@@ -38,6 +38,12 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.groupBox6 = new System.Windows.Forms.GroupBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.label4 = new System.Windows.Forms.Label();
+			this.checkUserServer2ConnectionButton = new System.Windows.Forms.Button();
+			this.userServer2NameTextBox = new System.Windows.Forms.TextBox();
+			this.userServer2DatabaseTextBox = new System.Windows.Forms.TextBox();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
 			this.label8 = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
@@ -56,8 +62,12 @@
 			this.runSqlScriptButton = new System.Windows.Forms.Button();
 			this.groupBox5 = new System.Windows.Forms.GroupBox();
 			this.label9 = new System.Windows.Forms.Label();
+			this.label10 = new System.Windows.Forms.Label();
+			this.exceptionsLogFolderPathTextBox = new System.Windows.Forms.TextBox();
+			this.browseExceptionLogButton = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
+			this.groupBox6.SuspendLayout();
 			this.groupBox4.SuspendLayout();
 			this.groupBox3.SuspendLayout();
 			this.groupBox5.SuspendLayout();
@@ -125,6 +135,9 @@
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.label10);
+			this.groupBox1.Controls.Add(this.exceptionsLogFolderPathTextBox);
+			this.groupBox1.Controls.Add(this.browseExceptionLogButton);
 			this.groupBox1.Controls.Add(this.label2);
 			this.groupBox1.Controls.Add(this.label1);
 			this.groupBox1.Controls.Add(this.backupButton);
@@ -135,7 +148,7 @@
 			this.groupBox1.Controls.Add(this.restoreButton);
 			this.groupBox1.Location = new System.Drawing.Point(12, 274);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(428, 209);
+			this.groupBox1.Size = new System.Drawing.Size(428, 292);
 			this.groupBox1.TabIndex = 10;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Настройка резервного копирования";
@@ -160,6 +173,7 @@
 			// 
 			// groupBox2
 			// 
+			this.groupBox2.Controls.Add(this.groupBox6);
 			this.groupBox2.Controls.Add(this.groupBox4);
 			this.groupBox2.Controls.Add(this.groupBox3);
 			this.groupBox2.Location = new System.Drawing.Point(12, 12);
@@ -169,6 +183,62 @@
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Настройки подключения";
 			// 
+			// groupBox6
+			// 
+			this.groupBox6.Controls.Add(this.label3);
+			this.groupBox6.Controls.Add(this.label4);
+			this.groupBox6.Controls.Add(this.checkUserServer2ConnectionButton);
+			this.groupBox6.Controls.Add(this.userServer2NameTextBox);
+			this.groupBox6.Controls.Add(this.userServer2DatabaseTextBox);
+			this.groupBox6.Location = new System.Drawing.Point(213, 28);
+			this.groupBox6.Name = "groupBox6";
+			this.groupBox6.Size = new System.Drawing.Size(197, 206);
+			this.groupBox6.TabIndex = 8;
+			this.groupBox6.TabStop = false;
+			this.groupBox6.Text = "Пользователь 2";
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(6, 93);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(130, 24);
+			this.label3.TabIndex = 7;
+			this.label3.Text = " База данных";
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(6, 34);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(177, 24);
+			this.label4.TabIndex = 0;
+			this.label4.Text = "Название сервера";
+			// 
+			// checkUserServer2ConnectionButton
+			// 
+			this.checkUserServer2ConnectionButton.Location = new System.Drawing.Point(6, 155);
+			this.checkUserServer2ConnectionButton.Name = "checkUserServer2ConnectionButton";
+			this.checkUserServer2ConnectionButton.Size = new System.Drawing.Size(126, 32);
+			this.checkUserServer2ConnectionButton.TabIndex = 5;
+			this.checkUserServer2ConnectionButton.Text = "Проверка";
+			this.checkUserServer2ConnectionButton.UseVisualStyleBackColor = true;
+			this.checkUserServer2ConnectionButton.Click += new System.EventHandler(this.checkUserServer2ConnectionButton_Click);
+			// 
+			// userServer2NameTextBox
+			// 
+			this.userServer2NameTextBox.Location = new System.Drawing.Point(6, 61);
+			this.userServer2NameTextBox.Name = "userServer2NameTextBox";
+			this.userServer2NameTextBox.Size = new System.Drawing.Size(177, 29);
+			this.userServer2NameTextBox.TabIndex = 3;
+			// 
+			// userServer2DatabaseTextBox
+			// 
+			this.userServer2DatabaseTextBox.Location = new System.Drawing.Point(6, 120);
+			this.userServer2DatabaseTextBox.Name = "userServer2DatabaseTextBox";
+			this.userServer2DatabaseTextBox.Size = new System.Drawing.Size(177, 29);
+			this.userServer2DatabaseTextBox.TabIndex = 4;
+			// 
 			// groupBox4
 			// 
 			this.groupBox4.Controls.Add(this.label8);
@@ -176,9 +246,9 @@
 			this.groupBox4.Controls.Add(this.checkAdminServerConnectionButton);
 			this.groupBox4.Controls.Add(this.adminServerDatabaseTextBox);
 			this.groupBox4.Controls.Add(this.adminServerNameTextBox);
-			this.groupBox4.Location = new System.Drawing.Point(360, 28);
+			this.groupBox4.Location = new System.Drawing.Point(416, 28);
 			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(328, 206);
+			this.groupBox4.Size = new System.Drawing.Size(195, 206);
 			this.groupBox4.TabIndex = 6;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Администратор";
@@ -186,7 +256,7 @@
 			// label8
 			// 
 			this.label8.AutoSize = true;
-			this.label8.Location = new System.Drawing.Point(96, 93);
+			this.label8.Location = new System.Drawing.Point(6, 93);
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(130, 24);
 			this.label8.TabIndex = 8;
@@ -195,7 +265,7 @@
 			// label6
 			// 
 			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(80, 34);
+			this.label6.Location = new System.Drawing.Point(6, 34);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(177, 24);
 			this.label6.TabIndex = 1;
@@ -203,7 +273,7 @@
 			// 
 			// checkAdminServerConnectionButton
 			// 
-			this.checkAdminServerConnectionButton.Location = new System.Drawing.Point(100, 155);
+			this.checkAdminServerConnectionButton.Location = new System.Drawing.Point(6, 155);
 			this.checkAdminServerConnectionButton.Name = "checkAdminServerConnectionButton";
 			this.checkAdminServerConnectionButton.Size = new System.Drawing.Size(126, 32);
 			this.checkAdminServerConnectionButton.TabIndex = 9;
@@ -215,14 +285,14 @@
 			// 
 			this.adminServerDatabaseTextBox.Location = new System.Drawing.Point(6, 120);
 			this.adminServerDatabaseTextBox.Name = "adminServerDatabaseTextBox";
-			this.adminServerDatabaseTextBox.Size = new System.Drawing.Size(316, 29);
+			this.adminServerDatabaseTextBox.Size = new System.Drawing.Size(177, 29);
 			this.adminServerDatabaseTextBox.TabIndex = 8;
 			// 
 			// adminServerNameTextBox
 			// 
 			this.adminServerNameTextBox.Location = new System.Drawing.Point(6, 61);
 			this.adminServerNameTextBox.Name = "adminServerNameTextBox";
-			this.adminServerNameTextBox.Size = new System.Drawing.Size(316, 29);
+			this.adminServerNameTextBox.Size = new System.Drawing.Size(177, 29);
 			this.adminServerNameTextBox.TabIndex = 7;
 			// 
 			// groupBox3
@@ -234,7 +304,7 @@
 			this.groupBox3.Controls.Add(this.userServerDatabaseTextBox);
 			this.groupBox3.Location = new System.Drawing.Point(10, 28);
 			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new System.Drawing.Size(328, 206);
+			this.groupBox3.Size = new System.Drawing.Size(197, 206);
 			this.groupBox3.TabIndex = 2;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Пользователь";
@@ -242,7 +312,7 @@
 			// label7
 			// 
 			this.label7.AutoSize = true;
-			this.label7.Location = new System.Drawing.Point(101, 93);
+			this.label7.Location = new System.Drawing.Point(6, 93);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(130, 24);
 			this.label7.TabIndex = 7;
@@ -251,7 +321,7 @@
 			// label5
 			// 
 			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(83, 34);
+			this.label5.Location = new System.Drawing.Point(6, 34);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(177, 24);
 			this.label5.TabIndex = 0;
@@ -259,7 +329,7 @@
 			// 
 			// checkUserServerConnectionButton
 			// 
-			this.checkUserServerConnectionButton.Location = new System.Drawing.Point(105, 155);
+			this.checkUserServerConnectionButton.Location = new System.Drawing.Point(6, 155);
 			this.checkUserServerConnectionButton.Name = "checkUserServerConnectionButton";
 			this.checkUserServerConnectionButton.Size = new System.Drawing.Size(126, 32);
 			this.checkUserServerConnectionButton.TabIndex = 5;
@@ -271,14 +341,14 @@
 			// 
 			this.userServerNameTextBox.Location = new System.Drawing.Point(6, 61);
 			this.userServerNameTextBox.Name = "userServerNameTextBox";
-			this.userServerNameTextBox.Size = new System.Drawing.Size(316, 29);
+			this.userServerNameTextBox.Size = new System.Drawing.Size(177, 29);
 			this.userServerNameTextBox.TabIndex = 3;
 			// 
 			// userServerDatabaseTextBox
 			// 
 			this.userServerDatabaseTextBox.Location = new System.Drawing.Point(6, 120);
 			this.userServerDatabaseTextBox.Name = "userServerDatabaseTextBox";
-			this.userServerDatabaseTextBox.Size = new System.Drawing.Size(316, 29);
+			this.userServerDatabaseTextBox.Size = new System.Drawing.Size(177, 29);
 			this.userServerDatabaseTextBox.TabIndex = 4;
 			// 
 			// saveSettingsButton
@@ -339,15 +409,43 @@
 			this.label9.AutoSize = true;
 			this.label9.Location = new System.Drawing.Point(6, 35);
 			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(114, 24);
+			this.label9.Size = new System.Drawing.Size(185, 24);
 			this.label9.TabIndex = 0;
-			this.label9.Text = "SQL скрипт";
+			this.label9.Text = "Путь к SQL скрипту";
+			// 
+			// label10
+			// 
+			this.label10.AutoSize = true;
+			this.label10.Location = new System.Drawing.Point(6, 214);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(247, 24);
+			this.label10.TabIndex = 18;
+			this.label10.Text = "Путь к файлу логирования";
+			// 
+			// exceptionsLogFolderPathTextBox
+			// 
+			this.exceptionsLogFolderPathTextBox.Location = new System.Drawing.Point(9, 253);
+			this.exceptionsLogFolderPathTextBox.Margin = new System.Windows.Forms.Padding(6);
+			this.exceptionsLogFolderPathTextBox.Name = "exceptionsLogFolderPathTextBox";
+			this.exceptionsLogFolderPathTextBox.Size = new System.Drawing.Size(276, 29);
+			this.exceptionsLogFolderPathTextBox.TabIndex = 17;
+			// 
+			// browseExceptionLogButton
+			// 
+			this.browseExceptionLogButton.Location = new System.Drawing.Point(300, 208);
+			this.browseExceptionLogButton.Margin = new System.Windows.Forms.Padding(6);
+			this.browseExceptionLogButton.Name = "browseExceptionLogButton";
+			this.browseExceptionLogButton.Size = new System.Drawing.Size(117, 32);
+			this.browseExceptionLogButton.TabIndex = 19;
+			this.browseExceptionLogButton.Text = "Обзор";
+			this.browseExceptionLogButton.UseVisualStyleBackColor = true;
+			this.browseExceptionLogButton.Click += new System.EventHandler(this.browseExceptionLogButton_Click);
 			// 
 			// SettingsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(714, 492);
+			this.ClientSize = new System.Drawing.Size(714, 578);
 			this.Controls.Add(this.groupBox5);
 			this.Controls.Add(this.saveSettingsButton);
 			this.Controls.Add(this.groupBox2);
@@ -361,6 +459,8 @@
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
+			this.groupBox6.ResumeLayout(false);
+			this.groupBox6.PerformLayout();
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox4.PerformLayout();
 			this.groupBox3.ResumeLayout(false);
@@ -400,5 +500,14 @@
 		private System.Windows.Forms.Button runSqlScriptButton;
 		private System.Windows.Forms.GroupBox groupBox5;
 		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.GroupBox groupBox6;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.Button checkUserServer2ConnectionButton;
+		private System.Windows.Forms.TextBox userServer2NameTextBox;
+		private System.Windows.Forms.TextBox userServer2DatabaseTextBox;
+		private System.Windows.Forms.Label label10;
+		private System.Windows.Forms.TextBox exceptionsLogFolderPathTextBox;
+		private System.Windows.Forms.Button browseExceptionLogButton;
 	}
 }

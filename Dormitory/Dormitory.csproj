@@ -38,6 +38,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,12 +49,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackupHelper.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="HistoryRecordsController.cs" />
     <Compile Include="HistoryRecordsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="HistoryRecordsForm.Designer.cs">
       <DependentUpon>HistoryRecordsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ResidentLivingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ResidentLivingForm.Designer.cs">
+      <DependentUpon>ResidentLivingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SettingsForm.cs">
       <SubType>Form</SubType>
@@ -102,6 +111,9 @@
     </Compile>
     <EmbeddedResource Include="HistoryRecordsForm.resx">
       <DependentUpon>HistoryRecordsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResidentLivingForm.resx">
+      <DependentUpon>ResidentLivingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>

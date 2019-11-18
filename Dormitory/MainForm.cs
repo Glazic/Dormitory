@@ -12,32 +12,43 @@ using System.Windows.Forms;
 
 namespace Dormitory
 {
+	/// <summary>
+	/// Отвечает за главное окно программы, в котором находится основное меню программы 
+	/// и таблица с комнатами
+	/// </summary>
 	public partial class MainForm : Form
 	{
 		private LoginForm loginForm;
-		private SqlConnection sqlConnection = new SqlConnection();
+		private SqlConnectionStringBuilder sqlConnectionString;
+		//private SqlConnection sqlConnection;
 		DataContext db;
 
-		public MainForm(SqlConnection sqlConnection)
+		public MainForm(SqlConnectionStringBuilder sqlConnectionString)
 		{
-			this.sqlConnection = sqlConnection;
+			this.sqlConnectionString = sqlConnectionString;
+			//this.sqlConnection = sqlConnection;
 			InitializeComponent();
-			db = new DataContext(sqlConnection);
-			LoadTabs();		
+			db = new DataContext(sqlConnectionString.ConnectionString);
+			BackupHelper.StartThreadForBackup();
+			LoadTabs();
 		}
 
-		public MainForm(LoginForm loginForm, SqlConnection sqlConnection) : this(sqlConnection)
+		public MainForm(LoginForm loginForm, SqlConnectionStringBuilder sqlConnectionString) : this(sqlConnectionString)
 		{
 			this.loginForm = loginForm;
 		}
 
 		#region LoadTabs
+		/// <summary>
+		/// Загружает информацию для вкладок элемента TabControl главного окна
+		/// </summary>
 		private void LoadTabs()
 		{
 			sectionsTabControl.TabPages.Clear();
 			try
 			{
-				db = new DataContext(sqlConnection);
+			//	SqlConnection sqlConnection2 = new SqlConnection(sqlConnectionString);
+				db = new DataContext(sqlConnectionString.ConnectionString);
 				Table<Section> sections = db.GetTable<Section>();
 
 				foreach (var section in sections)
@@ -47,20 +58,26 @@ namespace Dormitory
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show(ex.Message);
+				MessageBox.Show("Ошибка при загрузке секций. \nВызвано исключение: " + ex.Message);
+				HistoryRecordsController.WriteExceptionToLogFile(ex, "Ошибка загрузки секций");
 			}
 		}
 
+		/// <summary>
+		/// Загружает информацию о секции в виде отдельной вкладки элемента TabControl
+		/// </summary>
+		/// <param name="section">Секция для загрузки</param>
 		private void LoadSection(Section section)
 		{
 			TabPage myTabPage = new TabPage(section.Number.ToString());
+			myTabPage.Name = section.Number.ToString();
 			DataGridView dataGridView = new DataGridView();
+			dataGridView.Name = section.Number.ToString();
 			dataGridView.MultiSelect = false;
 			dataGridView.Dock = DockStyle.Fill;
 			dataGridView.AllowUserToAddRows = false;
 			dataGridView.AllowUserToDeleteRows = false;
 			dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dataGridView.Name = "dataGridView1";
 			dataGridView.ReadOnly = true;
 			dataGridView.Size = new System.Drawing.Size(700, 400);
 			dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick);
@@ -103,6 +120,12 @@ namespace Dormitory
 			sectionsTabControl.TabPages.Add(myTabPage);
 		}
 
+		/// <summary>
+		/// Загружает информацию о комнате в виде строк DataGridView
+		/// </summary>
+		/// <param name="room">Комната</param>
+		/// <param name="dataGridView">К какому элементу добавляются строки</param>
+		/// <param name="row">Номер первой для добавления строки для данной комнаты</param>
 		private void LoadRoom(Room room, DataGridView dataGridView, ref int row)
 		{
 			dataGridView.Rows.Add(room.Seats);
@@ -139,19 +162,64 @@ namespace Dormitory
 			row += room.Seats;
 		}
 		#endregion
-
+		
 		private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
 		{
+			HistoryRecordsController.WriteAboutSystemExit();
+			BackupHelper.StopThreadForBackup();
 			loginForm.Show();
 		}
 
 		private void OrganizationsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			OrganizationsForm organizationsForm = new OrganizationsForm(sqlConnection);
+			OrganizationsForm organizationsForm = new OrganizationsForm(sqlConnectionString);
 			organizationsForm.ShowDialog();
 			LoadTabs();
 		}
 
+		/// <summary>
+		/// Обновление данных в элементе DataGridView о выбранной комнате
+		/// </summary>
+		/// <param name="dataGridView">Таблица для изменения</param>
+		/// <param name="tagObject">Динамический объект, содержащий идентификатор пользователя (residentId) 
+		/// и идентификатор комнаты (roomId)</param>
+		/// <param name="rowIndex">Номер строки, с которой нужно начать обновлять данные</param>
+		private void DataGridUpdateRoom(DataGridView dataGridView, dynamic tagObject, int rowIndex)
+		{
+			int residentId = tagObject.residentId;
+			int roomId = tagObject.roomId;
+			string fullName, organizationName;
+			db = new DataContext(sqlConnectionString.ConnectionString);
+			var exist = db.GetTable<RoomResidents>().Any(r => r.ResidentId == residentId && r.RoomId == roomId);
+			if (exist)
+			{
+				Resident resident = db.GetTable<Resident>().SingleOrDefault(r => r.ResidentId == residentId);
+				if (resident != null)
+				{
+					fullName = resident.Surname.ToString() + " " + resident.Name.ToString() + " " + resident.Patronymic.ToString();
+					organizationName = resident.Organization.Name.ToString();
+				}
+				else
+				{
+					fullName = "Добавить";
+					organizationName = "Пусто";
+					tagObject.residentId = 0;
+				}
+			}
+			else
+			{
+				fullName = "Добавить";
+				organizationName = "Пусто";
+				tagObject.residentId = 0;
+			}
+			dataGridView.Rows[rowIndex].Cells[1].Value = fullName;
+			dataGridView.Rows[rowIndex].Cells[1].Tag = tagObject;
+			dataGridView.Rows[rowIndex].Cells[2].Value = organizationName;
+		}
+
+		// Обрабатывает нажатие ячейки таблцы. В каждой ячейке хранятся дополнительные данные в 
+		// виде объекта dynamic, содержащего идентификатор пользователя (residentId) 
+		// и идентификатор комнаты (roomId)
 		private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
 		{
 			DataGridView dataGridView = (DataGridView)sender;
@@ -161,71 +229,39 @@ namespace Dormitory
 				dynamic tagObject = cell.Tag;
 				if (tagObject.residentId != 0 && tagObject.roomId != 0)
 				{
-					ResidentForm.ShowDialogForOldResident(sqlConnection, tagObject.residentId, tagObject.roomId);
+					ResidentForm.ShowDialogForOldResident(sqlConnectionString, tagObject.residentId, tagObject.roomId);
+				//	DataGridUpdateRoom(dataGridView, tagObject, e.RowIndex);
 					LoadTabs();
 				}
 				else if (tagObject.roomId != 0)
 				{
-					string result = SettlementForm.ShowDialogForNewSettlement(sqlConnection, tagObject.roomId);
+					string result = SettlementForm.ShowDialogForNewSettlement(sqlConnectionString, tagObject.roomId);
 					Int32.TryParse(result, out int residentId);
 					if (residentId != 0)
 					{
 						MessageBox.Show("Успешно добавлено!");
-						LoadTabs();
+						tagObject.residentId = residentId;
+						DataGridUpdateRoom(dataGridView, tagObject, e.RowIndex);
 					}
 				}
 			}
 		}
 
-		//private void SettleResident(int roomId, int residentId)
-		//{
-		//	Resident resident = db.GetTable<Resident>().SingleOrDefault(r => r.ResidentId == residentId);
-		//	var exist = db.GetTable<RoomResidents>().Any(r => r.ResidentId == residentId);
-		//	if (exist)
-		//	{
-		//		SystemSounds.Exclamation.Play();
-		//		MessageBox.Show("Данный житель уже живет в другой комнате");
-		//	}
-		//	else
-		//	{
-		//		RoomResidents roomResidents = new RoomResidents
-		//		{
-		//			RoomId = roomId,
-		//			ResidentId = resident.ResidentId
-		//		};
-		//		db.GetTable<RoomResidents>().InsertOnSubmit(roomResidents);
-
-		//		ResidentRooms residentRooms = new ResidentRooms
-		//		{
-		//			ResidentId = resident.ResidentId,
-		//			RoomId = roomId,
-		//			SettlementDate = DateTime.Now
-		//		};
-		//		db.GetTable<ResidentRooms>().InsertOnSubmit(residentRooms);
-		//		db.SubmitChanges();
-		//		LoadTabs();
-		//	}
-		//}
-
 		private void residentsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ResidentsForm residentsForm = new ResidentsForm(sqlConnection);
+			ResidentsForm residentsForm = new ResidentsForm(sqlConnectionString);
 			residentsForm.ShowDialog();
-			LoadTabs();
-		}
-
-		private void button1_Click(object sender, EventArgs e)
-		{
 			LoadTabs();
 		}
 
 		private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			SettingsForm settingsForm = new SettingsForm(sqlConnection);
+			SettingsForm settingsForm = new SettingsForm(sqlConnectionString);
 			settingsForm.ShowDialog();
 			LoadTabs();
 		}
 
+		// Закрытие окна с помощью клавиши Esc
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
 		{
 			if (keyData == Keys.Escape)

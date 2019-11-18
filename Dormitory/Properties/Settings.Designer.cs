@@ -94,5 +94,41 @@ namespace Dormitory.Properties {
                 this["restoreFilePath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("W1\\SQLEXPRESS")]
+        public string userServer2Name {
+            get {
+                return ((string)(this["userServer2Name"]));
+            }
+            set {
+                this["userServer2Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Dormitory")]
+        public string userServer2Database {
+            get {
+                return ((string)(this["userServer2Database"]));
+            }
+            set {
+                this["userServer2Database"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Dormitory")]
+        public string exceptionsLogFolderPath {
+            get {
+                return ((string)(this["exceptionsLogFolderPath"]));
+            }
+            set {
+                this["exceptionsLogFolderPath"] = value;
+            }
+        }
     }
 }

@@ -37,6 +37,7 @@
 			this.addressLabel = new System.Windows.Forms.Label();
 			this.searchSurnameLabel = new System.Windows.Forms.Label();
 			this.nameFilterTextBox = new System.Windows.Forms.TextBox();
+			this.searchButton = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.organizationsDataGridView)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -57,20 +58,20 @@
 			// 
 			// nameTextBox
 			// 
-			this.nameTextBox.Location = new System.Drawing.Point(15, 59);
+			this.nameTextBox.Location = new System.Drawing.Point(277, 99);
 			this.nameTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.nameTextBox.Name = "nameTextBox";
 			this.nameTextBox.ReadOnly = true;
-			this.nameTextBox.Size = new System.Drawing.Size(813, 29);
+			this.nameTextBox.Size = new System.Drawing.Size(551, 29);
 			this.nameTextBox.TabIndex = 5;
 			// 
 			// acceptButton
 			// 
 			this.acceptButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.acceptButton.Location = new System.Drawing.Point(15, 15);
+			this.acceptButton.Location = new System.Drawing.Point(15, 97);
 			this.acceptButton.Margin = new System.Windows.Forms.Padding(6);
 			this.acceptButton.Name = "acceptButton";
-			this.acceptButton.Size = new System.Drawing.Size(175, 35);
+			this.acceptButton.Size = new System.Drawing.Size(250, 35);
 			this.acceptButton.TabIndex = 11;
 			this.acceptButton.Text = "Выбрать";
 			this.acceptButton.UseVisualStyleBackColor = true;
@@ -80,7 +81,7 @@
 			// 
 			this.organizationIdLabel.AutoSize = true;
 			this.organizationIdLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.organizationIdLabel.Location = new System.Drawing.Point(521, 111);
+			this.organizationIdLabel.Location = new System.Drawing.Point(160, 3);
 			this.organizationIdLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.organizationIdLabel.Name = "organizationIdLabel";
 			this.organizationIdLabel.Size = new System.Drawing.Size(40, 17);
@@ -90,7 +91,7 @@
 			// 
 			// updateButton
 			// 
-			this.updateButton.Location = new System.Drawing.Point(653, 100);
+			this.updateButton.Location = new System.Drawing.Point(649, 15);
 			this.updateButton.Margin = new System.Windows.Forms.Padding(6);
 			this.updateButton.Name = "updateButton";
 			this.updateButton.Size = new System.Drawing.Size(175, 35);
@@ -101,17 +102,17 @@
 			// 
 			// addressTextBox
 			// 
-			this.addressTextBox.Location = new System.Drawing.Point(291, 18);
+			this.addressTextBox.Location = new System.Drawing.Point(94, 59);
 			this.addressTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.addressTextBox.Name = "addressTextBox";
 			this.addressTextBox.ReadOnly = true;
-			this.addressTextBox.Size = new System.Drawing.Size(537, 29);
+			this.addressTextBox.Size = new System.Drawing.Size(734, 29);
 			this.addressTextBox.TabIndex = 15;
 			// 
 			// addressLabel
 			// 
 			this.addressLabel.AutoSize = true;
-			this.addressLabel.Location = new System.Drawing.Point(212, 20);
+			this.addressLabel.Location = new System.Drawing.Point(15, 61);
 			this.addressLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.addressLabel.Name = "addressLabel";
 			this.addressLabel.Size = new System.Drawing.Size(67, 24);
@@ -121,7 +122,7 @@
 			// searchSurnameLabel
 			// 
 			this.searchSurnameLabel.AutoSize = true;
-			this.searchSurnameLabel.Location = new System.Drawing.Point(15, 105);
+			this.searchSurnameLabel.Location = new System.Drawing.Point(11, 20);
 			this.searchSurnameLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
 			this.searchSurnameLabel.Name = "searchSurnameLabel";
 			this.searchSurnameLabel.Size = new System.Drawing.Size(189, 24);
@@ -130,12 +131,21 @@
 			// 
 			// nameFilterTextBox
 			// 
-			this.nameFilterTextBox.Location = new System.Drawing.Point(216, 102);
+			this.nameFilterTextBox.Location = new System.Drawing.Point(212, 17);
 			this.nameFilterTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.nameFilterTextBox.Name = "nameFilterTextBox";
 			this.nameFilterTextBox.Size = new System.Drawing.Size(293, 29);
 			this.nameFilterTextBox.TabIndex = 16;
-			this.nameFilterTextBox.TextChanged += new System.EventHandler(this.nameFilterTextBox_TextChanged);
+			// 
+			// searchButton
+			// 
+			this.searchButton.Location = new System.Drawing.Point(514, 15);
+			this.searchButton.Name = "searchButton";
+			this.searchButton.Size = new System.Drawing.Size(126, 35);
+			this.searchButton.TabIndex = 18;
+			this.searchButton.Text = "Поиск";
+			this.searchButton.UseVisualStyleBackColor = true;
+			this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
 			// 
 			// OrganizationsForm
 			// 
@@ -144,6 +154,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoScroll = true;
 			this.ClientSize = new System.Drawing.Size(843, 424);
+			this.Controls.Add(this.searchButton);
 			this.Controls.Add(this.searchSurnameLabel);
 			this.Controls.Add(this.nameFilterTextBox);
 			this.Controls.Add(this.addressTextBox);
@@ -176,5 +187,6 @@
 		private System.Windows.Forms.Label addressLabel;
 		private System.Windows.Forms.Label searchSurnameLabel;
 		private System.Windows.Forms.TextBox nameFilterTextBox;
+		private System.Windows.Forms.Button searchButton;
 	}
 }

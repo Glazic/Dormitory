@@ -20,5 +20,14 @@
     <Setting Name="restoreFilePath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="userServer2Name" Type="System.String" Scope="User">
+      <Value Profile="(Default)">W1\SQLEXPRESS</Value>
+    </Setting>
+    <Setting Name="userServer2Database" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Dormitory</Value>
+    </Setting>
+    <Setting Name="exceptionsLogFolderPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Dormitory</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

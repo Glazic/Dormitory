@@ -12,17 +12,20 @@ using System.Windows.Forms;
 
 namespace Dormitory
 {
+	/// <summary>
+	/// Отвечает за окно заселения жителей
+	/// </summary>
 	public partial class SettlementForm : Form
 	{
-		SqlConnection sqlConnection;
+		SqlConnectionStringBuilder sqlConnectionString;
 		DataContext db;
 		int roomId;
 
-		public SettlementForm(SqlConnection sqlConnection)
+		public SettlementForm(SqlConnectionStringBuilder sqlConnectionString)
 		{
 			InitializeComponent();
-			this.sqlConnection = sqlConnection;
-			db = new DataContext(this.sqlConnection);
+			this.sqlConnectionString = sqlConnectionString;
+			db = new DataContext(this.sqlConnectionString.ConnectionString);
 		}
 
 		private void residentsForm_Load(object sender, EventArgs e)
@@ -30,20 +33,26 @@ namespace Dormitory
 
 		}
 
-		public SettlementForm(SqlConnection sqlConnection, int roomId) : this(sqlConnection)
+		public SettlementForm(SqlConnectionStringBuilder sqlConnectionString, int roomId) : this(sqlConnectionString)
 		{
 			this.roomId = roomId;
 		}
 
-		public static string ShowDialogForNewSettlement(SqlConnection sqlConnection, int roomId)
+		/// <summary>
+		/// Открывает окно заселения в выбранную комнату. Возвращает идентификатор жителя.
+		/// </summary>
+		/// <param name="sqlConnection">Подключение пользователя</param>
+		/// <param name="roomId">Идентификатор комнаты для заселения</param>
+		/// <returns>Идентификатор жителя или null, если житель не был заселён</returns>
+		public static string ShowDialogForNewSettlement(SqlConnectionStringBuilder sqlConnectionString, int roomId)
 		{
-			SettlementForm settlementForm = new SettlementForm(sqlConnection, roomId);
+			SettlementForm settlementForm = new SettlementForm(sqlConnectionString, roomId);
 			return settlementForm.ShowDialog() == DialogResult.OK ? settlementForm.residentIdLabel.Text : null;
 		}
-
+		// Открывает окно жителей общежития для выбора и загружает информацию о выбранном жителе
 		private void residentButton_Click(object sender, EventArgs e)
 		{
-			string value = ResidentsForm.ShowDialogForNewResident(sqlConnection);
+			string value = ResidentsForm.ShowDialogForNewResident(sqlConnectionString);
 			if (value != null)
 			{
 				Int32.TryParse(value, out int residentId);
@@ -57,8 +66,15 @@ namespace Dormitory
 			}
 		}
 
+		// Заселяет жителя
 		private void settleButton_Click(object sender, EventArgs e)
 		{
+			if (startRentDateTimePicker.Value.Date > endRentDateTimePicker.Value.Date)
+			{
+				SystemSounds.Exclamation.Play();
+				MessageBox.Show("Нельзя добавить данный прокат. Дата начала проката должна быть раньше даты окончания.");
+				return;
+			}
 			DialogResult dialogResult = MessageBox.Show("Вы уверены, что хотите заселить данного жителя?\n",
 				"Предупреждение", MessageBoxButtons.YesNo);
 			if (dialogResult == DialogResult.Yes)
@@ -109,6 +125,7 @@ namespace Dormitory
 						}
 						db.SubmitChanges();
 
+						HistoryRecordsController.WriteAboutSettlement(residentRooms, true);
 						DialogResult = DialogResult.OK;
 						Close();
 					}
@@ -116,11 +133,13 @@ namespace Dormitory
 				catch (Exception ex)
 				{
 					SystemSounds.Exclamation.Play();
-					MessageBox.Show(ex.Message);
+					HistoryRecordsController.WriteExceptionToLogFile(ex, "Ошибка при заселении жителя в settleButton_Click.");
+					MessageBox.Show("Ошибка при заселении жителя.\nВызвано исключение: " + ex.Message);
 				}
 			}
 		}
 
+		// Отвечает за доступ к элементам проката вещей
 		private void isRentCheckBox_CheckedChanged(object sender, EventArgs e)
 		{			
 			if (isRentCheckBox.Checked == true)
@@ -138,8 +157,10 @@ namespace Dormitory
 			}
 		}
 
+		// Загружает список вещей для проката
 		private void LoadRentThings()
 		{
+			rentThingsComboBox.Items.Clear();
 			Table<RentThing> rentThings = db.GetTable<RentThing>();
 			foreach (var thing in rentThings)
 			{
@@ -148,6 +169,7 @@ namespace Dormitory
 			rentThingsComboBox.SelectedIndex = 0;
 		}
 
+		// Закрытие окна с помощью клавиши Esc
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
 		{
 			if (keyData == Keys.Escape)

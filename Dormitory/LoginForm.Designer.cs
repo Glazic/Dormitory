@@ -75,16 +75,15 @@
 			this.userNameTextBox.Name = "userNameTextBox";
 			this.userNameTextBox.Size = new System.Drawing.Size(308, 29);
 			this.userNameTextBox.TabIndex = 3;
-			this.userNameTextBox.Text = "zaq";
 			// 
 			// passwordTextBox
 			// 
 			this.passwordTextBox.Location = new System.Drawing.Point(158, 174);
 			this.passwordTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.passwordTextBox.Name = "passwordTextBox";
+			this.passwordTextBox.PasswordChar = '*';
 			this.passwordTextBox.Size = new System.Drawing.Size(308, 29);
 			this.passwordTextBox.TabIndex = 4;
-			this.passwordTextBox.Text = "zaq";
 			// 
 			// settingsButton
 			// 

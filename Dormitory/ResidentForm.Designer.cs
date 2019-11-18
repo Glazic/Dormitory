@@ -71,6 +71,7 @@
 			this.rentButton = new System.Windows.Forms.Button();
 			this.rentThingsComboBox = new System.Windows.Forms.ComboBox();
 			this.rentGroupBox = new System.Windows.Forms.GroupBox();
+			this.residentLivingButton = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.livingDataGridView)).BeginInit();
 			this.residentGroupBox.SuspendLayout();
 			this.passportGroupBox.SuspendLayout();
@@ -201,6 +202,7 @@
 			this.birthdayDateTimePicker.Location = new System.Drawing.Point(168, 198);
 			this.birthdayDateTimePicker.Margin = new System.Windows.Forms.Padding(6);
 			this.birthdayDateTimePicker.Name = "birthdayDateTimePicker";
+			this.birthdayDateTimePicker.ShowCheckBox = true;
 			this.birthdayDateTimePicker.Size = new System.Drawing.Size(277, 29);
 			this.birthdayDateTimePicker.TabIndex = 6;
 			// 
@@ -525,6 +527,7 @@
 			// 
 			// rentGroupBox
 			// 
+			this.rentGroupBox.Controls.Add(this.residentLivingButton);
 			this.rentGroupBox.Controls.Add(this.rentDataGridView);
 			this.rentGroupBox.Controls.Add(this.rentThingsComboBox);
 			this.rentGroupBox.Controls.Add(this.label2);
@@ -538,6 +541,16 @@
 			this.rentGroupBox.TabIndex = 16;
 			this.rentGroupBox.TabStop = false;
 			this.rentGroupBox.Text = "Прокат";
+			// 
+			// residentLivingButton
+			// 
+			this.residentLivingButton.Location = new System.Drawing.Point(469, 213);
+			this.residentLivingButton.Name = "residentLivingButton";
+			this.residentLivingButton.Size = new System.Drawing.Size(199, 78);
+			this.residentLivingButton.TabIndex = 55;
+			this.residentLivingButton.Text = "Изменить прокат/проживание";
+			this.residentLivingButton.UseVisualStyleBackColor = true;
+			this.residentLivingButton.Click += new System.EventHandler(this.residentLivingButton_Click);
 			// 
 			// ResidentForm
 			// 
@@ -616,5 +629,6 @@
 		private System.Windows.Forms.Button rentButton;
 		private System.Windows.Forms.ComboBox rentThingsComboBox;
 		private System.Windows.Forms.GroupBox rentGroupBox;
+		private System.Windows.Forms.Button residentLivingButton;
 	}
 }

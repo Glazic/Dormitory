@@ -29,28 +29,26 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+			this.menuStrip = new System.Windows.Forms.MenuStrip();
 			this.residentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.organizationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.sectionsTabControl = new System.Windows.Forms.TabControl();
-			this.historyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.menuStrip1.SuspendLayout();
+			this.menuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// menuStrip1
+			// menuStrip
 			// 
-			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.residentsToolStripMenuItem,
             this.organizationsToolStripMenuItem,
-            this.settingsToolStripMenuItem,
-            this.historyToolStripMenuItem});
-			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Padding = new System.Windows.Forms.Padding(11, 4, 0, 4);
-			this.menuStrip1.Size = new System.Drawing.Size(951, 37);
-			this.menuStrip1.TabIndex = 0;
-			this.menuStrip1.Text = "mainFormMenuStrip";
+            this.settingsToolStripMenuItem});
+			this.menuStrip.Location = new System.Drawing.Point(0, 0);
+			this.menuStrip.Name = "menuStrip";
+			this.menuStrip.Padding = new System.Windows.Forms.Padding(11, 4, 0, 4);
+			this.menuStrip.Size = new System.Drawing.Size(951, 37);
+			this.menuStrip.TabIndex = 0;
+			this.menuStrip.Text = "mainFormMenuStrip";
 			// 
 			// residentsToolStripMenuItem
 			// 
@@ -86,13 +84,6 @@
 			this.sectionsTabControl.Size = new System.Drawing.Size(921, 593);
 			this.sectionsTabControl.TabIndex = 1;
 			// 
-			// historyToolStripMenuItem
-			// 
-			this.historyToolStripMenuItem.Name = "historyToolStripMenuItem";
-			this.historyToolStripMenuItem.Size = new System.Drawing.Size(57, 29);
-			this.historyToolStripMenuItem.Text = "History";
-			this.historyToolStripMenuItem.Click += new System.EventHandler(this.historyToolStripMenuItem_Click);
-			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -100,17 +91,17 @@
 			this.AutoScroll = true;
 			this.ClientSize = new System.Drawing.Size(951, 644);
 			this.Controls.Add(this.sectionsTabControl);
-			this.Controls.Add(this.menuStrip1);
+			this.Controls.Add(this.menuStrip);
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.MainMenuStrip = this.menuStrip1;
+			this.MainMenuStrip = this.menuStrip;
 			this.Margin = new System.Windows.Forms.Padding(6);
 			this.Name = "MainForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Общежитие";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
-			this.menuStrip1.ResumeLayout(false);
-			this.menuStrip1.PerformLayout();
+			this.menuStrip.ResumeLayout(false);
+			this.menuStrip.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -118,12 +109,11 @@
 
 		#endregion
 
-		private System.Windows.Forms.MenuStrip menuStrip1;
+		private System.Windows.Forms.MenuStrip menuStrip;
 		private System.Windows.Forms.ToolStripMenuItem organizationsToolStripMenuItem;
 		private System.Windows.Forms.TabControl sectionsTabControl;
 		private System.Windows.Forms.ToolStripMenuItem residentsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem historyToolStripMenuItem;
 	}
 }
 
